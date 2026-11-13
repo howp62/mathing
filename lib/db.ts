@@ -86,7 +86,7 @@ export function getDb(): Promise<Db> {
   if (!g.__mathingDb) {
     g.__mathingDb = (async () => {
       const { db, runSchema } = await createDb();
-      const schema = fs.readFileSync(path.join(process.cwd(), 'supabase', 'migrations', '20261113000000_init.sql'), 'utf8');
+      const schema = fs.readFileSync(path.join(process.cwd(), 'supabase', 'migrations', '20261114000000_init.sql'), 'utf8');
       await runSchema(schema);
       return db;
     })().catch((err) => {

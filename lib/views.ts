@@ -1,130 +1,143 @@
 import 'server-only';
 import { one, q } from './db';
-import { getSet } from './content';
-import type { ExampleCard, PostView, Stage } from './constants';
+import { CATALOG, getSet } from './content';
+import { PAGE_SIZE } from './constants';
+import type { User } from './auth';
 
-/* 화면마다 필요한 데이터만 골라 만든다. 칠판 데이터에는 학번이 들어가지 않는다. */
+/* 화면마다 필요한 데이터만 골라 만든다. 갤러리 데이터에는 별명·계정 번호가 들어가지 않는다. */
 
-type ClassRow = { id: string; grade: number; class_no: number; size: number; student_from: number; student_to: number; join_code: string };
-
-export function classLabel(c: { grade: number; class_no: number }) {
-  return `${c.grade}학년 ${c.class_no}반`;
-}
-
-export async function getClass(classId: string) {
-  return one<ClassRow>('select id, grade, class_no, size, student_from, student_to, join_code from classes where id = $1', [classId]);
-}
-
-async function presenceCounts(activityId: string) {
-  const rows = await q<{ state: string; n: number }>(
-    'select state, count(*)::int as n from presence where activity_id = $1 group by state',
-    [activityId],
-  );
-  const by = Object.fromEntries(rows.map((r) => [r.state, r.n])) as Record<string, number>;
-  const joined = by.joined ?? 0, writing = by.writing ?? 0, submitted = by.submitted ?? 0;
-  return { joined: joined + writing + submitted, writing, submitted };
-}
-
-function pickCards(all: ExampleCard[], ids: string[]): ExampleCard[] {
-  const picked = ids.map((id) => all.find((e) => e.id === id)).filter(Boolean) as ExampleCard[];
-  return picked.length ? picked : all.slice(0, 3);
-}
-
-type SubRow = {
-  id: string; student_no: number; interest: string; answers: string[]; concepts: string[]; free: boolean;
-  share_class: boolean; share_example: boolean; starred: boolean; rating: number | null; relevance: number | null;
-  likes: number; flagged: boolean; created_at: Date;
+type ConnRow = {
+  id: string; unit_id: string; interest: string; answers: string[]; concepts: string[]; free: boolean;
+  re_answers: string[] | null; re_concepts: string[] | null; re_free: boolean | null;
+  share: boolean; pre: number | null; post: number | null; hidden: boolean; hidden_reason: string | null;
+  featured: boolean; created_at: Date; updated_at: Date;
 };
 
-async function submissionRows(activityId: string): Promise<SubRow[]> {
-  return q<SubRow>(
-    `select s.id, st.student_no, s.interest, s.answers, s.concepts, s.free, s.share_class, s.share_example,
-            s.starred, s.rating, s.relevance, s.created_at,
-            (select count(*)::int from reactions r where r.submission_id = s.id) as likes,
-            exists (select 1 from coach_turns ct where ct.activity_id = s.activity_id and ct.student_id = s.student_id and ct.flagged) as flagged
-       from submissions s join students st on st.id = s.student_id
-      where s.activity_id = $1
-      order by s.created_at desc`,
-    [activityId],
-  );
+/** 갤러리에 보일 글: 다시 쓴 연결이 있으면 그것 */
+function shown(c: Pick<ConnRow, 'answers' | 'free' | 'concepts' | 're_answers' | 're_free' | 're_concepts'>) {
+  return c.re_answers
+    ? { answers: withConcepts(c.re_answers, c.re_concepts ?? [], !!c.re_free), free: !!c.re_free }
+    : { answers: withConcepts(c.answers, c.concepts, c.free), free: c.free };
 }
 
-export async function boardView(activity: { id: string; class_id: string; set_id: string; stage: string; intro_cards: string[]; displayed: string[]; closed_at: Date | null; board_key?: string | null }) {
-  const cls = await getClass(activity.class_id);
-  const set = getSet(activity.set_id);
-  const counts = await presenceCounts(activity.id);
-  const subs = await submissionRows(activity.id);
-  // 닫힌 수업의 칠판 주소로는 글을 더 보여주지 않는다
-  const displayed: (PostView & { liked: boolean })[] = (activity.closed_at ? [] : activity.displayed)
-    .map((id) => subs.find((s) => s.id === id && s.share_class))
-    .filter(Boolean)
-    .map((s) => ({ id: s!.id, interest: s!.interest, answers: s!.answers, free: s!.free, liked: s!.likes > 0 }));
-  return {
-    id: activity.id,
-    stage: activity.stage as Stage,
-    closed: !!activity.closed_at,
-    subject: set?.subject ?? '',
-    unit: set?.unit ?? '',
-    classLabel: cls ? classLabel(cls) : '',
-    size: cls?.size ?? 0,
-    joinCode: cls?.join_code ?? '',
-    counts,
-    introCards: set ? pickCards(set.examples, activity.intro_cards) : [],
-    thinkCards: set?.thinkCards ?? [],
-    displayed,
-    sharedCount: subs.filter((s) => s.share_class).length,
-  };
+/** 3단계 글의 마지막 칸에 고른 개념 이름을 붙여 보여 준다 */
+export function withConcepts(answers: string[], concepts: string[], free: boolean) {
+  if (free || !concepts.length) return answers;
+  const a = [...answers];
+  a[2] = a[2] ? `${a[2]} (${concepts.join(', ')})` : concepts.join(', ');
+  return a;
 }
 
-export async function consoleView(activity: Parameters<typeof boardView>[0]) {
-  const board = await boardView(activity);
-  const cls = (await getClass(activity.class_id))!;
-  const set = getSet(activity.set_id);
-  const students = await q<{ id: string; student_no: number; locked_until: Date | null; state: string | null }>(
-    `select st.id, st.student_no, st.locked_until, p.state
-       from students st left join presence p on p.student_id = st.id and p.activity_id = $2
-      where st.class_id = $1`,
-    [activity.class_id, activity.id],
+export type GalleryPost = {
+  id: string;
+  interest: string;
+  answers: string[];
+  free: boolean;
+  featured: boolean;
+  liked: boolean;
+  mine: boolean;
+  gotLike: boolean;
+  mineInterest: boolean;
+};
+
+export async function myConnection(userId: string, unitId: string) {
+  return one<ConnRow>('select * from connections where user_id = $1 and unit_id = $2', [userId, unitId]);
+}
+
+/**
+ * 같은 단원의 공유된 글. 내 글을 저장한 학생만 볼 수 있다.
+ * 순서: 운영자 추천 → 내 관심사와 같은 글 → 최신순. 내 글은 첫 쪽 맨 위에 따로 붙인다.
+ */
+export async function galleryPage(user: User, unitId: string, offset: number, filter: string | null) {
+  const mine = await myConnection(user.id, unitId);
+  if (!mine) return null;
+  const rows = await q<ConnRow & { liked: boolean }>(
+    `select c.*, exists (select 1 from likes l where l.connection_id = c.id and l.user_id = $2) as liked
+       from connections c join users u on u.id = c.user_id
+      where c.unit_id = $1 and c.user_id <> $2 and c.share and not c.hidden and not u.blocked
+        and ($4::text is null or c.interest = $4)
+      order by c.featured desc,
+               (c.interest in (select jsonb_array_elements_text($3::text::jsonb))) desc,
+               c.updated_at desc, c.id
+      limit $5 offset $6`,
+    [unitId, user.id, JSON.stringify(user.interests), filter, PAGE_SIZE + 1, offset],
   );
-  const subs = await submissionRows(activity.id);
-  const flaggedNos = new Set(subs.filter((s) => s.flagged).map((s) => s.student_no));
-  const seats = [];
-  for (let no = cls.student_from; no <= cls.student_to; no++) {
-    const st = students.find((s) => s.student_no === no);
-    seats.push({
-      no,
-      state: (st?.state ?? (st ? 'registered' : 'absent')) as string,
-      locked: !!(st?.locked_until && new Date(st.locked_until).getTime() > Date.now()),
-      flagged: flaggedNos.has(no),
+  const posts: GalleryPost[] = rows.slice(0, PAGE_SIZE).map((c) => ({
+    id: c.id, interest: c.interest, ...shown(c), featured: c.featured, liked: c.liked,
+    mine: false, gotLike: false, mineInterest: user.interests.includes(c.interest),
+  }));
+  if (offset === 0 && (!filter || filter === mine.interest)) {
+    const got = await one('select 1 from likes where connection_id = $1 limit 1', [mine.id]);
+    posts.unshift({
+      id: mine.id, interest: mine.interest, ...shown(mine), featured: false, liked: false,
+      mine: true, gotLike: !!got, mineInterest: true,
     });
   }
-  return {
-    ...board,
-    classId: activity.class_id,
-    boardKey: activity.board_key ?? null,
-    setStatus: set?.status ?? null,
-    allExamples: set?.examples ?? [],
-    introIds: board.introCards.map((c) => c.id),
-    seats,
-    posts: subs.map((s) => ({
-      id: s.id,
-      studentNo: s.student_no,
-      interest: s.interest,
-      answers: s.answers,
-      concepts: s.concepts,
-      free: s.free,
-      shareClass: s.share_class,
-      shareExample: s.share_example,
-      starred: s.starred,
-      rating: s.rating,
-      relevance: s.relevance,
-      displayed: activity.displayed.includes(s.id),
-      liked: s.likes > 0,
-      flagged: s.flagged,
-      createdAt: new Date(s.created_at).toISOString(),
-    })),
-  };
+  return { posts, more: rows.length > PAGE_SIZE };
 }
 
-export type BoardData = Awaited<ReturnType<typeof boardView>>;
-export type ConsoleData = Awaited<ReturnType<typeof consoleView>>;
+/** 갤러리 위쪽 관심사 거르기 버튼에 쓸, 이 단원에 실제로 있는 관심사 */
+export async function galleryInterests(unitId: string) {
+  const rows = await q<{ interest: string }>(
+    `select c.interest from connections c join users u on u.id = c.user_id
+      where c.unit_id = $1 and c.share and not c.hidden and not u.blocked and c.interest <> ''
+      group by c.interest order by count(*) desc limit 15`,
+    [unitId],
+  );
+  return rows.map((r) => r.interest);
+}
+
+/** 단원 목록: 열린 단원과 내가 쓴 단원 표시 */
+export async function homeView(userId: string) {
+  const done = new Set((await q<{ unit_id: string }>('select unit_id from connections where user_id = $1', [userId])).map((r) => r.unit_id));
+  return CATALOG.map((s) => ({
+    subject: s.subject,
+    units: s.units.map((u) => {
+      const set = getSet(u.id);
+      return { id: u.id, unit: u.unit, open: !!set && isOpen(set.status), done: done.has(u.id) };
+    }),
+  }));
+}
+
+/**
+ * 학생에게 여는 세트: 검수를 마친 세트만. 검수 전 세트를 미리 보려면 환경 변수 SHOW_DRAFT_SETS=1
+ * (내 컴퓨터에서 개발할 때는 기본으로 보인다)
+ */
+export function isOpen(status: string) {
+  return status === 'reviewed' || process.env.SHOW_DRAFT_SETS === '1' || process.env.NODE_ENV !== 'production';
+}
+
+export type NoteItem = {
+  id: string; unitId: string; unit: string; subject: string; interest: string;
+  first: { answers: string[]; free: boolean; concepts: string[] };
+  re: { answers: string[]; free: boolean; concepts: string[] } | null;
+  share: boolean; pre: number | null; post: number | null; hidden: boolean; hiddenReason: string | null;
+};
+
+/** 내 연결 노트: 과목·단원 순서대로 */
+export async function notebook(userId: string): Promise<NoteItem[]> {
+  const rows = await q<ConnRow>('select * from connections where user_id = $1', [userId]);
+  const order = CATALOG.flatMap((s) => s.units.map((u) => ({ id: u.id, unit: u.unit, subject: s.subject })));
+  return order
+    .map((o) => {
+      const c = rows.find((r) => r.unit_id === o.id);
+      if (!c) return null;
+      return {
+        id: c.id, unitId: o.id, unit: o.unit, subject: o.subject, interest: c.interest,
+        first: { answers: c.answers, free: c.free, concepts: c.concepts },
+        re: c.re_answers ? { answers: c.re_answers, free: !!c.re_free, concepts: c.re_concepts ?? [] } : null,
+        share: c.share, pre: c.pre, post: c.post, hidden: c.hidden, hiddenReason: c.hidden_reason,
+      };
+    })
+    .filter((x): x is NoteItem => !!x);
+}
+
+/** 학생에게 열린 세트만 돌려준다. 쓰기·갤러리·서버 동작 모두 이 검사를 쓴다 */
+export function openSet(id: string) {
+  const set = getSet(id);
+  return set && isOpen(set.status) ? set : null;
+}
+
+export function catalogUnits() {
+  return CATALOG.map((s) => ({ subject: s.subject, units: s.units.map((u) => ({ id: u.id, unit: u.unit })) }));
+}

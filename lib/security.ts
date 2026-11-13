@@ -23,7 +23,7 @@ export async function verifyPassword(password: string, stored: string | null | u
   return actual.length === expected.length && crypto.timingSafeEqual(actual, expected);
 }
 
-/* ---------- 서버 비밀값: 세션 서명과 AI 키 암호화에 씀 ---------- */
+/* ---------- 서버 비밀값: 세션 서명과 인터넷 주소 섞기에 씀 ---------- */
 type Holder = { __mathingSecret?: Promise<string> };
 const g = globalThis as unknown as Holder;
 
@@ -68,35 +68,25 @@ export async function readToken<T extends { exp: number }>(token: string | undef
   }
 }
 
-/* ---------- AI 키 암호화 (AES-256-GCM) ---------- */
-async function boxKey(): Promise<Buffer> {
-  const secret = await getServerSecret();
-  return Buffer.from(crypto.hkdfSync('sha256', secret, 'mathing', 'ai-key-box', 32));
+/* ---------- 비교와 섞기 ---------- */
+export function safeEqual(a: string, b: string) {
+  const x = Buffer.from(a), y = Buffer.from(b);
+  return x.length === y.length && crypto.timingSafeEqual(x, y);
 }
 
-export async function encryptText(plain: string): Promise<string> {
-  const key = await boxKey();
-  const iv = crypto.randomBytes(12);
-  const cipher = crypto.createCipheriv('aes-256-gcm', key, iv);
-  const enc = Buffer.concat([cipher.update(plain, 'utf8'), cipher.final()]);
-  return `v1.${iv.toString('base64url')}.${cipher.getAuthTag().toString('base64url')}.${enc.toString('base64url')}`;
+/** 인터넷 주소처럼 그대로 두면 안 되는 값을 서버 비밀값으로 섞어 짧은 표시로 바꾼다 */
+export async function keyedHash(value: string): Promise<string> {
+  return crypto.createHmac('sha256', await getServerSecret()).update(value).digest('base64url').slice(0, 32);
 }
 
-export async function decryptText(boxed: string): Promise<string | null> {
-  const [v, ivB, tagB, encB] = boxed.split('.');
-  if (v !== 'v1' || !ivB || !tagB || !encB) return null;
-  try {
-    const decipher = crypto.createDecipheriv('aes-256-gcm', await boxKey(), Buffer.from(ivB, 'base64url'));
-    decipher.setAuthTag(Buffer.from(tagB, 'base64url'));
-    return Buffer.concat([decipher.update(Buffer.from(encB, 'base64url')), decipher.final()]).toString('utf8');
-  } catch {
-    return null;
-  }
-}
-
-/* ---------- 입장 코드 ---------- */
+/* ---------- 복구 코드: 헷갈리는 글자(0/O, 1/I/L)는 뺀다 ---------- */
 const CODE_ALPHABET = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
-export function makeJoinCode(len = 5): string {
-  const bytes = crypto.randomBytes(len);
-  return Array.from(bytes, (b) => CODE_ALPHABET[b % CODE_ALPHABET.length]).join('');
+export function makeRecoveryCode(): string {
+  const bytes = crypto.randomBytes(12);
+  const chars = Array.from(bytes, (b) => CODE_ALPHABET[b % CODE_ALPHABET.length]).join('');
+  return `${chars.slice(0, 4)}-${chars.slice(4, 8)}-${chars.slice(8, 12)}`;
+}
+export function normalizeRecoveryCode(input: string): string {
+  const c = input.toUpperCase().replace(/[^A-Z0-9]/g, '');
+  return c.length === 12 ? `${c.slice(0, 4)}-${c.slice(4, 8)}-${c.slice(8, 12)}` : '';
 }

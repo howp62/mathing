@@ -225,10 +225,6 @@ h2{font-size:17px;margin:20px 0 8px}
         <button data-who="new" class="on">처음 온 학생</button>
         <button data-who="back">다시 온 학생</button>
       </div>
-      <div class="seg" role="group" aria-label="연결 지도 모양">
-        <button data-map="A" class="on">지도 A</button>
-        <button data-map="B">지도 B</button>
-      </div>
       <button class="pbtn" data-reset>처음부터</button>
     </div>
   </div>
@@ -488,13 +484,13 @@ function mapView(){
     const W=330, step=W/(all.length+1);
     const pts = all.map((x,i)=>({...x,x:step*(i+1),y:70+Math.sin(i*0.9)*18,d:done.find(n=>n.unit===x.u&&x.s===n.subject)}));
     const path = pts.map((p,i)=>(i?'L':'M')+p.x.toFixed(1)+' '+p.y.toFixed(1)).join(' ');
-    return `<div class="map"><h3>연결 지도</h3><p class="muted" style="margin:0">지나온 단원과 이어 본 관심사. 점수는 없어.</p>${empty}
+    return `<div class="map"><div style="display:flex;align-items:center;gap:8px"><h3 style="margin:0">연결 지도</h3><span class="seg" style="margin-left:auto;padding:2px"><button class="${S.map==='A'?'on':''}" data-map="A" style="padding:4px 10px;font-size:12px">길</button><button class="${S.map==='B'?'on':''}" data-map="B" style="padding:4px 10px;font-size:12px">판</button></span></div><p class="muted" style="margin:0">지나온 단원과 이어 본 관심사. 점수는 없어.</p>${empty}
     <svg viewBox="0 0 ${W} 150" role="img" aria-label="연결 지도"><path d="${path}" fill="none" stroke="#D6CFC2" stroke-width="2" stroke-dasharray="4 4"/>
     ${pts.map(p=>p.d?`<line x1="${p.x}" y1="${p.y}" x2="${p.x}" y2="${p.y-38}" stroke="#DD7448" stroke-width="1.5"/><rect x="${p.x-26}" y="${p.y-56}" width="52" height="20" rx="10" fill="#FBE7DC"/><text x="${p.x}" y="${p.y-42}" text-anchor="middle" font-size="10" font-weight="700" fill="#9A4420">${p.d.tag}</text><circle cx="${p.x}" cy="${p.y}" r="7" fill="#2D6A5C"/><text x="${p.x}" y="${p.y+22}" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1D2129">${p.u}</text>`:`<circle cx="${p.x}" cy="${p.y}" r="3.5" fill="#D6CFC2"/>`).join('')}
     </svg></div>`;
   }
   // 지도 B: 16칸 단원 판, 쓴 칸에 관심사
-  return `<div class="map"><h3>연결 지도</h3><p class="muted" style="margin:0">16개 단원 중 이어 본 칸. 빈칸은 앞으로 만날 단원이야.</p>${empty}
+  return `<div class="map"><div style="display:flex;align-items:center;gap:8px"><h3 style="margin:0">연결 지도</h3><span class="seg" style="margin-left:auto;padding:2px"><button class="${S.map==='A'?'on':''}" data-map="A" style="padding:4px 10px;font-size:12px">길</button><button class="${S.map==='B'?'on':''}" data-map="B" style="padding:4px 10px;font-size:12px">판</button></span></div><p class="muted" style="margin:0">16개 단원 중 이어 본 칸. 빈칸은 앞으로 만날 단원이야.</p>${empty}
   <div class="grid16">${UNITS.map(g=>`<div class="s">${g.s}</div>${g.u.map(([u])=>{const d=done.find(n=>n.unit===u&&n.subject===g.s);return `<div class="t ${d?'d':''}">${u}${d?`<em>${d.tag}</em>`:''}</div>`;}).join('')}`).join('')}</div></div>`;
 }
 
@@ -512,7 +508,7 @@ const NOTE = {
   write:['쓰기','3단계 또는 한 칸 자유 쓰기.',['3단계에서는 개념 버튼을 고를 수 있어요.','최소 글자 수는 없어요.']],
   save:['저장','미리보기, 공유(기본 켜짐), 관련성(쓰고 나서).',['전화번호·이메일·주소·SNS 아이디·욕설이 있으면 저장을 막아요.','"전화번호 넣어 보기"로 확인해 보세요.']],
   gallery:['친구들의 연결','내 글을 저장한 뒤에만 열려요.',['★ 추천 연결 → 내 관심사 → 최신순.','이름 없이 관심사 태그만. 공감 숫자는 안 보여요.','⋯ 를 누르면 신고. 3명이 신고하면 바로 숨겨요.']],
-  notes:['내 연결 노트','쓴 연결, 관련성 변화, 다시 쓰기, 공유 켜고 끄기.',['위쪽 연결 지도는 A·B 두 모양 중 고르면 돼요(상단 버튼).','"다시 온 학생"에서 보면 내용이 있어요.']],
+  notes:['내 연결 노트','쓴 연결, 관련성 변화, 다시 쓰기, 공유 켜고 끄기.',['연결 지도는 "길"(지나온 순서)과 "판"(16칸 전체) 두 가지로 바꿔 볼 수 있어요.','"다시 온 학생"에서 보면 내용이 있어요.']],
   me:['내 정보','관심사, 비밀번호, 로그아웃, 계정 지우기.',['계정 지우기는 별명을 다시 입력해야 눌려요.']],
   privacy:['개인정보 처리방침','실제 페이지는 더 자세히 써요.',[]],
 };
@@ -566,8 +562,7 @@ function render(){
   render.keep = false;
   document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('on',b.dataset.view===S.view));
   document.querySelectorAll('[data-who]').forEach(b=>b.classList.toggle('on',b.dataset.who===S.who));
-  document.querySelectorAll('[data-map]').forEach(b=>b.classList.toggle('on',b.dataset.map===S.map));
-}
+  }
 function go(scr){ if (scr==='privacy') S.prev=S.scr; S.scr=scr; S.err=''; S.sheet=null; render(); const sc=document.getElementById('screen'); if(sc) sc.scrollTop=0; }
 
 document.addEventListener('click', e=>{
@@ -576,12 +571,7 @@ document.addEventListener('click', e=>{
   const d = t.dataset;
   if (d.view){ S.view=d.view; render(); return; }
   if (d.who){ const v=S.view, m=S.map; fresh(d.who); S.view=v; S.map=m; render(); return; }
-  if (d.map){
-    // 지도 버튼을 누르면 어느 화면에 있든 노트로 가서 지도를 보여 준다
-    if (['welcome','signup','login','code'].includes(S.scr) || S.view==='admin'){ const m=d.map; fresh('back'); S.map=m; }
-    else S.map=d.map;
-    S.view='student'; go('notes'); return;
-  }
+  if (d.map){ S.map=d.map; render.keep=true; render(); return; }
   if ('reset' in d){ const v=S.view,m=S.map; fresh(S.who); S.view=v; S.map=m; render(); return; }
   if (d.go){ go(d.go); return; }
   if (d.unit){

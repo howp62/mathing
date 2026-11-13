@@ -27,6 +27,8 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // 바탕화면 폴더가 iCloud와 동기화되면서 개발용 캐시 파일이 복제돼("CURRENT 3" 같은 파일) 서버가 안 켜지는 일이 있어 끈다
+  experimental: { turbopackFileSystemCacheForDev: false },
   productionBrowserSourceMaps: false,
   serverExternalPackages: ['@electric-sql/pglite', 'postgres'],
   // 서버가 실행 중에 직접 읽는 파일(예시 카드, 데이터베이스 구조)을 배포 묶음에 꼭 넣는다
