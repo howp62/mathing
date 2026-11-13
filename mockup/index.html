@@ -1,0 +1,667 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>mathing 목업 v0.1</title>
+<style>
+:root{
+  --bg:#EFEBE3;--paper:#FBF9F5;--surface:#FFFFFF;
+  --ink:#1D2129;--ink-2:#4F5560;--ink-3:#868B94;
+  --line:#E4DED3;--line-2:#D6CFC2;
+  --primary:#2D6A5C;--primary-2:#22564A;--primary-soft:#E1EDE9;
+  --accent:#DD7448;--accent-soft:#FBE7DC;
+  --amber:#D79A2B;--amber-soft:#F8EDD6;
+  --danger:#B8433A;--danger-soft:#F6E1DE;
+  --q:#6650D4;
+  --shadow-sm:0 1px 2px rgba(29,33,41,.06);
+  --shadow:0 1px 2px rgba(29,33,41,.05),0 6px 20px rgba(29,33,41,.07);
+  --font:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;
+  --math:"Times New Roman","STIX Two Text",Georgia,serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);-webkit-font-smoothing:antialiased;line-height:1.5;word-break:keep-all;overflow-wrap:anywhere}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none;padding:0}
+button:disabled{cursor:not-allowed;opacity:.45}
+input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--q);outline-offset:2px}
+
+/* 목업 상단 막대 */
+.proto{position:sticky;top:0;z-index:50;background:rgba(251,249,245,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.proto-in{max-width:1200px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:10px 14px;flex-wrap:wrap}
+.proto-brand{display:flex;align-items:center;gap:8px;font-weight:800}
+.proto-brand svg{width:24px;height:24px}
+.proto-brand small{font-weight:500;color:var(--ink-3);font-size:13px}
+.proto-ctl{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;background:var(--surface);padding:3px}
+.seg button{padding:6px 12px;border-radius:999px;font-size:13px;font-weight:600;color:var(--ink-2)}
+.seg button.on{background:var(--ink);color:#fff}
+.pbtn{padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-size:13px;font-weight:600;color:var(--ink-2)}
+
+/* 무대 */
+.stage{max-width:1200px;margin:0 auto;padding:24px 16px 60px;display:flex;gap:32px;justify-content:center;align-items:flex-start}
+.note{width:300px;flex:none;position:sticky;top:84px}
+.note h3{margin:0 0 6px;font-size:15px}
+.note p,.note li{font-size:13.5px;color:var(--ink-2);margin:0 0 8px}
+.note ul{padding-left:18px;margin:0}
+.note .tagline{display:inline-block;font-size:11px;font-weight:700;color:var(--primary);background:var(--primary-soft);padding:3px 8px;border-radius:999px;margin-bottom:8px}
+@media (max-width:860px){.stage{flex-direction:column;align-items:center}.note{position:static;width:100%;max-width:390px}}
+
+/* 휴대폰 */
+.phone{width:390px;max-width:100%;height:780px;background:var(--paper);border:10px solid #1D2129;border-radius:44px;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column;position:relative;flex:none}
+@media (max-width:430px){.phone{height:calc(100vh - 140px);min-height:620px;border-width:6px;border-radius:30px}}
+.sbar{height:34px;flex:none;display:flex;justify-content:space-between;align-items:center;padding:0 22px;font-size:13px;font-weight:700}
+.screen{flex:1;overflow-y:auto;padding:4px 20px 24px;position:relative}
+.tabs{flex:none;display:flex;border-top:1px solid var(--line);background:var(--surface)}
+.tabs button{flex:1;padding:10px 0 12px;font-size:12px;font-weight:600;color:var(--ink-3);display:flex;flex-direction:column;align-items:center;gap:3px}
+.tabs button svg{width:22px;height:22px}
+.tabs button.on{color:var(--primary)}
+
+/* 공통 */
+.logo{display:flex;align-items:center;gap:7px;font-weight:800;font-size:18px}
+.logo svg{width:24px;height:24px}
+.top{display:flex;align-items:center;gap:8px;min-height:44px;margin-bottom:6px}
+.top .back{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;margin-left:-8px;font-size:20px;color:var(--ink-2)}
+.top .ttl{font-weight:700;font-size:15px}
+.top .right{margin-left:auto}
+h1{font-size:23px;line-height:1.35;letter-spacing:-.02em;margin:8px 0 6px}
+h2{font-size:17px;margin:20px 0 8px}
+.sub{color:var(--ink-2);font-size:14.5px;margin:0 0 16px}
+.muted{color:var(--ink-3);font-size:13px}
+.btn{display:block;width:100%;padding:14px;border-radius:14px;background:var(--primary);color:#fff;font-weight:700;font-size:16px;text-align:center}
+.btn:hover{background:var(--primary-2)}
+.btn.ghost{background:var(--surface);color:var(--ink);border:1px solid var(--line-2)}
+.btn.danger{background:var(--danger)}
+.btn+.btn{margin-top:10px}
+.link{color:var(--primary);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:13px;font-weight:700;margin-bottom:6px}
+.field input,.field textarea{width:100%;padding:12px 14px;border:1px solid var(--line-2);border-radius:12px;background:var(--surface);font-size:15px}
+.field textarea{min-height:78px;resize:vertical;line-height:1.5}
+.field small{display:block;color:var(--ink-3);font-size:12px;margin-top:5px}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:14px;margin:10px 0}
+.check input{width:20px;height:20px;margin:1px 0 0;accent-color:var(--primary)}
+.msg{padding:10px 12px;border-radius:12px;font-size:13.5px;margin:10px 0}
+.msg.err{background:var(--danger-soft);color:var(--danger)}
+.msg.ok{background:var(--primary-soft);color:var(--primary-2)}
+.msg.warn{background:var(--amber-soft);color:#8a5a0c}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:var(--shadow-sm)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:8px 13px;border-radius:999px;border:1px solid var(--line-2);background:var(--surface);font-size:14px;font-weight:600;color:var(--ink-2)}
+.chip.on{background:var(--primary);border-color:var(--primary);color:#fff}
+.chip.sm{padding:4px 10px;font-size:12px}
+.tag{display:inline-block;padding:3px 9px;border-radius:999px;background:var(--accent-soft);color:#9A4420;font-size:12px;font-weight:700}
+.tag.g{background:var(--primary-soft);color:var(--primary-2)}
+.formula{margin:10px 0;padding:10px 12px;border-radius:12px;background:var(--paper);border:1px dashed var(--line-2);font-family:var(--math);font-size:19px;font-style:italic;white-space:nowrap;overflow-x:auto}
+.progress{display:flex;gap:4px;margin:4px 0 14px}
+.progress i{flex:1;height:4px;border-radius:4px;background:var(--line)}
+.progress i.on{background:var(--primary)}
+.scale{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:14px 0 6px}
+.scale button{aspect-ratio:1;border-radius:14px;border:1px solid var(--line-2);background:var(--surface);font-size:20px;font-weight:800;color:var(--ink-2)}
+.scale button.on{background:var(--primary);color:#fff;border-color:var(--primary)}
+.scale-lbl{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-3)}
+.foot{position:sticky;bottom:-24px;margin:20px -20px -24px;padding:12px 20px 16px;background:linear-gradient(to top,var(--paper) 75%,rgba(251,249,245,0))}
+.toast{position:absolute;left:50%;bottom:84px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:999px;font-size:13px;font-weight:600;white-space:nowrap;z-index:20;box-shadow:var(--shadow)}
+
+/* 첫 화면 */
+.hero{text-align:center;padding:60px 0 20px}
+.biglogo{width:72px;height:72px;margin:0 auto 18px;border-radius:22px;background:#fff;border:1px solid var(--line);display:grid;place-items:center;box-shadow:var(--shadow-sm)}
+.biglogo svg{width:44px;height:44px}
+.hero .name{font-size:30px;font-weight:800;letter-spacing:-.02em}
+.hero .slogan{color:var(--ink-2);margin:2px 0 26px}
+.hero ol{text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px 14px 14px 34px;font-size:14px;color:var(--ink-2);margin:0 0 24px}
+.hero ol li{margin:3px 0}
+
+/* 복구 코드 */
+.code{font-family:ui-monospace,Menlo,monospace;font-size:26px;font-weight:800;letter-spacing:.08em;text-align:center;padding:22px 10px;border:2px dashed var(--primary);border-radius:16px;background:var(--primary-soft);color:var(--primary-2);margin:16px 0}
+
+/* 단원 목록 */
+.subj{margin:18px 0 8px;font-size:13px;font-weight:800;color:var(--ink-3);letter-spacing:.02em}
+.unit{display:flex;align-items:center;gap:10px;width:100%;padding:13px 14px;border-radius:14px;background:var(--surface);border:1px solid var(--line);margin-bottom:8px;text-align:left}
+.unit b{font-size:15px}
+.unit .st{margin-left:auto;font-size:12px;font-weight:700;color:var(--ink-3)}
+.unit.done .st{color:var(--primary)}
+.unit.locked{background:transparent;border-style:dashed;color:var(--ink-3)}
+.unit.locked b{font-weight:600}
+.unit .dot{width:10px;height:10px;border-radius:50%;background:var(--line-2);flex:none}
+.unit.done .dot{background:var(--primary)}
+.unit.open .dot{background:var(--accent)}
+
+/* 카드 넘기기 */
+.deck{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -20px;padding:4px 20px 12px}
+.deck .card{flex:0 0 86%;scroll-snap-align:center}
+.deck .card h3{margin:8px 0 6px;font-size:16px;line-height:1.4}
+.deck .card p{margin:0;font-size:14px;color:var(--ink-2)}
+.deck .card .cpt{margin-top:10px;font-size:12.5px;color:var(--ink-3)}
+.dots{display:flex;justify-content:center;gap:6px;margin-bottom:6px}
+.dots i{width:6px;height:6px;border-radius:50%;background:var(--line-2)}
+.think{min-height:170px;display:flex;flex-direction:column;justify-content:center;font-size:18px;font-weight:700;line-height:1.5;background:#F1EEFC;border-color:#DDD6F7}
+.think small{display:block;color:var(--q);font-size:12px;font-weight:800;margin-bottom:8px}
+
+/* 쓰기 */
+.stepq{margin:18px 0 6px}
+.stepq .lbl{font-size:12px;font-weight:800;color:var(--primary)}
+.stepq .q{font-size:16px;font-weight:700;margin-top:2px}
+.stepq .s{font-size:13px;color:var(--ink-3)}
+.modes{display:flex;gap:6px;margin:4px 0 6px}
+
+/* 미리보기 / 글 */
+.post{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px 14px 10px;margin-bottom:12px}
+.post.rec{border-color:#E9C46A;background:#FFFCF3}
+.post .head{display:flex;gap:6px;align-items:center;margin-bottom:8px;flex-wrap:wrap}
+.post .rows{display:grid;gap:6px}
+.post .row{font-size:14px;line-height:1.55}
+.post .row i{font-style:normal;font-size:11px;font-weight:800;color:var(--ink-3);display:block}
+.post .acts{display:flex;align-items:center;gap:8px;margin-top:10px;border-top:1px solid var(--line);padding-top:8px}
+.like{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:999px;border:1px solid var(--line-2);font-size:13px;font-weight:700;color:var(--ink-2)}
+.like.on{background:var(--accent-soft);border-color:var(--accent);color:#9A4420}
+.more{margin-left:auto;width:34px;height:34px;border-radius:50%;color:var(--ink-3);font-size:18px}
+.pill{display:inline-block;font-size:11px;font-weight:800;padding:3px 8px;border-radius:999px;background:var(--paper);color:var(--ink-2);border:1px solid var(--line)}
+.pill.star{background:#FFF3CF;border-color:#E9C46A;color:#7A5A00}
+.pill.mine{background:var(--primary-soft);border-color:transparent;color:var(--primary-2)}
+.pill.hide{background:var(--danger-soft);border-color:transparent;color:var(--danger)}
+.switch{display:flex;align-items:center;gap:12px;padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--surface);margin:12px 0}
+.switch .t{flex:1;font-size:14px}
+.switch .t b{display:block;font-size:15px}
+.tg{appearance:none;width:46px;height:28px;border-radius:999px;background:var(--line-2);position:relative;flex:none;cursor:pointer;margin:0}
+.tg::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:transform .15s;box-shadow:0 1px 2px rgba(0,0,0,.2)}
+.tg:checked{background:var(--primary)}
+.tg:checked::after{transform:translateX(18px)}
+
+/* 아래에서 올라오는 창 */
+.sheet-bg{position:absolute;inset:0;background:rgba(29,33,41,.35);z-index:30;display:flex;align-items:flex-end}
+.sheet{width:100%;background:var(--paper);border-radius:22px 22px 0 0;padding:18px 20px 22px}
+.sheet h3{margin:0 0 4px}
+.sheet .opt{display:block;width:100%;text-align:left;padding:13px 14px;border:1px solid var(--line);border-radius:12px;background:var(--surface);margin-top:8px;font-weight:600}
+
+/* 노트 */
+.nitem{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px;margin-bottom:12px}
+.nitem .h{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.nitem .h b{font-size:16px}
+.rel{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;color:var(--ink-2);background:var(--paper);border:1px solid var(--line);padding:4px 10px;border-radius:999px}
+.rel .up{color:var(--primary)}
+.vtabs{display:flex;gap:6px;margin:10px 0 8px}
+.nacts{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.mini{padding:7px 11px;border-radius:10px;border:1px solid var(--line-2);background:var(--surface);font-size:12.5px;font-weight:700;color:var(--ink-2)}
+.mini.pri{background:var(--primary);border-color:var(--primary);color:#fff}
+.nudge{background:var(--amber-soft);border-radius:14px;padding:12px 14px;font-size:13.5px;color:#7a520b;margin-bottom:12px}
+
+/* 연결 지도 */
+.map{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px;margin-bottom:16px}
+.map h3{margin:0 0 2px;font-size:15px}
+.map svg{width:100%;height:auto;display:block;margin-top:6px}
+.grid16{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:10px}
+.grid16 .t{border-radius:10px;padding:8px 6px;min-height:58px;font-size:11px;line-height:1.3;border:1px dashed var(--line-2);color:var(--ink-3)}
+.grid16 .t.d{border:0;background:var(--primary);color:#fff}
+.grid16 .t.d em{display:block;font-style:normal;font-size:10.5px;opacity:.85;margin-top:3px}
+.grid16 .s{grid-column:1/-1;font-size:11px;font-weight:800;color:var(--ink-3);margin-top:4px}
+
+/* 운영자 화면 */
+.admin{width:100%;max-width:880px;background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden}
+.admin .bar{display:flex;align-items:center;gap:12px;padding:14px 20px;border-bottom:1px solid var(--line);background:var(--paper)}
+.admin .bar .logo{font-size:16px}
+.admin .body{padding:18px 20px 24px}
+.admin table{width:100%;border-collapse:collapse;font-size:14px}
+.admin th,.admin td{text-align:left;padding:12px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+.admin th{font-size:12px;color:var(--ink-3)}
+.admin td .txt{max-width:360px;color:var(--ink-2);font-size:13.5px}
+.admin .btns{display:flex;gap:6px;flex-wrap:wrap}
+.kpis{display:flex;gap:10px;margin:0 0 16px;flex-wrap:wrap}
+.kpis div{flex:1;min-width:140px;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:12px;color:var(--ink-3)}
+.kpis b{display:block;font-size:20px;color:var(--ink)}
+</style>
+</head>
+<body>
+<header class="proto">
+  <div class="proto-in">
+    <div class="proto-brand"><span id="brandLogo"></span>mathing 목업 <small>v0.1 · 가짜 데이터로만 움직여요</small></div>
+    <div class="proto-ctl">
+      <div class="seg" role="group" aria-label="보기">
+        <button data-view="student" class="on">학생 휴대폰</button>
+        <button data-view="admin">운영자 화면</button>
+      </div>
+      <div class="seg" role="group" aria-label="학생 상태">
+        <button data-who="new" class="on">처음 온 학생</button>
+        <button data-who="back">다시 온 학생</button>
+      </div>
+      <div class="seg" role="group" aria-label="연결 지도 모양">
+        <button data-map="A" class="on">지도 A</button>
+        <button data-map="B">지도 B</button>
+      </div>
+      <button class="pbtn" data-reset>처음부터</button>
+    </div>
+  </div>
+</header>
+
+<main class="stage" id="stage"></main>
+
+<script>
+const LOGO = `<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M6 25C9 6 23 27 26 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><circle cx="6" cy="25" r="3.6" fill="#DD7448"/><circle cx="26" cy="7" r="3.6" fill="#2D6A5C"/></svg>`;
+const HEART = `<svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-9.6-9.2C.9 7.9 3 4.5 6.5 4.5c2.2 0 3.6 1.2 4.5 2.6.9-1.4 2.3-2.6 4.5-2.6 3.5 0 5.6 3.4 4.1 6.8-2.1 4.6-9.6 9.2-9.6 9.2z" fill="currentColor"/></svg>`;
+const IC = {
+  units:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/></svg>`,
+  note:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h9l4 4v14H6z"/><path d="M9 11h7M9 15h7"/></svg>`,
+  me:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>`,
+};
+document.getElementById('brandLogo').innerHTML = LOGO;
+
+const INTERESTS = ['게임','음악','스포츠','패션·뷰티','요리','영상·SNS','그림·디자인','동물','여행','자동차','건강·의학','환경','컴퓨터·AI','건축','공연·아이돌'];
+const UNITS = [
+  {s:'공통수학1', u:[['다항식',1],['방정식과 부등식',1],['경우의 수',1],['행렬',1]]},
+  {s:'공통수학2', u:[['도형의 방정식',0],['집합과 명제',0],['함수와 그래프',0]]},
+  {s:'대수', u:[['지수함수와 로그함수',0],['삼각함수',0],['수열',0]]},
+  {s:'미적분I', u:[['함수의 극한과 연속',0],['미분',0],['적분',0]]},
+  {s:'확률과 통계', u:[['경우의 수',0],['확률',0],['통계',0]]},
+];
+const SET = {
+  unit:'다항식', subject:'공통수학1',
+  concepts:['다항식의 덧셈·뺄셈','다항식의 곱셈(전개)','다항식의 나눗셈','나머지정리','인수분해','식에 값 넣기'],
+  think:[
+    '네 관심 분야에서, 크기가 아직 정해지지 않은 것을 식으로 미리 계산해두는 장면이 있을까?',
+    '어떤 값이 커질수록 결과가 점점 더 빨리 커지는 걸 본 적 있어? 레벨, 조회수, 크기 같은 것들.',
+    '무언가를 나눠서 남는 것으로 확인하거나 검사하는 장면이 있을까?',
+    '곡선을 매끄럽게 그리거나, 휘어지는 정도를 예측해야 하는 일이 있을까?'],
+  intro:['qr','ball','bezier'],
+  ex:[
+    {id:'qr',tags:['컴퓨터·AI'],t:'QR 코드가 조금 찢어져도 읽히는 이유',b:'QR 코드는 담을 정보를 다항식으로 바꾸고, 약속된 다항식으로 나눈 나머지를 함께 적어둬요. 읽을 때 다시 나눠보면 어디가 망가졌는지 알아채고 되살릴 수 있어요.',f:'P(x) = G(x)Q(x) + R(x)',c:'다항식의 나눗셈과 나머지'},
+    {id:'xp',tags:['게임'],t:'레벨업 경험치는 누가 정할까?',b:'많은 RPG는 레벨 n까지 필요한 경험치를 다항식으로 정해요. 차수를 바꾸면 초반엔 빠르고 후반엔 느린 성장 곡선을 설계할 수 있어요.',f:'E(n) = n³',c:'다항식의 값과 차수'},
+    {id:'lane',tags:['자동차','컴퓨터·AI'],t:'자율주행차가 휘는 길을 읽는 법',b:'카메라로 찾은 차선을 이차·삼차 다항식으로 나타내면, 앞으로 길이 얼마나 휘는지 계산해 핸들을 미리 돌릴 수 있어요.',f:'y = ax² + bx + c',c:'다항식과 계수'},
+    {id:'ball',tags:['스포츠'],t:'2초 뒤 공의 높이 = 나머지?',b:'던진 공의 높이를 시간 t의 다항식으로 쓰면, t = 2일 때의 높이는 그 식을 (t − 2)로 나눈 나머지와 같아요. 나머지정리예요.',f:'h(t) = −5t² + 12t + 2,  h(2) = 6',c:'나머지정리'},
+    {id:'bezier',tags:['그림·디자인','패션·뷰티'],t:'폰트와 아이콘의 매끈한 곡선',b:'글꼴과 아이콘의 곡선은 점 몇 개로 정하는 다항식 곡선이에요. 식을 전개하면 점을 옮길 때 곡선이 어떻게 바뀌는지 알 수 있어요.',f:'B(t) = (1−t)³P₀ + 3t(1−t)²P₁ + ⋯',c:'다항식의 곱셈(전개)'},
+    {id:'wave',tags:['음악','공연·아이돌'],t:'기타 소리를 일그러뜨리는 식',b:'디스토션 이펙터는 소리 신호 x를 다항식에 넣어 끝부분을 눌러 줘요. 식 모양에 따라 부드럽게 또는 거칠게 일그러져요.',f:'y = x − x³/3',c:'다항식에 값 넣기'},
+    {id:'tone',tags:['영상·SNS','그림·디자인'],t:'사진 앱의 커브 보정',b:'밝기 커브를 움직이면 앱은 원래 밝기 x를 삼차 다항식에 넣어 새 밝기를 계산해요. 계수가 곡선의 모양을 정해요.',f:'f(x) = ax³ + bx² + cx + d',c:'다항식의 계수'},
+    {id:'box',tags:['건축','요리','환경'],t:'크기가 정해지기 전에 부피부터',b:'가로가 x, 세로가 x+1, 높이가 x+3인 상자의 부피는 전개해서 한 식으로 써 둘 수 있어요. 크기를 정하기 전에 부피를 비교해 볼 수 있어요.',f:'x(x+1)(x+3) = x³ + 4x² + 3x',c:'다항식의 곱셈(전개)'},
+  ],
+};
+const STEPQ = [
+  {l:'1단계 · 장면',q:'어떤 장면을 떠올렸어?',s:'네 관심사에서 떠오르는 순간이면 뭐든 좋아.',ph:'예: 게임에서 레벨이 오를수록 다음 레벨까지 필요한 경험치가 확 늘어나는 장면'},
+  {l:'2단계 · 계산·비교·예측',q:'그 장면에서 무엇을 계산하거나, 비교하거나, 예측해?',s:'정확한 숫자가 아니어도 괜찮아.',ph:'예: 레벨이 하나 오를 때마다 경험치가 얼마나 더 필요해지는지'},
+  {l:'3단계 · 닮은 개념',q:'그게 이 단원의 어떤 개념이랑 닮았어?',s:'골라도 되고, 직접 써도 돼.',ph:'예: 레벨 n을 넣으면 경험치가 나오는 식이라서'},
+];
+const SAMPLE = ['밤에 플레이리스트를 들을 때, 곡이 바뀌어도 볼륨이 비슷하게 들리는 장면','곡마다 소리 크기가 달라서, 앱이 볼륨을 얼마나 올리고 내릴지 계산해','소리 크기를 식에 넣어 새 크기를 내는 거라서 다항식에 값 넣기랑 닮았어'];
+const POSTS0 = [
+  {id:'p1',tag:'게임',rec:1,a:['상점에서 강화 비용이 단계마다 확 오르는 장면','다음 강화까지 골드가 얼마나 더 드는지 미리 계산해','단계 n을 넣으면 비용이 나오는 다항식이랑 닮았어']},
+  {id:'p2',tag:'요리',a:['케이크 반죽을 틀 크기에 맞춰 늘리는 장면','틀의 지름이 커지면 반죽이 얼마나 더 필요한지 비교해','반지름을 넣으면 부피가 나오는 식이라 다항식의 곱셈이랑 닮았어']},
+  {id:'p3',tag:'스포츠',a:['농구 자유투가 림까지 날아가는 장면','손을 떠난 뒤 1초 뒤에 공이 얼마나 높이 있는지 예측해','시간 t의 이차식에 값을 넣는 거라 식에 값 넣기']},
+  {id:'p4',tag:'음악',a:['노래방 기계가 내 음정을 점수로 바꾸는 장면','원래 음과 내 음이 얼마나 차이 나는지 비교해','차이를 식으로 계산하니까 다항식의 뺄셈 같아']},
+  {id:'p5',tag:'컴퓨터·AI',a:['파일을 보낼 때 깨졌는지 검사하는 장면','보낸 데이터를 나눈 나머지가 같은지 확인해','나머지로 확인하니까 다항식의 나눗셈이랑 닮았어']},
+  {id:'p6',tag:'영상·SNS',a:['쇼츠 조회수가 처음엔 느리다가 갑자기 확 느는 장면','다음 주 조회수가 얼마쯤 될지 예측해','시간이 지날수록 빨리 커지는 게 차수가 높은 다항식 같아']},
+  {id:'p7',tag:'건강·의학',a:['약을 먹고 몸속 약 농도가 오르다 내려가는 장면','언제 다시 먹어야 하는지 예측해','시간에 따라 오르다 내려가는 모양이 다항식 그래프랑 닮았어']},
+  {id:'p8',tag:'자동차',a:['커브길에서 속도를 줄이는 장면','얼마나 휘었는지 보고 속도를 얼마나 줄일지 계산해','휘는 정도를 식으로 나타내는 게 이차식의 계수 같아']},
+];
+
+let S;
+function fresh(who){
+  const back = who === 'back';
+  S = {
+    view: S?.view || 'student', who, map: S?.map || 'A',
+    scr: back ? 'home' : 'welcome',
+    nick: back ? '수학하는고양이' : '', pw:'', age:false, agree:false, err:'',
+    interests: back ? ['음악','게임'] : [], career: back ? '' : '', careerUnknown: back,
+    profileSet: back,
+    tab:'units', pre:0, post:0, introI:0, thinkI:0,
+    mode:'step', ans:['','',''], free:'', concepts:[], share:true,
+    posts: POSTS0.map(p=>({...p,liked:false,reported:false})),
+    filter:'전체', sheet:null, toast:'',
+    notes: back ? [{unit:'방정식과 부등식',subject:'공통수학1',tag:'음악',pre:2,post:4,share:true,a:['공연 티켓 예매에서 좌석 등급별로 남은 표를 보는 장면','예산 안에서 몇 명이 함께 갈 수 있는지 계산해','가격 × 인원 ≤ 예산이니까 일차부등식이랑 닮았어'],re:null,hidden:false}] : [],
+    noteView:{}, delName:'',
+    admin: [
+      {id:'r1',unit:'다항식',tag:'게임',txt:'○○고 2반 김□□ 이거 너 얘기임 ㅋㅋ',reasons:{'개인정보':2,'욕설·놀림':1},hidden:true,nick:'장난꾸러기77',blocked:false,rec:false},
+      {id:'r2',unit:'경우의 수',tag:'스포츠',txt:'축구 승부차기에서 키커 5명의 순서를 정하는 장면…',reasons:{'장난·관계없는 글':1},hidden:false,nick:'골키퍼',blocked:false,rec:false},
+      {id:'r3',unit:'다항식',tag:'요리',txt:'케이크 반죽을 틀 크기에 맞춰 늘리는 장면…',reasons:{},hidden:false,nick:'제빵왕',blocked:false,rec:false},
+    ],
+    adminTab:'reports',
+  };
+}
+fresh('new');
+
+/* ---------- 도우미 ---------- */
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const topBar = (title, back) => `<div class="top">${back?`<button class="back" data-go="${back}" aria-label="뒤로">‹</button>`:''}<span class="ttl">${title}</span><button class="right link" data-act="logoutAsk" style="font-size:13px">로그아웃</button></div>`;
+const FLOW = ['pre','intro','interests','examples','think','write','save'];
+const prog = scr => `<div class="progress">${FLOW.map((f,i)=>`<i class="${FLOW.indexOf(scr)>=i?'on':''}"></i>`).join('')}</div>`;
+const exCard = e => `<div class="card"><div>${e.tags.map(t=>`<span class="tag">${t}</span>`).join(' ')}</div><h3>${esc(e.t)}</h3><p>${esc(e.b)}</p><div class="formula">${esc(e.f)}</div><div class="cpt">닮은 개념 · ${esc(e.c)}</div></div>`;
+const scale = (key) => `<div class="scale">${[1,2,3,4,5].map(n=>`<button class="${S[key]===n?'on':''}" data-scale="${key}" data-n="${n}">${n}</button>`).join('')}</div><div class="scale-lbl"><span>전혀 아니다</span><span>매우 그렇다</span></div>`;
+const rows = a => `<div class="rows">${a.map((t,i)=>`<div class="row"><i>${['장면','계산·비교·예측','닮은 개념'][i]}</i>${esc(t)}</div>`).join('')}</div>`;
+function myAnswers(){ return S.mode==='free' ? [S.free] : S.ans.map((t,i)=> i===2 && S.concepts.length ? (t ? t+' ('+S.concepts.join(', ')+')' : S.concepts.join(', ')) : t); }
+function bad(text){
+  if (/01[016789][-\s.]?\d{3,4}[-\s.]?\d{4}/.test(text)) return '전화번호처럼 보이는 부분이 있어요. 지우고 다시 저장해 줘.';
+  if (/[\w.+-]+@[\w-]+\.[\w.]+/.test(text)) return '이메일 주소처럼 보이는 부분이 있어요.';
+  if (/https?:\/\/|www\./i.test(text)) return '인터넷 주소는 넣을 수 없어요.';
+  if (/(^|\s)@[A-Za-z0-9_.]{3,}/.test(text)) return 'SNS 아이디처럼 보이는 부분이 있어요.';
+  if (/(바보|멍청|ㅅㅂ|시발|병신|ㅂㅅ)/.test(text)) return '고운 말이 아닌 표현이 있어요. 바꿔서 저장해 줘.';
+  return '';
+}
+function toast(t){ S.toast=t; render(); clearTimeout(toast.t); toast.t=setTimeout(()=>{S.toast='';render();},1800); }
+function sortedPosts(){
+  const mine = S.posts.filter(p=>p.mine), rest = S.posts.filter(p=>!p.mine);
+  const score = p => (p.rec?0:S.interests.includes(p.tag)?1:2);
+  let list = [...mine, ...rest.sort((a,b)=>score(a)-score(b))];
+  if (S.filter!=='전체') list = list.filter(p=>p.tag===S.filter);
+  return list;
+}
+
+/* ---------- 학생 화면 ---------- */
+const SCR = {
+welcome:()=>`<div class="hero"><div class="biglogo">${LOGO}</div><div class="name">mathing</div><div class="slogan">수학과 나를 잇는 시간</div>
+  <ol><li>새 단원을 시작할 때 열어요 (5~10분)</li><li>내 관심사와 그 단원의 연결을 써요</li><li>다른 학생들의 연결을 이름 없이 둘러봐요</li></ol>
+  <button class="btn" data-go="signup">처음이에요 · 가입하기</button><button class="btn ghost" data-go="login">로그인</button>
+  <p class="muted" style="margin-top:18px">이름·학교·이메일은 받지 않아요 · <button class="link" data-act="privacy">개인정보 처리방침</button></p></div>`,
+signup:()=>`${`<div class="top"><button class="back" data-go="welcome">‹</button><span class="ttl">가입하기</span></div>`}
+  <h1>별명과 비밀번호만 있으면 돼요</h1><p class="sub">친구들에게는 별명도 보이지 않아요. 로그인할 때만 써요.</p>
+  <div class="field"><label>별명</label><input data-in="nick" value="${esc(S.nick)}" placeholder="예: 수학하는고양이" maxlength="12"><small>2~12자. 실명이나 학교 이름은 쓰지 마세요.</small></div>
+  <div class="field"><label>비밀번호</label><input data-in="pw" type="password" value="${esc(S.pw)}" placeholder="영문과 숫자를 섞어 8자 이상"></div>
+  <label class="check"><input type="checkbox" data-chk="age" ${S.age?'checked':''}><span>만 14세 이상이에요</span></label>
+  <label class="check"><input type="checkbox" data-chk="agree" ${S.agree?'checked':''}><span><button class="link" data-act="privacy">개인정보 처리방침</button>을 읽고 동의해요</span></label>
+  ${S.err?`<p class="msg err">${S.err}</p>`:''}
+  <div class="foot"><button class="btn" data-act="signup">가입하기</button><button class="link muted" data-act="fillSignup" style="display:block;margin:10px auto 0">목업용: 칸 채우기</button></div>`,
+code:()=>`<div class="top"><span class="ttl">가입 완료</span></div><h1>복구 코드를 꼭 저장해 두세요</h1>
+  <p class="sub">비밀번호를 잊으면 이 코드와 별명으로 다시 정할 수 있어요. <b>지금 한 번만</b> 보여 줘요.</p>
+  <div class="code">K7QM-24WX-9PDA</div>
+  <p class="msg warn">화면을 캡처하거나 공책에 적어 두세요. 코드를 잃어버리면 비밀번호를 되찾을 수 없어요.</p>
+  <div class="foot"><button class="btn" data-go="home">저장했어요</button></div>`,
+login:()=>`<div class="top"><button class="back" data-go="welcome">‹</button><span class="ttl">로그인</span></div><h1>다시 왔구나!</h1>
+  <div class="field"><label>별명</label><input value="수학하는고양이"></div>
+  <div class="field"><label>비밀번호</label><input type="password" value="password12"></div>
+  <p class="muted">5번 틀리면 10분 동안 잠겨요. <button class="link" data-act="toastRecover">비밀번호를 잊었어요</button></p>
+  <div class="foot"><button class="btn" data-act="login">로그인</button></div>`,
+home:()=>{
+  const done = new Set(S.notes.map(n=>n.unit));
+  return `<div class="top"><span class="logo">${LOGO}mathing</span><button class="right link" data-act="logoutAsk" style="font-size:13px">로그아웃</button></div>
+  <h1>${esc(S.nick||'반가워')}, 어떤 단원을 시작해?</h1><p class="sub">새 단원을 배우기 전에 5분만 써 보자.</p>
+  ${UNITS.map(g=>`<div class="subj">${g.s}</div>${g.u.map(([u,open])=>{
+    const d = g.s==='공통수학1' && done.has(u);
+    const cls = !open?'locked':d?'done':'open';
+    return `<button class="unit ${cls}" data-unit="${u}" data-open="${open}" data-subj="${g.s}"><span class="dot"></span><b>${u}</b><span class="st">${!open?'준비 중':d?'썼어요 ✓':'시작하기 ›'}</span></button>`;}).join('')}`).join('')}`;
+},
+pre:()=>`${topBar('공통수학1 · 다항식','home')}${prog('pre')}
+  <h1>시작하기 전에 하나만</h1><p class="sub">"다항식"이 나와 관련 있다고 느껴?</p>${scale('pre')}
+  <p class="muted" style="margin-top:14px">정답은 없어. 다 쓰고 나서 한 번 더 물어볼게.</p>
+  <div class="foot"><button class="btn" data-go="intro" ${S.pre?'':'disabled'}>다음</button><button class="link muted" data-go="intro" style="display:block;margin:10px auto 0">건너뛰기</button></div>`,
+intro:()=>`${topBar('공통수학1 · 다항식','pre')}${prog('intro')}
+  <h1>다항식은 어디서 나올까?</h1><p class="sub">옆으로 넘겨 봐.</p>
+  <div class="deck">${SET.intro.map(id=>exCard(SET.ex.find(e=>e.id===id))).join('')}</div>
+  <div class="foot"><button class="btn" data-go="interests">다음</button></div>`,
+interests:()=>{
+  if (S.profileSet && !S.editProfile) return `${topBar('공통수학1 · 다항식','intro')}${prog('interests')}
+    <h1>관심사는 이대로 갈까?</h1><p class="sub">지난번에 고른 걸 기억해 뒀어.</p>
+    <div class="card"><div class="chips">${S.interests.map(t=>`<span class="chip on">${t}</span>`).join('')}</div>
+    <p class="muted" style="margin:10px 0 0">진로: ${S.careerUnknown?'아직 몰라요':esc(S.career||'안 적음')}</p></div>
+    <div class="foot"><button class="btn" data-go="examples">이대로 갈래</button><button class="btn ghost" data-act="editProfile">바꿀래</button></div>`;
+  return `${topBar('공통수학1 · 다항식','intro')}${prog('interests')}
+  <h1>요즘 관심 있는 건?</h1><p class="sub">여러 개 골라도 돼. 다음 단원부터는 기억해 둘게.</p>
+  <div class="chips">${INTERESTS.map(t=>`<button class="chip ${S.interests.includes(t)?'on':''}" data-int="${t}">${t}</button>`).join('')}</div>
+  <h2>진로 (선택)</h2>
+  <div class="field"><input data-in="career" value="${esc(S.career)}" placeholder="예: 게임 기획자, 간호사, 건축가" ${S.careerUnknown?'disabled':''}></div>
+  <label class="check"><input type="checkbox" data-chk="careerUnknown" ${S.careerUnknown?'checked':''}><span>아직 몰라요 (괜찮아!)</span></label>
+  <div class="foot"><button class="btn" data-act="saveProfile" ${S.interests.length?'':'disabled'}>다음</button></div>`;
+},
+examples:()=>{
+  const mine = SET.ex.filter(e=>e.tags.some(t=>S.interests.includes(t)) && !SET.intro.includes(e.id));
+  const list = (mine.length?mine:SET.ex.filter(e=>!SET.intro.includes(e.id))).slice(0,3);
+  return `${topBar('공통수학1 · 다항식','interests')}${prog('examples')}
+  <h1>네 관심사로 보면</h1><p class="sub">${mine.length?S.interests.join(', ')+'와 이어진 예시야.':'아직 네 관심사에 맞는 카드가 없어. <b>네가 첫 번째로 연결해 볼래?</b> 대신 다른 예시를 보여 줄게.'}</p>
+  <div class="deck">${list.map(exCard).join('')}</div>
+  <div class="foot"><button class="btn" data-go="think">다음</button></div>`;
+},
+think:()=>`${topBar('공통수학1 · 다항식','examples')}${prog('think')}
+  <h1>생각을 열어 보자</h1><p class="sub">질문을 넘기면서 떠오르는 장면을 찾아 봐.</p>
+  <div class="card think"><small>생각 열기 ${S.thinkI+1} / 4</small>${esc(SET.think[S.thinkI])}</div>
+  <div style="display:flex;gap:8px;margin-top:12px"><button class="btn ghost" data-act="thinkPrev" ${S.thinkI?'':'disabled'}>‹ 이전</button><button class="btn ghost" data-act="thinkNext" style="margin:0" ${S.thinkI<3?'':'disabled'}>다음 질문 ›</button></div>
+  <div class="foot"><button class="btn" data-go="write">떠올랐어, 쓰러 가기</button></div>`,
+write:()=>`${topBar('공통수학1 · 다항식','think')}${prog('write')}
+  <h1>나만의 연결 쓰기</h1>
+  <div class="modes"><button class="chip sm ${S.mode==='step'?'on':''}" data-mode="step">3단계로</button><button class="chip sm ${S.mode==='free'?'on':''}" data-mode="free">한 칸에 자유롭게</button></div>
+  ${S.mode==='step' ? STEPQ.map((q,i)=>`<div class="stepq"><div class="lbl">${q.l}</div><div class="q">${q.q}</div><div class="s">${q.s}</div></div>
+    ${i===2?`<div class="chips" style="margin:8px 0">${SET.concepts.map(c=>`<button class="chip sm ${S.concepts.includes(c)?'on':''}" data-cpt="${c}">${c}</button>`).join('')}</div>`:''}
+    <div class="field"><textarea data-ans="${i}" placeholder="${esc(q.ph)}">${esc(S.ans[i])}</textarea></div>`).join('')
+  : `<div class="stepq"><div class="q">다항식과 네 관심사가 어떻게 이어지는지 자유롭게 써 봐.</div><div class="s">한두 문장이어도 충분해.</div></div><div class="field"><textarea data-free placeholder="예: 쇼츠 조회수가 갑자기 확 느는 게 차수가 높은 다항식 같아" style="min-height:160px">${esc(S.free)}</textarea></div>`}
+  <p class="muted">쓰던 글은 이 기기에 잠깐 보관돼. 로그아웃하면 지워져.</p>
+  <div class="foot"><button class="btn" data-go="save" ${myAnswers().join('').trim()?'':'disabled'}>다 썼어</button><button class="link muted" data-act="fill" style="display:block;margin:10px auto 0">목업용: 예시 답 채우기</button></div>`,
+save:()=>{
+  const a = myAnswers();
+  return `${topBar('공통수학1 · 다항식','write')}${prog('save')}
+  <h1>이렇게 저장할게</h1>
+  <div class="post"><div class="head"><span class="tag">${esc(S.interests[0]||'관심사')}</span></div>${S.mode==='free'?`<div class="row">${esc(a[0])}</div>`:rows(a)}</div>
+  <label class="switch"><span class="t"><b>다른 학생들에게 공유</b>이름 없이, 사이트를 쓰는 모든 학생이 볼 수 있어요. 나중에 노트에서 끌 수 있어요.</span><input type="checkbox" class="tg" data-chk="share" ${S.share?'checked':''}></label>
+  <h2>다 쓰고 나니, "다항식"이 나와 관련 있다고 느껴?</h2>${scale('post')}
+  ${S.err?`<p class="msg err">${S.err}</p>`:''}
+  <div class="foot"><button class="btn" data-act="save">저장하기</button><button class="link muted" data-act="badFill" style="display:block;margin:10px auto 0">목업용: 전화번호 넣어 보기(걸러내기)</button></div>`;
+},
+gallery:()=>{
+  const list = sortedPosts();
+  const tags = ['전체',...new Set(S.posts.map(p=>p.tag))];
+  return `${topBar('다항식 · 친구들의 연결','home')}
+  <p class="sub" style="margin-top:4px">같은 단원을 쓴 학생들의 연결이야. 이름은 보이지 않아.</p>
+  <div class="chips" style="flex-wrap:nowrap;overflow-x:auto;margin:0 -20px 12px;padding:0 20px">${tags.map(t=>`<button class="chip sm ${S.filter===t?'on':''}" data-filter="${t}" style="flex:none">${t}</button>`).join('')}</div>
+  ${list.map(p=>`<article class="post ${p.rec?'rec':''}"><div class="head">${p.rec?'<span class="pill star">★ 추천 연결</span>':''}${p.mine?'<span class="pill mine">내 글</span>':''}<span class="tag">${esc(p.tag)}</span>${!p.mine&&S.interests.includes(p.tag)?'<span class="muted" style="font-size:11px">내 관심사</span>':''}</div>
+    ${p.free?`<div class="row">${esc(p.a[0])}</div>`:rows(p.a)}
+    <div class="acts">${p.mine?`<span class="muted">${p.gotLike?'누군가 공감했어요 ♥':'아직 공감 없음'} · 나만 보여요</span>`:`<button class="like ${p.liked?'on':''}" data-like="${p.id}">${HEART} 오, 연결된다!</button><button class="more" data-report="${p.id}" aria-label="신고" ${p.reported?'disabled title="신고했어요"':''}>⋯</button>`}</div></article>`).join('')}
+  <button class="btn ghost" data-act="moreToast">더 보기</button>`;
+},
+notes:()=>{
+  const n = S.notes;
+  return `<div class="top"><span class="ttl" style="font-size:18px">내 연결 노트</span><button class="right link" data-act="logoutAsk" style="font-size:13px">로그아웃</button></div>
+  ${mapView()}
+  ${n.length?'':`<p class="sub">아직 쓴 연결이 없어. 단원 탭에서 시작해 봐.</p>`}
+  ${n.some(x=>!x.re)?`<div class="nudge">단원을 다 배웠다면, 처음 쓴 연결을 <b>다시 써 보자.</b> 배우고 나면 더 잘 보이는 게 있어.</div>`:''}
+  ${n.map((x,i)=>{
+    const v = S.noteView[i] || (x.re?'re':'first');
+    const a = v==='re'&&x.re ? x.re : x.a;
+    return `<div class="nitem"><div class="h"><b>${x.unit}</b><span class="muted">${x.subject}</span>${x.hidden?'<span class="pill hide">숨겨졌어요</span>':''}</div>
+    <span class="rel">관련성 쓰기 전 ${x.pre||'–'} → 쓰고 나서 <span class="up">${x.post||'–'}</span>${x.pre&&x.post&&x.post>x.pre?' ↑':''}</span>
+    ${x.re?`<div class="vtabs"><button class="chip sm ${v==='first'?'on':''}" data-nv="${i}" data-v="first">처음 연결</button><button class="chip sm ${v==='re'?'on':''}" data-nv="${i}" data-v="re">다시 쓴 연결</button></div>`:'<div style="height:10px"></div>'}
+    <div class="post" style="margin:0;border-style:dashed"><div class="head"><span class="tag">${esc(x.tag)}</span></div>${rows(a)}</div>
+    ${x.hidden?`<p class="msg err" style="margin-bottom:0">신고가 쌓여 다른 학생에게는 숨겨졌어요. 이유: 개인정보. 운영자가 확인하고 있어요.</p>`:''}
+    <label class="switch" style="padding:10px 12px"><span class="t" style="font-size:13px"><b style="font-size:14px">다른 학생들에게 공유</b></span><input type="checkbox" class="tg" data-nshare="${i}" ${x.share?'checked':''}></label>
+    <div class="nacts">${x.re?'':`<button class="mini pri" data-rewrite="${i}">다시 써 보기</button>`}<button class="mini" data-act="copied">글 복사</button><button class="mini" data-act="imgSaved">이미지로 저장</button>${x.unit==='다항식'?'<button class="mini" data-go="gallery">친구들의 연결</button>':''}</div></div>`;}).join('')}`;
+},
+me:()=>`<div class="top"><span class="ttl" style="font-size:18px">내 정보</span></div>
+  <div class="card"><div class="muted">별명</div><b style="font-size:17px">${esc(S.nick||'수학하는고양이')}</b><p class="muted" style="margin:6px 0 0">다른 학생에게는 보이지 않아요.</p></div>
+  <h2>관심사와 진로</h2><div class="card"><div class="chips">${(S.interests.length?S.interests:['아직 안 골랐어요']).map(t=>`<span class="chip sm on">${t}</span>`).join('')}</div><p class="muted" style="margin:8px 0 0">진로: ${S.careerUnknown?'아직 몰라요':esc(S.career||'안 적음')} · 단원을 시작할 때 바꿀 수 있어요</p></div>
+  <h2>계정</h2>
+  <button class="btn ghost" data-act="toastPw">비밀번호 바꾸기</button>
+  <button class="btn ghost" data-act="logoutAsk">로그아웃</button>
+  <p class="muted" style="margin:10px 0">같이 쓰는 기기(학교 크롬북 등)에서는 쓰고 나서 꼭 로그아웃해 줘.</p>
+  <h2 style="color:var(--danger)">계정 지우기</h2>
+  <p class="muted">계정과 지금까지 쓴 연결, 공감, 신고가 모두 지워져요. 되돌릴 수 없어요.</p>
+  <div class="field"><input data-in="delName" value="${esc(S.delName)}" placeholder="확인을 위해 별명을 입력해 줘"></div>
+  <button class="btn danger" data-act="delete" ${S.delName===(S.nick||'수학하는고양이')?'':'disabled'}>계정과 글 모두 지우기</button>
+  <p class="muted" style="margin-top:14px"><button class="link" data-act="privacy">개인정보 처리방침</button></p>`,
+privacy:()=>`<div class="top"><button class="back" data-go="${S.prev||'welcome'}">‹</button><span class="ttl">개인정보 처리방침</span></div>
+  <h1>mathing이 받는 정보</h1>
+  <div class="card" style="font-size:14px;color:var(--ink-2)">
+  <p style="margin-top:0"><b>받는 것</b>: 별명, 비밀번호(되돌릴 수 없게 섞어서), 복구 코드(섞어서), 관심사·진로, 쓴 연결, 관련성 점수, 공감·신고 기록</p>
+  <p><b>받지 않는 것</b>: 이름, 학교, 학번, 이메일, 전화번호. 방문 통계와 광고 쿠키도 쓰지 않아요.</p>
+  <p><b>누가 보나요</b>: 공유한 연결은 모든 학생이 이름 없이 봐요. 운영자는 신고 처리를 위해 별명을 볼 수 있어요.</p>
+  <p><b>보관</b>: 서울에 있는 서버에 저장하고, 1년 동안 로그인하지 않으면 지워요. 내 정보에서 언제든 직접 지울 수 있어요.</p>
+  <p style="margin-bottom:0"><b>연락</b>: mathing 운영자 메일 (주소는 선생님이 정해요)</p></div>`,
+};
+
+function mapView(){
+  const done = S.notes;
+  const empty = done.length ? '' : '<p class="muted" style="margin:6px 0 0">아직 비어 있어. 단원을 하나 쓰면 여기에 첫 연결이 생겨. ("다시 온 학생"으로 바꾸면 채워진 모습을 볼 수 있어)</p>';
+  if (S.map==='A'){
+    // 지도 A: 단원을 지나는 길 위에 내가 연결한 관심사가 매달린 모양
+    const all = UNITS.flatMap(g=>g.u.map(([u])=>({s:g.s,u})));
+    const W=330, step=W/(all.length+1);
+    const pts = all.map((x,i)=>({...x,x:step*(i+1),y:70+Math.sin(i*0.9)*18,d:done.find(n=>n.unit===x.u&&x.s===n.subject)}));
+    const path = pts.map((p,i)=>(i?'L':'M')+p.x.toFixed(1)+' '+p.y.toFixed(1)).join(' ');
+    return `<div class="map"><h3>연결 지도</h3><p class="muted" style="margin:0">지나온 단원과 이어 본 관심사. 점수는 없어.</p>${empty}
+    <svg viewBox="0 0 ${W} 150" role="img" aria-label="연결 지도"><path d="${path}" fill="none" stroke="#D6CFC2" stroke-width="2" stroke-dasharray="4 4"/>
+    ${pts.map(p=>p.d?`<line x1="${p.x}" y1="${p.y}" x2="${p.x}" y2="${p.y-38}" stroke="#DD7448" stroke-width="1.5"/><rect x="${p.x-26}" y="${p.y-56}" width="52" height="20" rx="10" fill="#FBE7DC"/><text x="${p.x}" y="${p.y-42}" text-anchor="middle" font-size="10" font-weight="700" fill="#9A4420">${p.d.tag}</text><circle cx="${p.x}" cy="${p.y}" r="7" fill="#2D6A5C"/><text x="${p.x}" y="${p.y+22}" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1D2129">${p.u}</text>`:`<circle cx="${p.x}" cy="${p.y}" r="3.5" fill="#D6CFC2"/>`).join('')}
+    </svg></div>`;
+  }
+  // 지도 B: 16칸 단원 판, 쓴 칸에 관심사
+  return `<div class="map"><h3>연결 지도</h3><p class="muted" style="margin:0">16개 단원 중 이어 본 칸. 빈칸은 앞으로 만날 단원이야.</p>${empty}
+  <div class="grid16">${UNITS.map(g=>`<div class="s">${g.s}</div>${g.u.map(([u])=>{const d=done.find(n=>n.unit===u&&n.subject===g.s);return `<div class="t ${d?'d':''}">${u}${d?`<em>${d.tag}</em>`:''}</div>`;}).join('')}`).join('')}</div></div>`;
+}
+
+const NOTE = {
+  welcome:['첫 화면','가입·로그인 두 갈래만 있어요.',['이름·학교·이메일을 받지 않는다는 걸 첫 화면에서 바로 알려요.','처리방침은 어느 화면에서든 열 수 있어요.']],
+  signup:['가입','별명 + 비밀번호, 만 14세 체크, 처리방침 동의.',['별명은 사이트 전체에서 하나뿐이고, 실명·욕설은 걸러내요.','비밀번호는 영문·숫자 섞어 8자 이상.']],
+  code:['복구 코드','이메일 없이 비밀번호를 되찾는 유일한 방법이에요.',['한 번만 보여 주고, 서버에는 섞어서만 저장해요.']],
+  login:['로그인','5번 틀리면 10분 잠금.',['로그인은 30일 동안 유지돼요.']],
+  home:['단원 고르기 (홈)','16개 단원을 과목별로 보여 줘요.',['공통수학1 4개만 열리고 나머지는 "준비 중".','이미 쓴 단원은 ✓ 표시.','목업에서는 다항식만 끝까지 볼 수 있어요.']],
+  pre:['관련성 (쓰기 전)','5점 한 문항. 건너뛸 수 있어요.',['쓰고 나서 한 번 더 물어 노트에서 비교해요.']],
+  intro:['도입 카드','"이 단원은 어디서 나올까?" 대표 예시 3장.',['옆으로 넘겨 봐요.']],
+  interests:['관심사 확인','처음엔 고르고, 다음 단원부터는 "이대로 갈까?"',['"다시 온 학생"으로 바꿔 보면 확인 화면이 나와요.']],
+  examples:['예시 카드','고른 관심사와 이어진 카드 2~3장.',['맞는 카드가 없으면 "네가 첫 번째로 연결해 볼래?"']],
+  think:['생각 열기 질문','단원별 질문 4장을 하나씩 넘겨요.',['AI 코치 대신이에요.']],
+  write:['쓰기','3단계 또는 한 칸 자유 쓰기.',['3단계에서는 개념 버튼을 고를 수 있어요.','최소 글자 수는 없어요.']],
+  save:['저장','미리보기, 공유(기본 켜짐), 관련성(쓰고 나서).',['전화번호·이메일·주소·SNS 아이디·욕설이 있으면 저장을 막아요.','"전화번호 넣어 보기"로 확인해 보세요.']],
+  gallery:['친구들의 연결','내 글을 저장한 뒤에만 열려요.',['★ 추천 연결 → 내 관심사 → 최신순.','이름 없이 관심사 태그만. 공감 숫자는 안 보여요.','⋯ 를 누르면 신고. 3명이 신고하면 바로 숨겨요.']],
+  notes:['내 연결 노트','쓴 연결, 관련성 변화, 다시 쓰기, 공유 켜고 끄기.',['위쪽 연결 지도는 A·B 두 모양 중 고르면 돼요(상단 버튼).','"다시 온 학생"에서 보면 내용이 있어요.']],
+  me:['내 정보','관심사, 비밀번호, 로그아웃, 계정 지우기.',['계정 지우기는 별명을 다시 입력해야 눌려요.']],
+  privacy:['개인정보 처리방침','실제 페이지는 더 자세히 써요.',[]],
+};
+
+function studentHTML(){
+  const tabbed = ['home','notes','me'].includes(S.scr) || S.scr==='gallery';
+  const tabOn = S.scr==='notes'?'notes':S.scr==='me'?'me':'units';
+  return `<div class="phone"><div class="sbar"><span>8:42</span><span>●●●</span></div>
+  <div class="screen" id="screen">${SCR[S.scr]()}</div>
+  ${tabbed?`<nav class="tabs"><button class="${tabOn==='units'?'on':''}" data-go="home">${IC.units}단원</button><button class="${tabOn==='notes'?'on':''}" data-go="notes">${IC.note}내 노트</button><button class="${tabOn==='me'?'on':''}" data-go="me">${IC.me}내 정보</button></nav>`:''}
+  ${S.sheet?sheetHTML():''}${S.toast?`<div class="toast">${esc(S.toast)}</div>`:''}</div>`;
+}
+function sheetHTML(){
+  if (S.sheet==='logout') return `<div class="sheet-bg" data-act="closeSheet"><div class="sheet" data-stop><h3>로그아웃할까?</h3><p class="muted">이 기기에 잠깐 보관하던 쓰던 글도 지워져.</p><button class="btn" data-act="logout">로그아웃</button><button class="btn ghost" data-act="closeSheet">취소</button></div></div>`;
+  return `<div class="sheet-bg" data-act="closeSheet"><div class="sheet" data-stop><h3>어떤 문제가 있어?</h3><p class="muted">신고는 이름 없이 운영자에게 가. 한 글에 한 번만 할 수 있어.</p>
+    ${['욕설·놀림','개인정보(이름, 학교, 연락처)','장난·관계없는 글','기타'].map(r=>`<button class="opt" data-reason="${r}">${r}</button>`).join('')}<button class="btn ghost" style="margin-top:12px" data-act="closeSheet">취소</button></div></div>`;
+}
+function noteHTML(){
+  const [t,d,li] = NOTE[S.scr] || ['',''];
+  return `<aside class="note"><span class="tagline">이 화면</span><h3>${t}</h3><p>${d}</p><ul>${(li||[]).map(x=>`<li>${x}</li>`).join('')}</ul></aside>`;
+}
+
+/* ---------- 운영자 화면 ---------- */
+function adminHTML(){
+  const R = S.admin;
+  const reportRows = R.filter(r=>Object.keys(r.reasons).length).sort((a,b)=>b.hidden-a.hidden);
+  return `<div class="admin"><div class="bar"><span class="logo">${LOGO}mathing 운영자</span>
+    <div class="seg" style="margin-left:auto"><button class="${S.adminTab==='reports'?'on':''}" data-atab="reports">신고함 ${reportRows.length}</button><button class="${S.adminTab==='rec'?'on':''}" data-atab="rec">추천 연결</button></div></div>
+  <div class="body">
+  ${S.adminTab==='reports'?`<p class="muted" style="margin-top:0">자동으로 숨겨진 글(신고 3건 이상)이 맨 위에 와요. 운영자는 별명을 볼 수 있지만 비밀번호·복구 코드는 볼 수 없어요.</p>
+    <table><thead><tr><th>글</th><th>신고 이유</th><th>상태</th><th>처리</th></tr></thead><tbody>
+    ${reportRows.map(r=>`<tr><td><div class="muted">${r.unit} · <span class="tag" style="font-size:11px">${r.tag}</span> · 별명 ${esc(r.nick)}</div><div class="txt">${esc(r.txt)}</div></td>
+      <td>${Object.entries(r.reasons).map(([k,v])=>`<div style="font-size:13px">${k} ${v}</div>`).join('')}</td>
+      <td>${r.blocked?'<span class="pill hide">계정 막힘</span>':r.hidden?'<span class="pill hide">숨김</span>':'<span class="pill">보이는 중</span>'}</td>
+      <td><div class="btns">${r.hidden?`<button class="mini" data-ad="show" data-id="${r.id}">되살리기</button>`:`<button class="mini" data-ad="hide" data-id="${r.id}">숨기기</button>`}<button class="mini" data-ad="block" data-id="${r.id}" ${r.blocked?'disabled':''}>계정 막기</button></div></td></tr>`).join('')}
+    </tbody></table>`
+  :`<div class="kpis"><div><b>128</b>가입한 학생</div><div><b>311</b>저장된 연결</div><div><b>2.6 → 3.4</b>관련성 평균 (전 → 후)</div></div>
+    <p class="muted" style="margin-top:0">↑ 이 합계 칸은 PRD 열린 질문 1번이에요. 넣을지 정해 주세요. 아래는 ★를 달면 그 단원 갤러리 맨 위에 "추천 연결"로 보여요.</p>
+    <table><thead><tr><th>글</th><th>추천</th></tr></thead><tbody>
+    ${POSTS0.slice(0,5).map(p=>`<tr><td><div class="muted">다항식 · <span class="tag" style="font-size:11px">${p.tag}</span></div><div class="txt">${esc(p.a.join(' / '))}</div></td><td><button class="mini ${S.posts.find(x=>x.id===p.id).rec?'pri':''}" data-star="${p.id}">${S.posts.find(x=>x.id===p.id).rec?'★ 추천 중':'☆ 추천'}</button></td></tr>`).join('')}
+    </tbody></table>`}
+  </div></div>`;
+}
+
+/* ---------- 그리기 ---------- */
+function render(){
+  const st = document.getElementById('stage');
+  const sc = document.getElementById('screen'); const y = sc ? sc.scrollTop : 0;
+  st.innerHTML = S.view==='admin' ? adminHTML() : studentHTML() + noteHTML();
+  const ns = document.getElementById('screen'); if (ns && render.keep) ns.scrollTop = y;
+  render.keep = false;
+  document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('on',b.dataset.view===S.view));
+  document.querySelectorAll('[data-who]').forEach(b=>b.classList.toggle('on',b.dataset.who===S.who));
+  document.querySelectorAll('[data-map]').forEach(b=>b.classList.toggle('on',b.dataset.map===S.map));
+}
+function go(scr){ if (scr==='privacy') S.prev=S.scr; S.scr=scr; S.err=''; S.sheet=null; render(); const sc=document.getElementById('screen'); if(sc) sc.scrollTop=0; }
+
+document.addEventListener('click', e=>{
+  const t = e.target.closest('button,[data-act],.sheet-bg'); if (!t) return;
+  if (e.target.closest('[data-stop]') && t.classList.contains('sheet-bg')) return;
+  const d = t.dataset;
+  if (d.view){ S.view=d.view; render(); return; }
+  if (d.who){ const v=S.view, m=S.map; fresh(d.who); S.view=v; S.map=m; render(); return; }
+  if (d.map){
+    // 지도 버튼을 누르면 어느 화면에 있든 노트로 가서 지도를 보여 준다
+    if (['welcome','signup','login','code'].includes(S.scr) || S.view==='admin'){ const m=d.map; fresh('back'); S.map=m; }
+    else S.map=d.map;
+    S.view='student'; go('notes'); return;
+  }
+  if ('reset' in d){ const v=S.view,m=S.map; fresh(S.who); S.view=v; S.map=m; render(); return; }
+  if (d.go){ go(d.go); return; }
+  if (d.unit){
+    if (d.open!=='1') return toast('준비 중인 단원이에요');
+    const done = S.notes.find(n=>n.unit===d.unit && n.subject===d.subj);
+    if (done) return go('notes');
+    if (d.unit!=='다항식') return toast('목업에서는 다항식만 끝까지 볼 수 있어요');
+    S.pre=0;S.post=0;S.thinkI=0;S.ans=['','',''];S.free='';S.concepts=[];S.share=true;S.editProfile=false;S.rewriteI=null;
+    return go('pre');
+  }
+  if (d.scale){ S[d.scale]=+d.n; render.keep=true; render(); return; }
+  if (d.int){ const i=S.interests.indexOf(d.int); i<0?S.interests.push(d.int):S.interests.splice(i,1); render.keep=true; render(); return; }
+  if (d.mode){ S.mode=d.mode; render.keep=true; render(); return; }
+  if (d.cpt){ const i=S.concepts.indexOf(d.cpt); i<0?S.concepts.push(d.cpt):S.concepts.splice(i,1); render.keep=true; render(); return; }
+  if (d.filter){ S.filter=d.filter; render.keep=true; render(); return; }
+  if (d.like){ const p=S.posts.find(x=>x.id===d.like); p.liked=!p.liked; render.keep=true; render(); return; }
+  if (d.report){ S.sheet=d.report; render.keep=true; render(); return; }
+  if (d.reason){ const p=S.posts.find(x=>x.id===S.sheet); p.reported=true; S.sheet=null; render.keep=true; toast('신고했어요. 운영자가 확인해요.'); return; }
+  if (d.nv){ S.noteView[d.nv]=d.v; render.keep=true; render(); return; }
+  if (d.rewrite){ const n=S.notes[+d.rewrite]; S.rewriteI=+d.rewrite; S.ans=[...n.a]; S.mode='step'; S.concepts=[]; S.unitBack='notes'; go('write'); return; }
+  if (d.atab){ S.adminTab=d.atab; render(); return; }
+  if (d.ad){ const r=S.admin.find(x=>x.id===d.id); if(d.ad==='hide')r.hidden=true; if(d.ad==='show'){r.hidden=false;r.blocked=false;} if(d.ad==='block'){r.blocked=true;r.hidden=true;} render(); return; }
+  if (d.star){ const p=S.posts.find(x=>x.id===d.star); p.rec=!p.rec; render(); return; }
+  const act = d.act;
+  if (!act) return;
+  const A = {
+    fillSignup(){ S.nick='수학하는고양이'; S.pw='password12'; S.age=true; S.agree=true; render.keep=true; render(); },
+    signup(){
+      if (S.nick.trim().length<2) S.err='별명을 2자 이상 써 줘.';
+      else if (bad(S.nick)) S.err='별명에 쓸 수 없는 표현이 있어요.';
+      else if (S.pw.length<8 || !/[A-Za-z]/.test(S.pw) || !/\d/.test(S.pw)) S.err='비밀번호는 영문과 숫자를 섞어 8자 이상으로 정해 줘.';
+      else if (!S.age) S.err='만 14세 이상만 가입할 수 있어요.';
+      else if (!S.agree) S.err='개인정보 처리방침에 동의해 줘.';
+      else return go('code');
+      render.keep=true; render();
+    },
+    login(){ S.nick=S.nick||'수학하는고양이'; go('home'); },
+    toastRecover(){ toast('복구 코드 + 별명으로 비밀번호를 다시 정해요'); },
+    privacy(){ go('privacy'); },
+    editProfile(){ S.editProfile=true; render(); },
+    saveProfile(){ S.profileSet=true; S.editProfile=false; go('examples'); },
+    thinkPrev(){ S.thinkI=Math.max(0,S.thinkI-1); render.keep=true; render(); },
+    thinkNext(){ S.thinkI=Math.min(3,S.thinkI+1); render.keep=true; render(); },
+    fill(){ S.mode='step'; S.ans=[...SAMPLE]; S.concepts=['식에 값 넣기']; render.keep=true; render(); },
+    badFill(){ S.ans[0]=SAMPLE[0]+' 궁금하면 010-1234-5678로 연락해'; S.mode='step'; render.keep=true; render(); },
+    save(){
+      const text = myAnswers().join(' ');
+      const why = bad(text); if (why){ S.err=why; render.keep=true; render(); return; }
+      const a = myAnswers();
+      if (S.rewriteI!=null){ S.notes[S.rewriteI].re = a; S.rewriteI=null; toast('다시 쓴 연결을 저장했어'); return go('notes'); }
+      S.posts = S.posts.filter(p=>!p.mine);
+      S.posts.unshift({id:'me',mine:true,tag:S.interests[0]||'관심사',a,free:S.mode==='free',gotLike:false});
+      S.notes = S.notes.filter(n=>n.unit!=='다항식');
+      S.notes.push({unit:'다항식',subject:'공통수학1',tag:S.interests[0]||'관심사',pre:S.pre,post:S.post,share:S.share,a:S.mode==='free'?[a[0],'',''].filter(Boolean):a,re:null,hidden:false});
+      S.filter='전체'; go('gallery'); toast('저장했어! 이제 친구들의 연결을 볼 수 있어');
+    },
+    moreToast(){ toast('20개씩 더 불러와요'); },
+    copied(){ toast('글을 복사했어'); },
+    imgSaved(){ toast('카드 이미지를 저장했어'); },
+    toastPw(){ toast('바꾸면 다른 기기의 로그인은 모두 끊겨요'); },
+    logoutAsk(){ S.sheet='logout'; render.keep=true; render(); },
+    logout(){ const v=S.view,m=S.map; fresh('new'); S.view=v; S.map=m; render(); toast('로그아웃했어'); },
+    closeSheet(){ S.sheet=null; render.keep=true; render(); },
+    delete(){ const v=S.view,m=S.map; fresh('new'); S.view=v; S.map=m; render(); toast('계정과 글을 모두 지웠어'); },
+  };
+  A[act] && A[act]();
+});
+document.addEventListener('input', e=>{
+  const d = e.target.dataset;
+  if (d.in){ S[d.in]=e.target.value; if(d.in==='delName'){ const b=document.querySelector('[data-act="delete"]'); if(b) b.disabled = S.delName!==(S.nick||'수학하는고양이'); } return; }
+  if (d.ans!=null){ S.ans[+d.ans]=e.target.value; refreshNext(); return; }
+  if ('free' in d){ S.free=e.target.value; refreshNext(); return; }
+});
+document.addEventListener('change', e=>{
+  const d = e.target.dataset;
+  if (d.chk){ S[d.chk]=e.target.checked; if(d.chk==='careerUnknown'){ render.keep=true; render(); } return; }
+  if (d.nshare!=null){ S.notes[+d.nshare].share=e.target.checked; toast(e.target.checked?'다시 공유했어':'공유를 껐어'); return; }
+});
+function refreshNext(){ const b=document.querySelector('[data-go="save"]'); if(b) b.disabled=!myAnswers().join('').trim(); }
+render();
+</script>
+</body>
+</html>

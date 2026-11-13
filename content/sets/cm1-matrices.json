@@ -1,0 +1,97 @@
+{
+  "id": "cm1-matrices",
+  "subject": "공통수학1",
+  "unit": "행렬",
+  "order": 4,
+  "status": "draft",
+  "topics": ["행렬의 뜻", "행렬의 연산"],
+  "concepts": ["행렬의 뜻", "(i, j) 성분", "행렬의 덧셈·뺄셈", "행렬의 실수배", "행렬의 곱셈", "숫자를 표로 정리하기"],
+  "thinkCards": [
+    "네 관심 분야에서 숫자를 가로세로 표로 정리해 둔 걸 본 적 있어? 기록표, 순위표, 시간표 같은 것들.",
+    "지난번 표와 이번 표를 칸끼리 비교해서 얼마나 달라졌는지 본 적 있어?",
+    "표에 있는 숫자를 전부 똑같이 몇 배 하는 일이 있을까? 할인, 인원수 늘리기 같은 것들.",
+    "'개수 × 가격'을 여러 번 계산해서 더하는 일이 있을까? 장보기, 주문, 굿즈 사기 같은 것들."
+  ],
+  "examples": [
+    {
+      "id": "pixels",
+      "tags": ["그림·디자인"],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 200 90' xmlns='http://www.w3.org/2000/svg'><rect x='10' y='12' width='66' height='66' fill='#E9E3D7' stroke='#868B94'/><path d='M32 12h22v22h-22zM10 34h22v22h-22zM54 34h22v22h-22z' fill='#D6CFC2'/><rect x='32' y='34' width='22' height='22' fill='#1D2129'/><rect x='32' y='56' width='22' height='22' fill='#868B94'/><g font-family='sans-serif' font-size='10' fill='#1D2129' text-anchor='middle'><text x='21' y='27'>230</text><text x='43' y='27'>210</text><text x='65' y='27'>230</text><text x='21' y='49'>210</text><text x='43' y='49' fill='#E9E3D7'>30</text><text x='65' y='49'>210</text><text x='21' y='71'>230</text><text x='43' y='71'>140</text><text x='65' y='71'>230</text></g><g font-family='sans-serif' font-size='11' fill='#1D2129'><text x='90' y='34'>칸마다 밝기 숫자</text><text x='90' y='52'>0 = 검정</text><text x='90' y='68'>255 = 흰색</text></g></svg>",
+      "title": "사진 한 장 = 숫자가 가득 찬 표",
+      "body": "흑백 사진을 아주 크게 확대하면 작은 네모 칸(픽셀)이 보여요. 컴퓨터는 보통 칸마다 밝기를 0(검정)부터 255(흰색)까지의 숫자로 저장하니까, 사진 한 장은 커다란 행렬이에요. 컬러 사진은 빨강·초록·파랑 행렬 세 장으로 생각할 수 있어요.",
+      "formula": "세로 1080칸 × 가로 1920칸 → 1080 × 1920 행렬, 숫자 2073600개",
+      "concept": "행렬의 뜻"
+    },
+    {
+      "id": "night-photo",
+      "tags": ["영상·SNS"],
+      "illus": null,
+      "svg": null,
+      "title": "밤 사진의 자글자글한 점, 여러 장 더해서 줄이기",
+      "body": "어두운 곳에서 찍은 사진에는 자글자글한 점(노이즈)이 생기기 쉬워요. 같은 장면을 여러 장 찍어 같은 칸끼리 더한 뒤 장수로 나누면, 제멋대로 생긴 점은 흐려지고 사진이 깨끗해져요. 밤하늘 사진을 찍는 사람들이 실제로 많이 쓰는 방법이에요.",
+      "formula": "평균 사진 = ¼(A + B + C + D)",
+      "concept": "행렬의 덧셈과 실수배"
+    },
+    {
+      "id": "ai-weights",
+      "tags": ["컴퓨터·AI"],
+      "illus": null,
+      "svg": null,
+      "title": "인공지능은 행렬 곱셈을 엄청나게 많이 해요",
+      "body": "인공지능(인공 신경망)은 들어온 숫자들에 '가중치 행렬'을 곱하는 계산을 아주 많이 반복해요. 가중치는 각 입력을 얼마나 중요하게 볼지 정하는 숫자이고, 학습은 이 숫자들을 조금씩 고쳐 가는 과정이에요. 그래서 AI용 칩 중에는 행렬 곱셈을 빠르게 하도록 만든 것이 많아요.",
+      "formula": "출력 = (가중치 행렬) × (입력)",
+      "concept": "행렬의 곱셈"
+    },
+    {
+      "id": "recipe-cost",
+      "tags": ["요리"],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 200 90' xmlns='http://www.w3.org/2000/svg'><path d='M46 28H42V72H46M90 28H94V72H90M112 28H108V72H112M136 28H140V72H136M156 28H152V72H156M192 28H196V72H192' fill='none' stroke='#1D2129' stroke-width='1.5'/><g font-family='sans-serif' font-size='11' fill='#1D2129' text-anchor='middle'><text x='57' y='45'>2</text><text x='79' y='45'>2</text><text x='57' y='65'>3</text><text x='79' y='65'>1</text><text x='124' y='45'>300</text><text x='124' y='65'>400</text><text x='174' y='45'>1400</text><text x='174' y='65'>1300</text><text x='101' y='55'>×</text><text x='146' y='55'>=</text></g><g font-family='sans-serif' font-size='10' fill='#868B94' text-anchor='middle'><text x='55' y='20'>밀가루</text><text x='82' y='20'>달걀</text><text x='124' y='20'>값</text><text x='174' y='20'>재료비</text><text x='22' y='45'>머핀</text><text x='22' y='65'>쿠키</text></g></svg>",
+      "title": "머핀과 쿠키 재료비를 한 번에 계산하기",
+      "body": "머핀 한 판에는 밀가루 2컵과 달걀 2개, 쿠키 한 판에는 밀가루 3컵과 달걀 1개가 든다고 해 볼게요. 이 재료표 행렬에 재료값(밀가루 1컵 300원, 달걀 1개 400원)을 세로로 세운 행렬을 곱하면 메뉴별 재료비가 한 번에 나와요.",
+      "formula": "머핀 2×300 + 2×400 = 1400,  쿠키 3×300 + 1×400 = 1300 (원)",
+      "concept": "행렬의 곱셈"
+    },
+    {
+      "id": "flight-table",
+      "tags": ["여행"],
+      "illus": null,
+      "svg": null,
+      "title": "도시 사이 직항을 표 하나로 정리하기",
+      "body": "여행 계획을 세울 때 i행 j열에 'i번 도시에서 j번 도시로 가는 하루 직항 편수'를 적으면 행렬 하나로 정리돼요. 0이 적힌 칸은 바로 가는 비행기가 없어서 갈아타야 하는 길이에요. 이 행렬을 자기 자신과 곱하면, 출발 시각은 빼고 따졌을 때 한 번 갈아타서 가는 방법이 몇 가지인지도 셀 수 있어요.",
+      "formula": "(i, j) 성분 = i번 도시 → j번 도시 하루 직항 수",
+      "concept": "(i, j) 성분"
+    },
+    {
+      "id": "population",
+      "tags": ["동물", "환경"],
+      "illus": null,
+      "svg": null,
+      "title": "내년 동물 수를 행렬로 내다보기",
+      "body": "동물을 새끼와 어른으로 나눠 세요. 어른 한 마리가 1년에 새끼 2마리를 남기고, 새끼는 절반이 살아남아 어른이 되고, 어른은 80%가 살아남는다고 해 볼게요. 이 규칙을 행렬로 적어 올해 마릿수에 곱하면 내년 마릿수가 나오는데, 멸종 위기 동물 보호 계획을 세울 때도 이런 행렬 모델을 쓰기도 해요.",
+      "formula": "(새끼 10, 어른 20) → (2×20, 0.5×10 + 0.8×20) = (40, 21)",
+      "concept": "행렬의 곱셈"
+    },
+    {
+      "id": "rotate",
+      "tags": ["건축", "게임"],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 200 90' xmlns='http://www.w3.org/2000/svg'><path d='M40 70H170M100 86V6' fill='none' stroke='#868B94'/><path d='M136 58A38 38 0 0 0 88 34' fill='none' stroke='#D79A2B' stroke-width='1.5'/><line x1='100' y1='70' x2='136' y2='58' stroke='#2D6A5C' stroke-width='2.5'/><line x1='100' y1='70' x2='88' y2='34' stroke='#DD7448' stroke-width='2.5'/><circle cx='136' cy='58' r='3.5' fill='#2D6A5C'/><circle cx='88' cy='34' r='3.5' fill='#DD7448'/><g font-family='sans-serif' font-size='11' fill='#1D2129'><text x='141' y='62'>(3, 1)</text><text x='84' y='30' text-anchor='end'>(−1, 3)</text><text x='124' y='26'>90° 회전</text></g></svg>",
+      "title": "3D 설계와 게임에서 물체를 돌리는 계산",
+      "body": "건물 설계 프로그램이나 게임에서 물체를 돌릴 때는 꼭짓점 좌표에 '회전 행렬'을 곱해요. 원점을 중심으로 시계 반대 방향으로 90° 돌리는 행렬을 곱하면 점 (3, 1)은 (−1, 3)으로 옮겨 가요.",
+      "formula": "(3, 1) → (0×3 − 1×1, 1×3 + 0×1) = (−1, 3)",
+      "concept": "행렬의 곱셈"
+    },
+    {
+      "id": "fitness",
+      "tags": ["스포츠", "건강·의학"],
+      "illus": null,
+      "svg": null,
+      "title": "체력 기록, 3월과 7월을 한 번에 비교하기",
+      "body": "학생 2명의 윗몸일으키기(회)와 제자리멀리뛰기(cm) 기록을 3월과 7월에 각각 2 × 2 행렬로 적어요. 7월 행렬에서 3월 행렬을 빼면 같은 칸끼리 빼지니까, 누가 어느 종목에서 얼마나 늘었는지 한 번에 보여요.",
+      "formula": "같은 칸끼리 빼기: 36 − 30 = 6,  185 − 180 = 5,  31 − 25 = 6,  172 − 165 = 7",
+      "concept": "행렬의 덧셈·뺄셈"
+    }
+  ]
+}

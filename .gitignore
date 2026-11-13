@@ -1,0 +1,24 @@
+# 의존성과 빌드 결과
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+next-env.d.ts
+
+# 로컬 데이터베이스 (학생 기록이 들어 있어요)
+.data/
+
+# 비밀 값
+.env
+.env.*
+!.env.example
+
+# 보안 점검 결과 (약점 정보가 들어 있어요)
+.dorms-check/
+
+# 기타
+.DS_Store
+.bkit/
+
+# Supabase 도구가 만드는 임시 파일 (프로젝트 ID가 들어 있어요)
+supabase/.temp/

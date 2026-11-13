@@ -1,0 +1,15 @@
+{
+  "app": {
+    "name": "mathing",
+    "url": "https://imathingyou.vercel.app",
+    "stack": "Next.js"
+  },
+  "tracks": [
+    "security"
+  ],
+  "edzipCase": null,
+  "teacher": {
+    "dormsHandle": ""
+  },
+  "ownershipConfirmed": true
+}
