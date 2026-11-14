@@ -39,18 +39,18 @@ function saveImage(item: Item, v: Version) {
   const measured = blocks.map(([l, a]) => ({ l, lines: wrap(a, 34, 500) }));
   const H = pad * 2 + 140 + measured.reduce((s, b) => s + (b.l ? 40 : 0) + b.lines.length * lineH + 28, 0) + 60;
   c.width = W; c.height = H;
-  ctx.fillStyle = '#FBF9F5'; ctx.fillRect(0, 0, W, H);
-  ctx.fillStyle = '#2D6A5C'; ctx.font = font(800, 30); ctx.fillText('mathing', pad, pad + 10);
-  ctx.fillStyle = '#1D2129'; ctx.font = font(800, 46); ctx.fillText(`${item.unit}`, pad, pad + 80);
-  ctx.fillStyle = '#9A4420'; ctx.font = font(700, 28); ctx.fillText(`${item.subject} · ${item.interest}`, pad, pad + 128);
+  ctx.fillStyle = '#F7F2E8'; ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = '#2F4D7A'; ctx.font = font(800, 30); ctx.fillText('mathing', pad, pad + 10);
+  ctx.fillStyle = '#2A2522'; ctx.font = font(800, 46); ctx.fillText(`${item.unit}`, pad, pad + 80);
+  ctx.fillStyle = '#8A3B26'; ctx.font = font(700, 28); ctx.fillText(`${item.subject} · ${item.interest}`, pad, pad + 128);
   let y = pad + 200;
   for (const b of measured) {
-    if (b.l) { ctx.fillStyle = '#6E737C'; ctx.font = font(800, 24); ctx.fillText(b.l, pad, y); y += 40; }
-    ctx.fillStyle = '#1D2129'; ctx.font = font(500, 34);
+    if (b.l) { ctx.fillStyle = '#6F665D'; ctx.font = font(800, 24); ctx.fillText(b.l, pad, y); y += 40; }
+    ctx.fillStyle = '#2A2522'; ctx.font = font(500, 34);
     for (const line of b.lines) { ctx.fillText(line, pad, y); y += lineH; }
     y += 28;
   }
-  ctx.fillStyle = '#6E737C'; ctx.font = font(500, 22); ctx.fillText('수학과 나를 잇는 시간', pad, H - pad + 20);
+  ctx.fillStyle = '#6F665D'; ctx.font = font(500, 22); ctx.fillText('수학과 나를 잇는 시간', pad, H - pad + 20);
   const a = document.createElement('a');
   a.href = c.toDataURL('image/png');
   a.download = `mathing-${item.unit}.png`;
@@ -64,16 +64,16 @@ function MapPath({ items, catalog }: { items: Item[]; catalog: Catalog }) {
   const path = pts.map((p, i) => `${i ? 'L' : 'M'}${p.x.toFixed(1)} ${p.y.toFixed(1)}`).join(' ');
   return (
     <svg viewBox={`0 0 ${W} 150`} role="img" aria-label={`연결 지도: ${items.map((n) => `${n.unit}-${n.interest}`).join(', ') || '아직 없음'}`}>
-      <path d={path} fill="none" stroke="#D6CFC2" strokeWidth="2" strokeDasharray="4 4" />
+      <path d={path} fill="none" stroke="#D8CCB7" strokeWidth="2" strokeDasharray="4 4" />
       {pts.map((p) => p.d ? (
         <g key={p.id}>
-          <line x1={p.x} y1={p.y} x2={p.x} y2={p.y - 38} stroke="#DD7448" strokeWidth="1.5" />
-          <rect x={p.x - 28} y={p.y - 58} width="56" height="20" rx="10" fill="#FBE7DC" />
-          <text x={p.x} y={p.y - 44} textAnchor="middle" fontSize="10" fontWeight="700" fill="#9A4420">{p.d.interest.slice(0, 6)}</text>
-          <circle cx={p.x} cy={p.y} r="7" fill="#2D6A5C" />
-          <text x={p.x} y={p.y + 22} textAnchor="middle" fontSize="9.5" fontWeight="700" fill="#1D2129">{p.unit.length > 7 ? p.unit.slice(0, 6) + '…' : p.unit}</text>
+          <line x1={p.x} y1={p.y} x2={p.x} y2={p.y - 38} stroke="#C8553D" strokeWidth="1.5" />
+          <rect x={p.x - 28} y={p.y - 58} width="56" height="20" rx="10" fill="#F6E3D8" />
+          <text x={p.x} y={p.y - 44} textAnchor="middle" fontSize="10" fontWeight="700" fill="#8A3B26">{p.d.interest.slice(0, 6)}</text>
+          <circle cx={p.x} cy={p.y} r="7" fill="#2F4D7A" />
+          <text x={p.x} y={p.y + 22} textAnchor="middle" fontSize="9.5" fontWeight="700" fill="#2A2522">{p.unit.length > 7 ? p.unit.slice(0, 6) + '…' : p.unit}</text>
         </g>
-      ) : <circle key={p.id} cx={p.x} cy={p.y} r="3.5" fill="#D6CFC2" />)}
+      ) : <circle key={p.id} cx={p.x} cy={p.y} r="3.5" fill="#D8CCB7" />)}
     </svg>
   );
 }

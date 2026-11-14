@@ -3,6 +3,7 @@ import { one, q } from './db';
 import { CATALOG, getSet } from './content';
 import { INTERESTS, PAGE_SIZE } from './constants';
 import type { User } from './auth';
+import { nextUnit } from './recommend';
 
 /* 화면마다 필요한 데이터만 골라 만든다. 갤러리 데이터에는 별명·계정 번호가 들어가지 않는다. */
 
@@ -95,16 +96,20 @@ export async function galleryInterests(unitId: string) {
   return [...new Set(rows.map((r) => publicTag(r.interest)))];
 }
 
-/** 단원 목록: 열린 단원과 내가 쓴 단원 표시 */
+/** 홈: 단원 목록(열린 단원, 내가 쓴 단원)과 다음 단원 추천 */
 export async function homeView(userId: string) {
-  const done = new Set((await q<{ unit_id: string }>('select unit_id from connections where user_id = $1', [userId])).map((r) => r.unit_id));
-  return CATALOG.map((s) => ({
+  // 처음 쓴 순서대로 최근 것이 맨 앞(다시 쓰기는 created_at을 바꾸지 않는다)
+  const rows = await q<{ unit_id: string }>('select unit_id from connections where user_id = $1 order by created_at desc', [userId]);
+  const done = new Set(rows.map((r) => r.unit_id));
+  const subjects = CATALOG.map((s) => ({
     subject: s.subject,
     units: s.units.map((u) => {
       const set = getSet(u.id);
-      return { id: u.id, unit: u.unit, open: !!set && isOpen(set.status), done: done.has(u.id) };
+      return { id: u.id, unit: u.unit, subject: s.subject, open: !!set && isOpen(set.status), done: done.has(u.id) };
     }),
   }));
+  const next = nextUnit(subjects.flatMap((s) => s.units), (u) => u.open, done, rows[0]?.unit_id ?? null);
+  return { subjects, next, wroteAny: rows.length > 0 };
 }
 
 /**

@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>mathing 디자인 시안</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap">
+<style>
+/* ---------- 시안 페이지 틀 ---------- */
+:root { --page: #ECEAE6; --text: #1D2129; --text-2: #4F5560; --rule: #D9D5CD; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--page); color: var(--text); font-family: "Pretendard Variable", Pretendard, -apple-system, "Apple SD Gothic Neo", sans-serif; line-height: 1.55; word-break: keep-all; -webkit-font-smoothing: antialiased; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 32px 16px 64px; }
+.intro h1 { font-size: 28px; letter-spacing: -.02em; margin: 0 0 6px; }
+.intro p { color: var(--text-2); margin: 0 0 16px; }
+.ideas { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 10px; margin: 18px 0 8px; }
+.idea { background: #fff; border: 1px solid var(--rule); border-radius: 14px; padding: 12px 14px; font-size: 14px; }
+.idea b { display: block; font-size: 13px; color: #6E737C; margin-bottom: 2px; }
+.common { background: #fff; border: 1px solid var(--rule); border-left: 4px solid #6650D4; border-radius: 12px; padding: 12px 16px; margin: 18px 0 8px; font-size: 14.5px; }
+.opt { margin-top: 44px; padding-top: 28px; border-top: 1px solid var(--rule); }
+.opt-head { display: flex; gap: 14px; align-items: baseline; flex-wrap: wrap; }
+.opt-head .tag { font-size: 13px; font-weight: 800; padding: 4px 10px; border-radius: 999px; background: #1D2129; color: #fff; }
+.opt-head h2 { font-size: 23px; margin: 0; letter-spacing: -.02em; }
+.opt-head .from { font-size: 13px; color: #6E737C; }
+.opt-lead { color: var(--text-2); margin: 6px 0 18px; max-width: 760px; }
+.phones { display: flex; gap: 22px; flex-wrap: wrap; justify-content: center; }
+.shot { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.shot figcaption { font-size: 13px; font-weight: 700; color: var(--text-2); }
+.notes { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; margin-top: 18px; }
+.note { background: #fff; border: 1px solid var(--rule); border-radius: 12px; padding: 12px 14px; font-size: 14px; }
+.note b { display: block; font-size: 12.5px; color: #6E737C; margin-bottom: 4px; }
+.note ul { margin: 0; padding-left: 18px; }
+.mix { margin-top: 44px; padding: 18px 20px; background: #fff; border: 1px solid var(--rule); border-radius: 14px; }
+.mix h2 { margin: 0 0 6px; font-size: 19px; }
+.mix ul { margin: 0; padding-left: 18px; }
+.foot { margin-top: 18px; font-size: 13px; color: #6E737C; }
+
+/* ---------- 휴대폰 틀 (공통) ---------- */
+.phone { width: 320px; height: 660px; border-radius: 38px; border: 9px solid #1C1C1E; overflow: hidden; position: relative; background: var(--paper); color: var(--ink); font-family: var(--font); box-shadow: 0 10px 30px rgba(0,0,0,.12); }
+.scr { position: absolute; inset: 0; padding: 26px 20px 20px; display: flex; flex-direction: column; overflow: hidden; }
+.scr.tabbed { padding-bottom: 76px; }
+.logo { display: inline-flex; align-items: center; gap: 7px; font-weight: 800; font-size: 17px; color: var(--ink); }
+.logo svg { width: 22px; height: 22px; }
+.topbar { display: flex; align-items: center; justify-content: space-between; min-height: 40px; margin-bottom: 4px; }
+.mini { font-size: 12px; font-weight: 700; padding: 6px 10px; border-radius: var(--r-sm); border: 1px solid var(--line-2); color: var(--ink-2); background: var(--surface); }
+.btn { display: block; width: 100%; padding: 13px; border-radius: var(--r-btn); background: var(--primary); color: #fff; font-weight: 700; font-size: 15px; text-align: center; text-decoration: none; }
+.btn.ghost { background: var(--surface); color: var(--ink); border: 1px solid var(--line-2); }
+.btn + .btn { margin-top: 8px; }
+.tiny { font-size: 11.5px; color: var(--ink-3); text-align: center; margin: 12px 0 0; }
+.tiny u { color: var(--primary); }
+.tabs { position: absolute; left: 0; right: 0; bottom: 0; display: flex; border-top: 1px solid var(--line); background: var(--surface); padding: 8px 0 14px; }
+.tabs span { flex: 1; text-align: center; font-size: 11px; font-weight: 600; color: var(--ink-3); }
+.tabs span i { display: block; width: 20px; height: 20px; margin: 0 auto 3px; border-radius: 6px; border: 2px solid currentColor; }
+.tabs span.on { color: var(--primary); }
+.h1 { font-size: 21px; font-weight: 800; line-height: 1.35; letter-spacing: -.025em; margin: 6px 0 4px; font-family: var(--display); }
+.sub { font-size: 13.5px; color: var(--ink-2); margin: 0 0 12px; }
+.subj { font-size: 12px; font-weight: 800; color: var(--ink-3); margin: 12px 0 6px; }
+.unit { display: flex; align-items: center; gap: 9px; padding: 11px 12px; border-radius: var(--r-card); background: var(--surface); border: 1px solid var(--line); margin-bottom: 6px; font-size: 14px; }
+.unit b { font-weight: 700; }
+.unit .st { margin-left: auto; font-size: 12px; font-weight: 700; color: var(--ink-3); }
+.unit .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--accent); flex: none; }
+.unit.done .dot { background: var(--primary); }
+.unit.done .st { color: var(--primary); }
+.unit.locked { background: transparent; border-style: dashed; color: var(--ink-3); }
+.unit.locked b { font-weight: 600; }
+.unit.locked .dot { background: var(--line-2); }
+
+/* 단계 표시 (브레드크럼) */
+.crumb { display: flex; align-items: center; gap: 5px; font-size: 11.5px; color: var(--ink-3); margin: 2px 0 6px; white-space: nowrap; }
+.crumb .past { color: var(--ink-3); }
+.crumb .now { color: var(--ink); font-weight: 800; padding: 2px 8px; border-radius: 999px; background: var(--primary-soft); }
+.crumb .sep { opacity: .55; }
+.crumb .count { margin-left: auto; font-weight: 700; }
+.bar { display: flex; gap: 3px; margin-bottom: 12px; }
+.bar i { flex: 1; height: 4px; border-radius: 4px; background: var(--line); }
+.bar i.on { background: var(--primary); }
+.bar i.now { background: var(--accent); }
+.stepq .lbl { font-size: 11.5px; font-weight: 800; color: var(--q); }
+.stepq .q { font-size: 16px; font-weight: 800; margin: 2px 0; letter-spacing: -.01em; }
+.stepq .s { font-size: 12.5px; color: var(--ink-2); }
+.ta { margin: 10px 0; min-height: 110px; padding: 12px; border: 1px solid var(--line-2); border-radius: var(--r-card); background: var(--surface); font-size: 14px; line-height: 1.6; }
+.dots3 { display: flex; gap: 6px; justify-content: center; margin: 4px 0 12px; }
+.dots3 i { width: 7px; height: 7px; border-radius: 50%; background: var(--line-2); }
+.dots3 i.on { background: var(--q); width: 18px; border-radius: 4px; }
+.spacer { flex: 1; }
+.back { font-size: 22px; color: var(--ink-2); margin-right: 6px; line-height: 1; }
+.ttl { font-size: 14px; font-weight: 700; }
+
+/* ---------- A. 담백한 기본 + 색 변주 ---------- */
+.A { --bg:#F5F5F4; --paper:#FFFFFF; --surface:#FFFFFF; --ink:#171717; --ink-2:#4A4A4A; --ink-3:#6B6B6B;
+     --line:#E7E7E5; --line-2:#D4D4D2; --primary:#16794F; --primary-soft:#E3F3EA; --accent:#16794F; --q:#16794F;
+     --r-card:10px; --r-btn:10px; --r-sm:8px;
+     --font:"Pretendard Variable", Pretendard, sans-serif; --display:var(--font); }
+.A .scr { background: var(--paper); }
+.A .unit .dot { background: var(--line-2); }
+.A .unit.open .dot { background: var(--primary); opacity: .45; }
+.A .bar i.now { background: var(--primary); opacity: .45; }
+.A .hero-a { margin-top: 34px; }
+.A .hero-a .h1 { font-size: 30px; line-height: 1.22; letter-spacing: -.04em; margin: 22px 0 10px; }
+.A .hero-a .h1 em { font-style: normal; color: var(--primary); }
+.A .list { border-top: 1px solid var(--line); margin: 18px 0 22px; }
+.A .list div { display: flex; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--line); font-size: 14px; color: var(--ink-2); }
+.A .list span { font-weight: 800; color: var(--primary); font-variant-numeric: tabular-nums; }
+
+/* ---------- B. 함흥 히어로 + 평양 본문 ---------- */
+.B { --bg:#EFEBE3; --paper:#FBF9F5; --surface:#FFFFFF; --ink:#1D2129; --ink-2:#4F5560; --ink-3:#6E737C;
+     --line:#E4DED3; --line-2:#D6CFC2; --primary:#2D6A5C; --primary-soft:#E1EDE9; --accent:#DD7448; --q:#6650D4;
+     --r-card:14px; --r-btn:14px; --r-sm:10px;
+     --font:"Pretendard Variable", Pretendard, sans-serif; --display:var(--font); }
+.B .hero-b { background: radial-gradient(120% 80% at 70% 10%, #1F3A33 0%, #101A17 60%, #0B1210 100%); color: #F4F1EA; padding: 0; }
+.B .hero-b svg.net { position: absolute; inset: 0 0 auto 0; width: 100%; height: 62%; }
+.B .net line { stroke: #8FC5B4; stroke-width: 1.2; stroke-dasharray: 160; stroke-dashoffset: 160; animation: draw 3.2s ease forwards; opacity: .55; }
+.B .net line:nth-child(2) { animation-delay: .5s; } .B .net line:nth-child(3) { animation-delay: 1s; }
+.B .net line:nth-child(4) { animation-delay: 1.5s; } .B .net line:nth-child(5) { animation-delay: 2s; }
+.B .net line:nth-child(6) { animation-delay: 2.5s; } .B .net line:nth-child(7) { animation-delay: 3s; }
+.B .net circle.i { fill: #F08A5D; } .B .net circle.c { fill: #6FC1A6; }
+.B .net circle { animation: pulse 3.6s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.B .net text { fill: #C9D8D2; font-size: 11px; font-weight: 600; font-family: var(--font); }
+.B .net text.c { fill: #9ED6C3; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.25); } }
+@media (prefers-reduced-motion: reduce) { .B .net line { animation: none; stroke-dashoffset: 0; } .B .net circle { animation: none; } }
+.B .hero-b .inner { position: absolute; left: 0; right: 0; bottom: 0; padding: 0 22px 22px; background: linear-gradient(to bottom, rgba(11,18,16,0) 0%, #0B1210 28%); padding-top: 60px; }
+.B .hero-b .logo { color: #F4F1EA; position: absolute; top: 24px; left: 22px; }
+.B .kicker { font-size: 12.5px; font-weight: 700; color: #9ED6C3; letter-spacing: .02em; }
+.B .huge { font-size: 42px; font-weight: 900; line-height: 1.08; letter-spacing: -.05em; margin: 8px 0 12px; }
+.B .huge em { font-style: normal; color: #F08A5D; }
+.B .hero-b p.lead { font-size: 14px; color: #C7CFCB; margin: 0 0 20px; }
+.B .cta { display: block; text-align: center; padding: 15px; border-radius: 999px; background: #F08A5D; color: #1A0F0A; font-weight: 800; font-size: 16px; box-shadow: 0 8px 24px rgba(240,138,93,.35); }
+.B .login { display: block; text-align: center; margin-top: 12px; font-size: 13.5px; color: #C7CFCB; }
+.B .login u { color: #F4F1EA; }
+.B .hero-b .tiny { color: #8E9893; }
+
+/* ---------- C. 벤토 노트 ---------- */
+.C { --bg:#EFE8DA; --paper:#F7F2E8; --surface:#FFFDF8; --ink:#2A2522; --ink-2:#5A524B; --ink-3:#7A7168;
+     --line:#E6DCCB; --line-2:#D8CCB7; --primary:#2F4D7A; --primary-soft:#E3E9F3; --accent:#C8553D; --q:#2F4D7A;
+     --hl:#FFE27A; --r-card:16px; --r-btn:14px; --r-sm:10px;
+     --font:"Pretendard Variable", Pretendard, sans-serif; --display:"Gowun Batang", "Noto Serif KR", serif; }
+.C .h1 { font-weight: 700; letter-spacing: -.01em; }
+.C .ruled { background-image: repeating-linear-gradient(to bottom, transparent 0 27px, rgba(47,77,122,.09) 27px 28px); }
+.C .hero-c .h1 { font-size: 32px; line-height: 1.3; margin: 34px 0 12px; }
+.C mark { background: linear-gradient(to top, var(--hl) 42%, transparent 42%); color: inherit; padding: 0 2px; }
+.C .peek { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 14px; transform: rotate(-1.5deg); box-shadow: 0 6px 18px rgba(42,37,34,.08); margin: 10px 4px 22px; }
+.C .peek .t { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: #F6E3D8; color: #8A3B26; }
+.C .peek .link { font-family: var(--display); font-weight: 700; font-size: 16px; margin: 6px 0 4px; }
+.C .peek p { margin: 0; font-size: 13px; color: var(--ink-2); }
+.C .bento { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 6px; }
+.C .tile { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 12px; }
+.C .tile.wide { grid-column: span 2; }
+.C .tile .k { font-size: 11.5px; font-weight: 700; color: var(--ink-3); }
+.C .tile .v { font-family: var(--display); font-size: 19px; font-weight: 700; margin: 2px 0; }
+.C .tile .s { font-size: 12px; color: var(--ink-2); }
+.C .tile.now { background: var(--primary); border-color: var(--primary); color: #fff; }
+.C .tile.now .k { color: #C9D6EA; }
+.C .tile.now .v { font-size: 22px; }
+.C .tile.now .s { color: #DCE4F1; }
+.C .tile.now .go { display: inline-block; margin-top: 10px; padding: 8px 14px; border-radius: 999px; background: var(--hl); color: #2A2522; font-weight: 800; font-size: 13px; }
+.C .chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
+.C .chip { font-size: 12px; font-weight: 600; padding: 5px 9px; border-radius: 999px; border: 1px solid var(--line-2); background: var(--paper); }
+.C .chip.done { background: var(--primary-soft); border-color: transparent; color: var(--primary); }
+.C .chip.lock { border-style: dashed; color: var(--ink-3); background: transparent; }
+.C .ta { background-image: repeating-linear-gradient(to bottom, transparent 0 21px, rgba(47,77,122,.12) 21px 22px); background-color: var(--surface); line-height: 22px; font-family: var(--display); font-size: 15px; }
+.C .crumb .now { background: var(--hl); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <section class="intro">
+    <h1>mathing 디자인 시안 3가지</h1>
+    <p class="common" style="border-left-color:#2F4D7A"><b>2026-11-14 결정:</b> B의 첫 화면 + C의 색·글꼴. 홈은 다음 단원 추천 칸 + 단원 목록, 단원 활동에 단계 표시. (PRD 1.2)</p>
+    <p>DoRm Edu 영상 「함흥hero와 평양UI로 남들과 다른 UI 만들기」(58분)의 생각을 mathing에 맞게 옮겼어요. 세 시안 모두 같은 세 화면(첫 화면 · 단원 고르기 · 쓰기 단계)으로 보여 드려요.</p>
+    <div class="ideas">
+      <div class="idea"><b>① 평양 UI (37:08~)</b>모양은 담백하게 통일하고, 다른 곳에 쓸 때는 색·글꼴만 바꿔 변주한다 (shadcn/ui + tweakcn).</div>
+      <div class="idea"><b>② 함흥 히어로 (2:17, 52:07)</b>첫 화면(히어로)만 이목을 끌게: 큰 두 줄 제목, 누르고 싶은 CTA 하나, 움직이는 배경.</div>
+      <div class="idea"><b>③ 글꼴·벤토 그리드 (1:16, 24:38)</b>한글은 글꼴이 품질을 좌우한다. 기록은 크기가 다른 칸(벤토)에 묶는다.</div>
+      <div class="idea"><b>④ 강조는 따로, 풀와이드 (49:10, 53:43)</b>강조할 부분만 따로 한 카드로 묶고, 히어로는 여백 없이 꽉 채운다.</div>
+    </div>
+    <div class="common"><b>세 시안 공통 제안: 단계 표시(브레드크럼, 6:43)</b> — 영상에서 "단계가 많으면 학생이 지금 어디 있는지 헷갈린다"고 한 부분이에요. 지금 단원 활동은 7단계(관련성 → 도입 → 관심사 → 예시 → 생각 열기 → 쓰기 → 저장)인데 이름 없는 막대만 있어요. 세 번째 화면처럼 <b>지나온 단계 · 지금 단계 · 다음 단계</b>를 글자로 보여 주는 걸 어떤 시안을 고르든 함께 넣기를 권해요.</div>
+  </section>
+
+  <!-- ================= A ================= -->
+  <section class="opt A">
+    <div class="opt-head"><span class="tag">A</span><h2>담백한 기본 + 색 변주</h2><span class="from">영상 ① 평양 UI · tweakcn 'Supabase' 테마처럼</span></div>
+    <p class="opt-lead">화면 구조는 지금 그대로 두고 색·둥글기·그림자만 바꿔요. 베이지 종이 느낌 대신 흰 바탕에 초록 하나만 쓰는 깔끔한 테마예요. 영상 강사가 "특별히 힘을 줄 게 아니면 Supabase 테마가 제일 깔끔하다"고 한 방향이에요.</p>
+    <div class="phones">
+      <figure class="shot"><div class="phone"><div class="scr">
+        <span class="logo"><svg viewBox="0 0 32 32"><path d="M6 25C9 6 23 27 26 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><circle cx="6" cy="25" r="3.6" fill="#16794F" opacity=".5"/><circle cx="26" cy="7" r="3.6" fill="#16794F"/></svg>mathing</span>
+        <div class="hero-a">
+          <div class="h1">수학과<br><em>나를</em> 잇는 시간</div>
+          <p class="sub">새 단원을 시작할 때 5~10분, 내 관심사와 수학의 연결을 써요.</p>
+          <div class="list">
+            <div><span>01</span>새 단원을 시작할 때 열어요</div>
+            <div><span>02</span>내 관심사와 단원의 연결을 써요</div>
+            <div><span>03</span>다른 학생들의 연결을 이름 없이 봐요</div>
+          </div>
+        </div>
+        <div class="spacer"></div>
+        <a class="btn">처음이에요 · 가입하기</a><a class="btn ghost">로그인</a>
+        <p class="tiny">이름·학교·이메일은 받지 않아요 · <u>개인정보 처리방침</u></p>
+      </div></div><figcaption>첫 화면</figcaption></figure>
+
+      <figure class="shot"><div class="phone"><div class="scr tabbed">
+        <div class="topbar"><span class="logo"><svg viewBox="0 0 32 32"><path d="M6 25C9 6 23 27 26 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><circle cx="6" cy="25" r="3.6" fill="#16794F" opacity=".5"/><circle cx="26" cy="7" r="3.6" fill="#16794F"/></svg>mathing</span><span class="mini">로그아웃</span></div>
+        <div class="h1">수학하는고양이,<br>어떤 단원을 시작해?</div>
+        <p class="sub">새 단원을 배우기 전에 5분만 써 보자.</p>
+        <div class="subj">공통수학1</div>
+        <div class="unit done"><span class="dot"></span><b>다항식</b><span class="st">썼어 ✓</span></div>
+        <div class="unit open"><span class="dot"></span><b>방정식과 부등식</b><span class="st">시작하기 ›</span></div>
+        <div class="unit open"><span class="dot"></span><b>경우의 수</b><span class="st">시작하기 ›</span></div>
+        <div class="unit open"><span class="dot"></span><b>행렬</b><span class="st">시작하기 ›</span></div>
+        <div class="subj">공통수학2</div>
+        <div class="unit locked"><span class="dot"></span><b>도형의 방정식</b><span class="st">준비 중</span></div>
+        <div class="unit locked"><span class="dot"></span><b>집합과 명제</b><span class="st">준비 중</span></div>
+        <div class="tabs"><span class="on"><i></i>단원</span><span><i></i>내 노트</span><span><i></i>내 정보</span></div>
+      </div></div><figcaption>단원 고르기 (홈)</figcaption></figure>
+
+      <figure class="shot"><div class="phone"><div class="scr">
+        <div class="topbar" style="justify-content:flex-start"><span class="back">‹</span><span class="ttl">방정식과 부등식</span></div>
+        <div class="crumb"><span class="past">예시</span><span class="sep">›</span><span class="past">생각 열기</span><span class="sep">›</span><span class="now">쓰기</span><span class="sep">›</span><span>저장</span><span class="count">6/7</span></div>
+        <div class="bar"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="now"></i><i></i></div>
+        <div class="h1">나만의 연결 쓰기</div>
+        <div class="stepq"><div class="lbl">1단계 · 장면</div><div class="q">어떤 장면을 떠올렸어?</div><div class="s">네 관심사에서 떠오르는 순간이면 뭐든 좋아.</div></div>
+        <div class="ta">축구 경기 전에 이번 시즌 승점으로 남은 경기에서 몇 번 이겨야 플레이오프에 갈 수 있는지 따져 보는 장면</div>
+        <div class="dots3"><i class="on"></i><i></i><i></i></div>
+        <div class="spacer"></div>
+        <a class="btn">다음</a>
+      </div></div><figcaption>쓰기 단계 + 단계 표시</figcaption></figure>
+    </div>
+    <div class="notes">
+      <div class="note"><b>바뀌는 것</b><ul><li>색 · 둥글기 · 그림자 (CSS 색 변수만)</li><li>첫 화면 제목을 크게, 설명은 번호 목록으로</li><li>공통: 쓰기 단계에 단계 이름 표시</li></ul></div>
+      <div class="note"><b>좋은 점</b><ul><li>가장 작은 변경, 화면 구조·기능은 그대로</li><li>깔끔하고 단정해서 어느 화면이든 통일돼 보임</li></ul></div>
+      <div class="note"><b>주의할 점</b><ul><li>지금의 따뜻한 종이 느낌이 사라져 조금 '앱스럽게' 차가워질 수 있음</li><li>PRD의 분위기 '차분하고 따뜻하게' 중 '따뜻하게'가 약해짐</li></ul></div>
+      <div class="note"><b>작업 크기</b>작음 — 색 변수 교체 + 첫 화면 1개 + 단계 표시</div>
+    </div>
+  </section>
+
+  <!-- ================= B ================= -->
+  <section class="opt B">
+    <div class="opt-head"><span class="tag">B</span><h2>함흥 히어로 + 평양 본문</h2><span class="from">영상 ② 히어로 · ④ 풀와이드 · 타이포그래피</span></div>
+    <p class="opt-lead">주소를 처음 연 학생이 보는 첫 화면만 강하게 바꿔요. 화면을 꽉 채운 어두운 배경 위에 관심사(주황 점)와 수학 개념(초록 점)이 선으로 이어지는 움직임, 크고 두꺼운 두 줄 제목, 누르고 싶은 CTA 하나. 로그인한 뒤의 화면은 지금의 차분한 디자인을 그대로 써요.</p>
+    <div class="phones">
+      <figure class="shot"><div class="phone"><div class="scr hero-b">
+        <svg class="net" viewBox="0 0 302 400" aria-hidden="true">
+          <line x1="52" y1="96" x2="150" y2="148"/><line x1="236" y1="80" x2="150" y2="148"/><line x1="258" y1="196" x2="196" y2="262"/>
+          <line x1="64" y1="232" x2="150" y2="148"/><line x1="64" y1="232" x2="110" y2="318"/><line x1="236" y1="80" x2="258" y2="196"/><line x1="110" y1="318" x2="196" y2="262"/>
+          <circle class="i" cx="52" cy="96" r="5"/><text x="34" y="82">게임</text>
+          <circle class="i" cx="236" cy="80" r="5"/><text x="222" y="66">음악</text>
+          <circle class="i" cx="258" cy="196" r="5"/><text x="244" y="182">축구</text>
+          <circle class="i" cx="64" cy="232" r="5"/><text x="30" y="252">요리</text>
+          <circle class="c" cx="150" cy="148" r="6"/><text class="c" x="160" y="140">함수</text>
+          <circle class="c" cx="196" cy="262" r="6"/><text class="c" x="206" y="258">확률</text>
+          <circle class="c" cx="110" cy="318" r="6"/><text class="c" x="120" y="334">비와 방정식</text>
+        </svg>
+        <span class="logo"><svg viewBox="0 0 32 32"><path d="M6 25C9 6 23 27 26 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><circle cx="6" cy="25" r="3.6" fill="#F08A5D"/><circle cx="26" cy="7" r="3.6" fill="#6FC1A6"/></svg>mathing</span>
+        <div class="inner">
+          <div class="kicker">새 단원 시작 전 5분</div>
+          <div class="huge">수학과<br><em>나를</em> 잇는<br>시간</div>
+          <p class="lead">내 관심사와 이번 단원이 어떻게 이어지는지 써 보고, 친구들의 연결을 이름 없이 둘러봐요.</p>
+          <a class="cta">가입하고 시작하기</a>
+          <span class="login">이미 계정이 있어요 · <u>로그인</u></span>
+          <p class="tiny">이름·학교·이메일은 받지 않아요</p>
+        </div>
+      </div></div><figcaption>첫 화면 (움직이는 히어로)</figcaption></figure>
+
+      <figure class="shot"><div class="phone"><div class="scr tabbed">
+        <div class="topbar"><span class="logo"><svg viewBox="0 0 32 32"><path d="M6 25C9 6 23 27 26 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><circle cx="6" cy="25" r="3.6" fill="#DD7448"/><circle cx="26" cy="7" r="3.6" fill="#2D6A5C"/></svg>mathing</span><span class="mini">로그아웃</span></div>
+        <div class="h1">수학하는고양이,<br>어떤 단원을 시작해?</div>
+        <p class="sub">새 단원을 배우기 전에 5분만 써 보자.</p>
+        <div class="subj">공통수학1</div>
+        <div class="unit done"><span class="dot"></span><b>다항식</b><span class="st">썼어 ✓</span></div>
+        <div class="unit"><span class="dot"></span><b>방정식과 부등식</b><span class="st">시작하기 ›</span></div>
+        <div class="unit"><span class="dot"></span><b>경우의 수</b><span class="st">시작하기 ›</span></div>
+        <div class="unit"><span class="dot"></span><b>행렬</b><span class="st">시작하기 ›</span></div>
+        <div class="subj">공통수학2</div>
+        <div class="unit locked"><span class="dot"></span><b>도형의 방정식</b><span class="st">준비 중</span></div>
+        <div class="unit locked"><span class="dot"></span><b>집합과 명제</b><span class="st">준비 중</span></div>
+        <div class="tabs"><span class="on"><i></i>단원</span><span><i></i>내 노트</span><span><i></i>내 정보</span></div>
+      </div></div><figcaption>단원 고르기 (지금 디자인 그대로)</figcaption></figure>
+
+      <figure class="shot"><div class="phone"><div class="scr">
+        <div class="topbar" style="justify-content:flex-start"><span class="back">‹</span><span class="ttl">방정식과 부등식</span></div>
+        <div class="crumb"><span class="past">예시</span><span class="sep">›</span><span class="past">생각 열기</span><span class="sep">›</span><span class="now">쓰기</span><span class="sep">›</span><span>저장</span><span class="count">6/7</span></div>
+        <div class="bar"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="now"></i><i></i></div>
+        <div class="h1">나만의 연결 쓰기</div>
+        <div class="stepq"><div class="lbl">1단계 · 장면</div><div class="q">어떤 장면을 떠올렸어?</div><div class="s">네 관심사에서 떠오르는 순간이면 뭐든 좋아.</div></div>
+        <div class="ta">축구 경기 전에 이번 시즌 승점으로 남은 경기에서 몇 번 이겨야 플레이오프에 갈 수 있는지 따져 보는 장면</div>
+        <div class="dots3"><i class="on"></i><i></i><i></i></div>
+        <div class="spacer"></div>
+        <a class="btn">다음</a>
+      </div></div><figcaption>쓰기 단계 + 단계 표시</figcaption></figure>
+    </div>
+    <div class="notes">
+      <div class="note"><b>바뀌는 것</b><ul><li>첫 화면(로그인 전)만: 풀와이드 어두운 히어로, 연결이 그려지는 움직임, 큰 두 줄 제목, CTA 하나</li><li>안쪽 화면은 그대로 + 공통 단계 표시</li></ul></div>
+      <div class="note"><b>좋은 점</b><ul><li>처음 주소를 연 학생에게 '이건 뭔가 다르다'는 인상</li><li>'연결'이라는 뜻이 그림으로 바로 보임</li><li>매일 쓰는 안쪽 화면은 차분함 유지</li></ul></div>
+      <div class="note"><b>주의할 점</b><ul><li>첫 화면과 안쪽 분위기가 달라 이어지는 느낌이 약할 수 있음</li><li>움직임은 휴대폰의 '동작 줄이기' 설정이면 멈추게 함</li><li>영상 대신 SVG로 그려서 데이터는 거의 안 씀</li></ul></div>
+      <div class="note"><b>작업 크기</b>중간 — 첫 화면 1개 새로 + 단계 표시</div>
+    </div>
+  </section>
+
+  <!-- ================= C ================= -->
+  <section class="opt C">
+    <div class="opt-head"><span class="tag">C</span><h2>벤토 노트</h2><span class="from">영상 ③ 벤토 그리드 · 글꼴 · ④ 강조는 따로</span></div>
+    <p class="opt-lead">'내 연결 노트'라는 이름에 맞춰 줄 공책과 만년필 잉크(남색), 형광펜(노랑) 느낌으로 바꾸고, 제목은 명조 계열 글꼴(고운바탕, 무료 상업용 OFL)을 써요. 홈은 벤토 그리드로: "지금 시작할 단원"을 큰 칸 하나로 강조하고, 내 연결 · 친구들의 연결 · 단원 목록을 작은 칸에 묶어요.</p>
+    <div class="phones">
+      <figure class="shot"><div class="phone"><div class="scr ruled hero-c">
+        <span class="logo"><svg viewBox="0 0 32 32"><path d="M6 25C9 6 23 27 26 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><circle cx="6" cy="25" r="3.6" fill="#C8553D"/><circle cx="26" cy="7" r="3.6" fill="#2F4D7A"/></svg>mathing</span>
+        <div class="h1">수학과<br><mark>나를</mark> 잇는 시간</div>
+        <p class="sub">새 단원을 시작할 때 5~10분, 이런 연결을 써요.</p>
+        <div class="peek"><span class="t">축구</span><div class="link">남은 경기 승점 ↔ 부등식</div><p>플레이오프에 가려면 남은 다섯 경기에서 승점을 몇 점 이상 따야 하는지, 부등식 하나로 따져 볼 수 있어.</p></div>
+        <div class="spacer"></div>
+        <a class="btn">처음이에요 · 가입하기</a><a class="btn ghost">로그인</a>
+        <p class="tiny">이름·학교·이메일은 받지 않아요 · <u>개인정보 처리방침</u></p>
+      </div></div><figcaption>첫 화면</figcaption></figure>
+
+      <figure class="shot"><div class="phone"><div class="scr tabbed">
+        <div class="topbar"><span class="logo"><svg viewBox="0 0 32 32"><path d="M6 25C9 6 23 27 26 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><circle cx="6" cy="25" r="3.6" fill="#C8553D"/><circle cx="26" cy="7" r="3.6" fill="#2F4D7A"/></svg>mathing</span><span class="mini">로그아웃</span></div>
+        <div class="h1">수학하는고양이의 노트</div>
+        <div class="bento">
+          <div class="tile wide now"><div class="k">다음에 배울 단원이라면</div><div class="v">방정식과 부등식</div><div class="s">공통수학1 · 5~10분</div><span class="go">연결 쓰러 가기 ›</span></div>
+          <div class="tile"><div class="k">내 연결</div><div class="v">1개</div><div class="s">다항식 · 축구</div></div>
+          <div class="tile"><div class="k">친구들의 연결</div><div class="v">다항식</div><div class="s">새 글 12개 ›</div></div>
+          <div class="tile wide"><div class="k">공통수학1</div><div class="chips"><span class="chip done">다항식 ✓</span><span class="chip">방정식과 부등식</span><span class="chip">경우의 수</span><span class="chip">행렬</span></div>
+            <div class="k" style="margin-top:8px">공통수학2</div><div class="chips"><span class="chip lock">도형의 방정식</span><span class="chip lock">집합과 명제</span><span class="chip lock">함수와 그래프</span></div></div>
+        </div>
+        <div class="tabs"><span class="on"><i></i>단원</span><span><i></i>내 노트</span><span><i></i>내 정보</span></div>
+      </div></div><figcaption>단원 고르기 (벤토 그리드)</figcaption></figure>
+
+      <figure class="shot"><div class="phone"><div class="scr">
+        <div class="topbar" style="justify-content:flex-start"><span class="back">‹</span><span class="ttl">방정식과 부등식</span></div>
+        <div class="crumb"><span class="past">예시</span><span class="sep">›</span><span class="past">생각 열기</span><span class="sep">›</span><span class="now">쓰기</span><span class="sep">›</span><span>저장</span><span class="count">6/7</span></div>
+        <div class="bar"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="now"></i><i></i></div>
+        <div class="h1">나만의 연결 쓰기</div>
+        <div class="stepq"><div class="lbl">1단계 · 장면</div><div class="q">어떤 장면을 떠올렸어?</div><div class="s">네 관심사에서 떠오르는 순간이면 뭐든 좋아.</div></div>
+        <div class="ta">축구 경기 전에 이번 시즌 승점으로 남은 경기에서 몇 번 이겨야 플레이오프에 갈 수 있는지 따져 보는 장면</div>
+        <div class="dots3"><i class="on"></i><i></i><i></i></div>
+        <div class="spacer"></div>
+        <a class="btn">다음</a>
+      </div></div><figcaption>쓰기 단계 (줄 공책) + 단계 표시</figcaption></figure>
+    </div>
+    <div class="notes">
+      <div class="note"><b>바뀌는 것</b><ul><li>색(남색 잉크 · 노란 형광펜 · 종이), 제목 글꼴 고운바탕</li><li>홈을 벤토 그리드로: 큰 '다음 단원' 칸 + 내 연결 · 친구들 연결 칸</li><li>첫 화면에 예시 연결 카드 미리보기, 쓰기 칸은 줄 공책</li></ul></div>
+      <div class="note"><b>좋은 점</b><ul><li>'노트'라는 콘셉트와 가장 잘 맞고 따뜻함 유지</li><li>다음에 할 일이 한눈에 보임</li><li>첫 화면에서 무엇을 쓰는지 바로 보여 줌</li></ul></div>
+      <div class="note"><b>주의할 점</b><ul><li>변경이 가장 큼: 홈 구조와 새 숫자(친구들 새 글 수 등) 조회 필요</li><li>글꼴 파일이 더해져 첫 로딩이 조금 늘어남</li><li>"다음에 배울 단원"은 학생이 고른 게 아니라 순서대로 추천</li></ul></div>
+      <div class="note"><b>작업 크기</b>큼 — 색 · 글꼴 + 홈 다시 만들기 + 첫 화면 + 단계 표시</div>
+    </div>
+  </section>
+
+  <section class="mix">
+    <h2>섞어서 골라도 돼요</h2>
+    <ul>
+      <li><b>B의 첫 화면 + C의 색·글꼴</b>: 첫인상은 강하게, 안쪽은 노트 느낌</li>
+      <li><b>A의 색 + B의 첫 화면</b>: 전체는 깔끔하게, 첫 화면만 힘주기</li>
+      <li><b>지금 디자인 + 단계 표시만</b>: 가장 작은 변화</li>
+    </ul>
+  </section>
+  <p class="foot">영상에서 쓴 shadcn/ui · Tailwind · 21st.dev는 React+Tailwind 프로젝트용이에요. mathing은 이미 색을 CSS 변수로 관리하고 있어서, 프레임워크를 바꾸지 않고 같은 생각(테마 변주 · 히어로)만 가져올 수 있어요. 시안의 그림과 코드는 직접 만든 것이고, 글꼴은 Pretendard·고운바탕 모두 무료 상업용(OFL)이에요.</p>
+</div>
+</body>
+</html>

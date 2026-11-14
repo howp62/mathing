@@ -11,6 +11,7 @@ type Profile = { interests: string[]; career: string; careerUnknown: boolean };
 type Rewrite = { answers: string[]; free: boolean; concepts: string[]; share: boolean; interest: string } | null;
 type Step = 'pre' | 'intro' | 'interests' | 'examples' | 'think' | 'write' | 'save';
 const FLOW: Step[] = ['pre', 'intro', 'interests', 'examples', 'think', 'write', 'save'];
+const STEP_NAMES: Record<Step, string> = { pre: '관련성', intro: '도입', interests: '관심사', examples: '예시', think: '생각 열기', write: '쓰기', save: '저장' };
 
 function Scale({ value, onChange }: { value: number | null; onChange: (n: number) => void }) {
   return (
@@ -108,7 +109,18 @@ export function UnitFlow({ set, profile, rewrite, userKey }: { set: SetData; pro
         {back ? <button type="button" className="back" onClick={() => go(back)} aria-label="뒤로">‹</button> : <a className="back" href={rewrite ? '/notes' : '/home'} aria-label="나가기">‹</a>}
         <span className="ttl">{set.subject} · {set.unit}{rewrite ? ' · 다시 쓰기' : ''}</span>
       </div>
-      {!rewrite && <div className="progress" aria-hidden="true">{FLOW.map((f, i) => <i key={f} className={idx >= i ? 'on' : ''} />)}</div>}
+      {!rewrite && (
+        <>
+          {/* 단계 표시: 지난 단계 › 지금 단계 › 다음 단계 (단계가 많아 지금 어디인지 헷갈리지 않게) */}
+          <nav className="crumb" aria-label="단계">
+            {idx > 0 && <><span>{STEP_NAMES[FLOW[idx - 1]]}</span><span className="sep" aria-hidden="true">›</span></>}
+            <b aria-current="step">{STEP_NAMES[step]}</b>
+            {idx < FLOW.length - 1 && <><span className="sep" aria-hidden="true">›</span><span>{STEP_NAMES[FLOW[idx + 1]]}</span></>}
+            <span className="count">{idx + 1}/{FLOW.length}</span>
+          </nav>
+          <div className="progress" aria-hidden="true">{FLOW.map((f, i) => <i key={f} className={i < idx ? 'on' : i === idx ? 'now' : ''} />)}</div>
+        </>
+      )}
     </>
   );
   const err = error && <p className="msg err" role="alert">{error}</p>;

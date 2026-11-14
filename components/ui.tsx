@@ -5,8 +5,8 @@ export function LogoMark() {
   return (
     <svg viewBox="0 0 32 32" aria-hidden="true">
       <path d="M6 25C9 6 23 27 26 7" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" />
-      <circle cx="6" cy="25" r="3.6" fill="#DD7448" />
-      <circle cx="26" cy="7" r="3.6" fill="#2D6A5C" />
+      <circle cx="6" cy="25" r="3.6" fill="#C8553D" />
+      <circle cx="26" cy="7" r="3.6" fill="#2F4D7A" />
     </svg>
   );
 }
