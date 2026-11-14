@@ -6,6 +6,7 @@ import { Logo } from '@/components/ui';
 import { adminLogout } from '@/app/actions/admin';
 import { AdminLogin, AdminSetup } from './Forms';
 import { RowActions, StarButton } from './Actions';
+import { Stats } from './Stats';
 
 export const dynamic = 'force-dynamic';
 export const metadata = { title: 'mathing 운영자' };
@@ -23,7 +24,8 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
   if (!(await hasAdmin())) return <div className="narrow"><AdminSetup needsCode={!!process.env.SETUP_CODE} /></div>;
   const admin = await currentAdmin();
   if (!admin) return <div className="narrow"><AdminLogin /></div>;
-  const tab = (await searchParams).tab === 'featured' ? 'featured' : 'reports';
+  const asked = (await searchParams).tab;
+  const tab = asked === 'featured' || asked === 'stats' ? asked : 'reports';
 
   const reported = await q<Row & { reasons: Record<string, number>; n: number }>(
     `select c.id, c.unit_id, c.interest, c.answers, c.concepts, c.free, c.re_answers, c.re_concepts, c.re_free,
@@ -52,11 +54,12 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
           <span className="seg">
             <a href="/admin" className={tab === 'reports' ? 'on' : ''}>신고함 {reported.length}</a>
             <a href="/admin?tab=featured" className={tab === 'featured' ? 'on' : ''}>추천 연결</a>
+            <a href="/admin?tab=stats" className={tab === 'stats' ? 'on' : ''}>합계</a>
           </span>
           <form action={adminLogout}><button className="mini">로그아웃</button></form>
         </div>
         <div className="body">
-          {tab === 'reports' ? (
+          {tab === 'stats' ? <Stats /> : tab === 'reports' ? (
             <>
               <p className="muted" style={{ marginTop: 0 }}>숨겨진 글이 맨 위에 와요. 가입한 지 하루 지난 학생 3명이 신고하면 자동으로 숨겨지고, 새 계정의 신고는 여기에만 쌓여요. 운영자는 별명을 볼 수 있지만 비밀번호·복구 코드는 볼 수 없어요.</p>
               {reported.length === 0 ? <p className="muted">신고된 글이 없어요.</p> : (

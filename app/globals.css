@@ -199,4 +199,10 @@ h2 { font-size: 17px; margin: 22px 0 8px; }
 .admin th { font-size: 12px; color: var(--ink-3); }
 .admin .txt { max-width: 420px; color: var(--ink-2); font-size: 13.5px; white-space: pre-wrap; }
 .admin .btns { display: flex; gap: 6px; flex-wrap: wrap; }
+.admin .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin: 4px 0 22px; }
+.admin .stat { border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; background: var(--paper); }
+.admin .stat .k { font-size: 12px; font-weight: 700; color: var(--ink-3); }
+.admin .stat .v { font-size: 24px; font-weight: 800; color: var(--ink); margin: 4px 0 2px; font-variant-numeric: tabular-nums; }
+.admin .stat .s { font-size: 12.5px; color: var(--ink-2); line-height: 1.5; }
+.admin .stat .s.muted { color: var(--ink-3); margin-top: 4px; }
 .narrow { max-width: 420px; margin: 48px auto; padding: 0 16px; }
