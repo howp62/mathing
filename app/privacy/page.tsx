@@ -2,11 +2,13 @@ import type { Metadata } from 'next';
 import { Plain } from '@/components/ui';
 
 export const metadata: Metadata = { title: '개인정보 처리방침 · mathing' };
+// 연락 메일은 배포 설정(환경 변수)에서 읽는다. 빌드 때 고정되지 않게 요청마다 읽는다
+export const dynamic = 'force-dynamic';
 
-const contact = process.env.PRIVACY_CONTACT || '(운영자 연락 메일을 준비하고 있어요)';
 const effective = '2026년 11월 14일';
 
 export default function PrivacyPage() {
+  const contact = process.env.PRIVACY_CONTACT || '(운영자 연락 메일을 준비하고 있어요)';
   return (
     <Plain>
       <article className="doc">
