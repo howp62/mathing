@@ -3,7 +3,7 @@
   "subject": "공통수학1",
   "unit": "경우의 수",
   "order": 3,
-  "status": "draft",
+  "status": "reviewed",
   "topics": ["합의 법칙과 곱의 법칙", "순열", "조합"],
   "concepts": ["합의 법칙", "곱의 법칙", "한 줄로 세우기(n!)", "순열", "조합", "하나씩 다 세어 보기"],
   "thinkCards": [

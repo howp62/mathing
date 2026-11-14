@@ -3,7 +3,7 @@
   "subject": "공통수학1",
   "unit": "행렬",
   "order": 4,
-  "status": "draft",
+  "status": "reviewed",
   "topics": ["행렬의 뜻", "행렬의 연산"],
   "concepts": ["행렬의 뜻", "(i, j) 성분", "행렬의 덧셈·뺄셈", "행렬의 실수배", "행렬의 곱셈", "숫자를 표로 정리하기"],
   "thinkCards": [

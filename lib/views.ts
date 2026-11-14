@@ -1,7 +1,7 @@
 import 'server-only';
 import { one, q } from './db';
 import { CATALOG, getSet } from './content';
-import { PAGE_SIZE } from './constants';
+import { INTERESTS, PAGE_SIZE } from './constants';
 import type { User } from './auth';
 
 /* 화면마다 필요한 데이터만 골라 만든다. 갤러리 데이터에는 별명·계정 번호가 들어가지 않는다. */
@@ -27,6 +27,14 @@ export function withConcepts(answers: string[], concepts: string[], free: boolea
   a[2] = a[2] ? `${a[2]} (${concepts.join(', ')})` : concepts.join(', ');
   return a;
 }
+
+/**
+ * 다른 학생에게 보이는 관심사 표시. 학생이 직접 쓴 관심사에는 이름 같은 것이 들어갈 수 있어
+ * 기본 15개가 아니면 '기타'로만 보여 준다. 글쓴이 본인과 운영자는 원래 값을 본다.
+ */
+const PRESET: readonly string[] = INTERESTS;
+export const OTHER_TAG = '기타';
+export const publicTag = (interest: string) => (PRESET.includes(interest) ? interest : OTHER_TAG);
 
 export type GalleryPost = {
   id: string;
@@ -55,18 +63,18 @@ export async function galleryPage(user: User, unitId: string, offset: number, fi
     `select c.*, exists (select 1 from likes l where l.connection_id = c.id and l.user_id = $2) as liked
        from connections c join users u on u.id = c.user_id
       where c.unit_id = $1 and c.user_id <> $2 and c.share and not c.hidden and not u.blocked
-        and ($4::text is null or c.interest = $4)
+        and ($4::text is null or ($4 = '기타' and c.interest not in (select jsonb_array_elements_text($7::text::jsonb))) or c.interest = $4)
       order by c.featured desc,
                (c.interest in (select jsonb_array_elements_text($3::text::jsonb))) desc,
                c.updated_at desc, c.id
       limit $5 offset $6`,
-    [unitId, user.id, JSON.stringify(user.interests), filter, PAGE_SIZE + 1, offset],
+    [unitId, user.id, JSON.stringify(user.interests), filter && (filter === OTHER_TAG || PRESET.includes(filter)) ? filter : null, PAGE_SIZE + 1, offset, JSON.stringify(PRESET)],
   );
   const posts: GalleryPost[] = rows.slice(0, PAGE_SIZE).map((c) => ({
-    id: c.id, interest: c.interest, ...shown(c), featured: c.featured, liked: c.liked,
+    id: c.id, interest: publicTag(c.interest), ...shown(c), featured: c.featured, liked: c.liked,
     mine: false, gotLike: false, mineInterest: user.interests.includes(c.interest),
   }));
-  if (offset === 0 && (!filter || filter === mine.interest)) {
+  if (offset === 0 && (!filter || filter === publicTag(mine.interest))) {
     const got = await one('select 1 from likes where connection_id = $1 limit 1', [mine.id]);
     posts.unshift({
       id: mine.id, interest: mine.interest, ...shown(mine), featured: false, liked: false,
@@ -84,7 +92,7 @@ export async function galleryInterests(unitId: string) {
       group by c.interest order by count(*) desc limit 15`,
     [unitId],
   );
-  return rows.map((r) => r.interest);
+  return [...new Set(rows.map((r) => publicTag(r.interest)))];
 }
 
 /** 단원 목록: 열린 단원과 내가 쓴 단원 표시 */

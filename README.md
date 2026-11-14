@@ -18,7 +18,7 @@
 ## 지금 상태
 
 - **재설계 중**(2026년 11월). 요구사항은 [PRD](docs/PRD.md), 화면 구상은 [목업](mockup/index.html)에 있어요.
-- 예시 카드: 공통수학1 4세트, 모두 검수 전이에요. 검수 목록은 [docs/CONTENT-REVIEW.md](docs/CONTENT-REVIEW.md).
+- 예시 카드: 공통수학1 4세트(선생님 검수 완료). 검수 목록은 [docs/CONTENT-REVIEW.md](docs/CONTENT-REVIEW.md).
 
 ## 개인정보와 보안
 

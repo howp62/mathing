@@ -4,8 +4,8 @@ import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 import { one, q } from '@/lib/db';
 import { hashPassword, safeEqual, verifyPassword } from '@/lib/security';
-import { clearAttempts, currentAdmin, endAdminSession, hasAdmin, isUuid, reserveAttempt, startAdminSession } from '@/lib/auth';
-import { allow, clientIp, purgeInactive } from '@/lib/rate';
+import { currentAdmin, endAdminSession, hasAdmin, isUuid, startAdminSession } from '@/lib/auth';
+import { allow, clientIp, forget, purgeInactive } from '@/lib/rate';
 
 export type FormState = { error?: string } | undefined;
 const str = (v: FormDataEntryValue | null) => (typeof v === 'string' ? v.trim() : '');
@@ -35,15 +35,18 @@ export async function setupAdmin(_prev: FormState, form: FormData): Promise<Form
 export async function adminLogin(_prev: FormState, form: FormData): Promise<FormState> {
   const name = str(form.get('name'));
   const password = typeof form.get('password') === 'string' ? (form.get('password') as string) : '';
-  if (!(await allow('admin-login', await clientIp(), 20, 10))) return { error: '시도가 너무 많아요. 잠시 뒤 다시 해 주세요.' };
+  // 잠금은 계정이 아니라 접속한 곳(인터넷 주소)마다 건다. 운영자 이름을 아는 사람이 일부러 틀려도
+  // 자기만 막히고 운영자는 계속 로그인할 수 있다. 한 곳에서 15분에 5번, 10분에 20번까지.
+  const ip = await clientIp();
+  if (!(await allow('admin-login', ip, 20, 10)) || !(await allow('admin-try', ip, 5, 15))) return { error: '여러 번 틀려서 잠시 막혔어요. 15분쯤 뒤에 다시 해 주세요.' };
   const a = await one<{ id: string; password_hash: string; session_version: number }>('select id, password_hash, session_version from admins where name = $1', [name]);
   if (!a) {
     await hashPassword(password);
     return { error: '이름이나 비밀번호가 맞지 않아요.' };
   }
-  if (!(await reserveAttempt('admins', a.id, 15))) return { error: '여러 번 틀려서 15분 동안 잠겼어요.' };
   if (!(await verifyPassword(password, a.password_hash))) return { error: '이름이나 비밀번호가 맞지 않아요.' };
-  await clearAttempts('admins', a.id);
+  // 맞게 들어오면 이 곳의 시도 기록을 지운다
+  await forget('admin-try', ip);
   await startAdminSession(a.id, a.session_version);
   await purgeInactive();
   redirect('/admin');

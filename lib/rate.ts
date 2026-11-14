@@ -25,6 +25,11 @@ export async function allow(kind: string, rawKey: string, limit: number, windowM
   return (row?.n ?? 0) <= limit;
 }
 
+/** 성공한 뒤 그 곳의 시도 기록을 지운다(예: 운영자 로그인 성공) */
+export async function forget(kind: string, rawKey: string) {
+  await q('delete from rate_events where kind = $1 and key = $2', [kind, await keyedHash(`${kind}:${rawKey}`)]);
+}
+
 /** 1년 동안 로그인하지 않은 계정과 그 글을 지운다(글·공감·신고는 함께 지워진다) */
 export async function purgeInactive() {
   await q(`delete from users where last_login_at < now() - interval '1 year'`);
