@@ -41,13 +41,16 @@ export async function saveConnection(input: SaveInput): Promise<{ error?: string
 
   if (input.rewrite) {
     // 다시 쓰면 갤러리에는 새 글이 보이고, 받은 공감은 그대로, 추천은 운영자가 다시 보도록 푼다
-    const row = await one(
+    const row = await one<{ id: string }>(
       `update connections set re_answers = $3::text::jsonb, re_concepts = $4::text::jsonb, re_free = $5,
               share = $6, post = coalesce($7::smallint, post), featured = false, updated_at = now()
         where user_id = $1 and unit_id = $2 returning id`,
       [user.id, set.id, JSON.stringify(answers), JSON.stringify(concepts), free, !!input.share, score(input.post)],
     );
     if (!row) return { error: '처음 쓴 연결을 찾지 못했어.' };
+    // 내용이 바뀌었으니, 운영자가 되살리며 '처리함'으로 둔 예전 신고는 지운다. 그래야 예전에 신고한
+    // 학생도 새 내용을 다시 신고할 수 있다(내용이 그대로면 D6대로 같은 신고로 다시 숨기지 못한다)
+    await q('delete from reports where connection_id = $1 and dismissed', [row.id]);
     return {};
   }
 
@@ -88,7 +91,12 @@ export async function report(connectionId: string, reason: string): Promise<{ er
   const target = await visibleTo(user.id, connectionId);
   if (!target) return { error: '볼 수 없는 글이야.' };
   if (!(await allow('report', user.id, REPORTS_PER_DAY, 24 * 60))) return { error: '오늘은 신고를 많이 했어. 급한 일이면 운영자에게 알려 줘.' };
-  await q('insert into reports (connection_id, user_id, reason) values ($1, $2, $3) on conflict do nothing', [connectionId, user.id, reason]);
+  const added = await one(
+    'insert into reports (connection_id, user_id, reason) values ($1, $2, $3) on conflict do nothing returning 1 as ok',
+    [connectionId, user.id, reason],
+  );
+  // 같은 글을 이미 신고했으면(운영자가 처리한 신고 포함) 새로 기록되지 않으니 사실대로 알려 준다
+  if (!added) return { error: '이미 신고한 글이야. 운영자가 확인했거나 확인할 거야.' };
   // 자동 숨김은 가입한 지 하루가 지난 계정의 신고만 센다(새로 만든 계정 여러 개로 남의 글을 내리는 것을 막음).
   // 운영자가 되살린 글의 예전 신고(dismissed)는 세지 않는다. 그 밖의 신고는 운영자 신고함에 그대로 쌓인다.
   await q(

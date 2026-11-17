@@ -60,6 +60,9 @@ export async function myConnection(userId: string, unitId: string) {
 export async function galleryPage(user: User, unitId: string, offset: number, filter: string | null) {
   const mine = await myConnection(user.id, unitId);
   if (!mine) return null;
+  // 다른 학생 글과 견줄 때는 기본 15개 관심사만 쓴다. 직접 쓴 관심사끼리 같은지는 '내 관심사' 표시나
+  // 순서로도 알려 주지 않는다(D2: 직접 쓴 관심사는 '기타'로만 보임. 같은지 맞혀 보는 데 쓰이지 않게)
+  const mineTags = user.interests.filter((t) => PRESET.includes(t));
   const rows = await q<ConnRow & { liked: boolean }>(
     `select c.*, exists (select 1 from likes l where l.connection_id = c.id and l.user_id = $2) as liked
        from connections c join users u on u.id = c.user_id
@@ -69,11 +72,11 @@ export async function galleryPage(user: User, unitId: string, offset: number, fi
                (c.interest in (select jsonb_array_elements_text($3::text::jsonb))) desc,
                c.updated_at desc, c.id
       limit $5 offset $6`,
-    [unitId, user.id, JSON.stringify(user.interests), filter && (filter === OTHER_TAG || PRESET.includes(filter)) ? filter : null, PAGE_SIZE + 1, offset, JSON.stringify(PRESET)],
+    [unitId, user.id, JSON.stringify(mineTags), filter && (filter === OTHER_TAG || PRESET.includes(filter)) ? filter : null, PAGE_SIZE + 1, offset, JSON.stringify(PRESET)],
   );
   const posts: GalleryPost[] = rows.slice(0, PAGE_SIZE).map((c) => ({
     id: c.id, interest: publicTag(c.interest), ...shown(c), featured: c.featured, liked: c.liked,
-    mine: false, gotLike: false, mineInterest: user.interests.includes(c.interest),
+    mine: false, gotLike: false, mineInterest: mineTags.includes(c.interest),
   }));
   if (offset === 0 && (!filter || filter === publicTag(mine.interest))) {
     const got = await one('select 1 from likes where connection_id = $1 limit 1', [mine.id]);
