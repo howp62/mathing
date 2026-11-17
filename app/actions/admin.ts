@@ -9,7 +9,7 @@ import {
   revealBackupCodes, startAdminPending, startAdminSession,
 } from '@/lib/auth';
 import { allow, clientIp, forget, purgeInactive } from '@/lib/rate';
-import { newTotpSecret, verifyTotp } from '@/lib/totp';
+import { verifyTotp } from '@/lib/totp';
 import { logAdmin } from '@/lib/adminlog';
 
 export type FormState = { error?: string } | undefined;
@@ -24,12 +24,11 @@ async function allowCodeTry() {
 
 /**
  * 비밀번호가 맞은 뒤: 바로 운영자 세션을 주지 않고 10분짜리 대기 표만 준다.
- * 2단계를 아직 안 켰으면 인증 앱에 연결할 비밀값을 만들어 둔다(이미 만들어 둔 게 있으면 그대로 써서 찍어 둔 QR이 계속 통하게).
+ * 2단계를 아직 안 켰으면 대기 표 안에 새 인증 앱 비밀값이 생긴다(lib/auth.ts startAdminPending).
+ * 연결 화면을 연 사실이 남도록 비밀번호 단계 성공도 기록한다.
  */
-async function beginSecondStep(a: { id: string; session_version: number; totp_on: boolean; totp_secret: string | null }) {
-  if (!a.totp_on && !(await openText(a.totp_secret))) {
-    await q('update admins set totp_secret = $2 where id = $1 and not totp_on', [a.id, await sealText(newTotpSecret())]);
-  }
+async function beginSecondStep(a: { id: string; session_version: number; totp_on: boolean }) {
+  await logAdmin('password-ok', { adminId: a.id });
   await startAdminPending(a.id, a.session_version, a.totp_on ? 'code' : 'setup');
 }
 
@@ -62,7 +61,7 @@ export async function setupAdmin(_prev: FormState, form: FormData): Promise<Form
   if (!row) return { error: '이미 운영자가 있어요.' };
   await logAdmin('admin-created', { adminId: row.id });
   // 만들자마자 인증 앱 연결 화면으로 이어진다
-  await beginSecondStep({ id: row.id, session_version: 0, totp_on: false, totp_secret: null });
+  await beginSecondStep({ id: row.id, session_version: 0, totp_on: false });
   redirect('/admin');
 }
 
@@ -73,8 +72,8 @@ export async function adminLogin(_prev: FormState, form: FormData): Promise<Form
   // 자기만 막히고 운영자는 계속 로그인할 수 있다. 한 곳에서 15분에 5번, 10분에 20번까지.
   const ip = await clientIp();
   if (!(await allow('admin-login', ip, 20, 10)) || !(await allow('admin-try', ip, 5, 15))) return { error: '여러 번 틀려서 잠시 막혔어요. 15분쯤 뒤에 다시 해 주세요.' };
-  const a = await one<{ id: string; password_hash: string; session_version: number; totp_on: boolean; totp_secret: string | null }>(
-    'select id, password_hash, session_version, totp_on, totp_secret from admins where name = $1',
+  const a = await one<{ id: string; password_hash: string; session_version: number; totp_on: boolean }>(
+    'select id, password_hash, session_version, totp_on from admins where name = $1',
     [name],
   );
   if (!a) {
@@ -98,7 +97,8 @@ export async function verifyAdminCode(_prev: FormState, form: FormData): Promise
   if (!p) return { error: '확인 시간이 지났어요. 처음부터 다시 로그인해 주세요.' };
   if (!(await allowCodeTry())) return { error: '여러 번 틀려서 잠시 막혔어요. 15분쯤 뒤에 다시 해 주세요.' };
   const input = str(form.get('code'));
-  const secret = await openText(p.totp_secret);
+  // 처음 연결이면 이 대기 표의 비밀값, 이미 켜져 있으면 DB에 저장된 비밀값으로 확인한다
+  const secret = p.stage === 'setup' ? p.setup_secret : await openText(p.totp_secret);
   if (!secret) return { error: '인증 앱 정보를 읽지 못했어요. 처음부터 다시 로그인해 주세요.' };
   const step = verifyTotp(secret, input, Date.now(), p.last_step);
 
@@ -109,10 +109,11 @@ export async function verifyAdminCode(_prev: FormState, form: FormData): Promise
     }
     const codes = makeBackupCodes();
     const hashes = await Promise.all(codes.map(hashBackupCode));
+    // 연결을 마치는 이 순간에만 비밀값을 DB에 저장한다(이 대기 표에서 본 값만 쓰인다)
     const row = await one(
-      `update admins set totp_on = true, totp_on_at = now(), totp_last_step = $2, backup_hashes = $3::text::jsonb
+      `update admins set totp_secret = $5, totp_on = true, totp_on_at = now(), totp_last_step = $2, backup_hashes = $3::text::jsonb
         where id = $1 and not totp_on and session_version = $4 returning id`,
-      [p.id, step, JSON.stringify(hashes), p.session_version],
+      [p.id, step, JSON.stringify(hashes), p.session_version, await sealText(secret)],
     );
     if (!row) return { error: '이미 처리됐어요. 처음부터 다시 로그인해 주세요.' };
     await logAdmin('totp-on', { adminId: p.id });
@@ -209,11 +210,12 @@ export async function relinkTotp(_prev: FormState, form: FormData): Promise<Form
   const a = await one<{ password_hash: string }>('select password_hash from admins where id = $1', [admin.id]);
   if (!a || !(await verifyPassword(raw(form.get('password')), a.password_hash))) return { error: '비밀번호가 맞지 않아요.' };
   await forget('admin-try', ip);
+  // 예전 비밀값은 지우고, 새 비밀값은 아래 대기 표 안에서만 만든다(연결을 마칠 때 저장)
   const row = await one<{ session_version: number }>(
-    `update admins set totp_on = false, totp_on_at = null, totp_secret = $2, totp_last_step = 0, backup_hashes = '[]'::jsonb,
+    `update admins set totp_on = false, totp_on_at = null, totp_secret = null, totp_last_step = 0, backup_hashes = '[]'::jsonb,
             session_version = session_version + 1
       where id = $1 returning session_version`,
-    [admin.id, await sealText(newTotpSecret())],
+    [admin.id],
   );
   await logAdmin('totp-reset', { adminId: admin.id });
   await endAdminSession();

@@ -8,6 +8,7 @@ import { clientIp } from './rate';
  */
 export const ADMIN_ACTIONS = {
   'login-fail': '로그인 실패(비밀번호)',
+  'password-ok': '비밀번호 맞음(2단계 전)',
   'code-fail': '로그인 실패(2단계 코드)',
   login: '로그인(인증 앱)',
   'login-backup': '로그인(예비 코드)',

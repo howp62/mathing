@@ -3,6 +3,7 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { one, q } from './db';
 import { openText, readToken, sealText, signToken } from './security';
+import { newTotpSecret } from './totp';
 
 const USER_COOKIE = 'm_u';
 const ADMIN_COOKIE = 'm_a';
@@ -75,20 +76,29 @@ export async function currentAdmin(): Promise<Admin | null> {
   return one<Admin>('select id, name from admins where id = $1 and session_version = $2 and totp_on', [payload.a, payload.v]);
 }
 
-/* ---------- 운영자 2단계: 비밀번호 다음 10분 동안만 쓰는 '대기' 표 ---------- */
+/* ---------- 운영자 2단계: 비밀번호 다음 10분 동안만 쓰는 '대기' 표(암호화한 쿠키) ---------- */
 
 const ADMIN_PENDING_COOKIE = 'm_ap';
 const PENDING_TTL = 10 * 60 * 1000;
+const TOTP_SECRET_RE = /^[A-Z2-7]{32}$/;
 export type PendingStage = 'setup' | 'code';
 export type AdminPending = {
   id: string; name: string; stage: PendingStage; session_version: number;
-  totp_secret: string | null; last_step: number;
+  /** setup 단계: 이 대기 표에서만 쓰는 새 인증 앱 비밀값 */
+  setup_secret: string | null;
+  /** code 단계: DB에 저장된 인증 앱 비밀값(암호문) */
+  totp_secret: string | null;
+  last_step: number;
 };
 
-/** 비밀번호가 맞았을 때. setup = 인증 앱을 처음 연결, code = 6자리(또는 예비 코드) 입력 */
+/**
+ * 비밀번호가 맞았을 때. setup = 인증 앱을 처음 연결, code = 6자리(또는 예비 코드) 입력.
+ * setup 이면 대기 표마다 새 비밀값을 만들어 이 표 안에만 암호화해 둔다. DB에는 연결을 마칠 때에만 저장한다.
+ * 그래서 비밀번호로 연결 화면을 엿보고 그만둔 사람이 본 값은 나중의 실제 연결에 쓰이지 않는다.
+ */
 export async function startAdminPending(adminId: string, version: number, stage: PendingStage) {
-  const token = await signToken({ p: adminId, v: version, s: stage, exp: Date.now() + PENDING_TTL });
-  (await cookies()).set(ADMIN_PENDING_COOKIE, token, { httpOnly: true, sameSite: 'strict', secure, path: '/', maxAge: PENDING_TTL / 1000 });
+  const ticket = { p: adminId, v: version, s: stage, k: stage === 'setup' ? newTotpSecret() : null, exp: Date.now() + PENDING_TTL };
+  (await cookies()).set(ADMIN_PENDING_COOKIE, await sealText(JSON.stringify(ticket)), { httpOnly: true, sameSite: 'strict', secure, path: '/', maxAge: PENDING_TTL / 1000 });
 }
 
 export async function endAdminPending() {
@@ -97,15 +107,22 @@ export async function endAdminPending() {
 
 /** 대기 표가 유효하고, 그 사이 계정 상태(세션 버전, 2단계 켜짐)가 바뀌지 않았을 때만 */
 export async function currentAdminPending(): Promise<AdminPending | null> {
-  const token = (await cookies()).get(ADMIN_PENDING_COOKIE)?.value;
-  const payload = await readToken<{ p: string; v: number; s: string; exp: number }>(token);
-  if (!payload || !isUuid(payload.p) || typeof payload.v !== 'number' || (payload.s !== 'setup' && payload.s !== 'code')) return null;
+  const plain = await openText((await cookies()).get(ADMIN_PENDING_COOKIE)?.value);
+  if (!plain) return null;
+  let t: { p?: unknown; v?: unknown; s?: unknown; k?: unknown; exp?: unknown };
+  try { t = JSON.parse(plain); } catch { return null; }
+  if (!isUuid(t.p) || typeof t.v !== 'number' || typeof t.exp !== 'number' || t.exp < Date.now()) return null;
+  if (t.s !== 'setup' && t.s !== 'code') return null;
+  if (t.s === 'setup' && !(typeof t.k === 'string' && TOTP_SECRET_RE.test(t.k))) return null;
   const row = await one<{ id: string; name: string; session_version: number; totp_on: boolean; totp_secret: string | null; last_step: number }>(
     'select id, name, session_version, totp_on, totp_secret, totp_last_step::float8 as last_step from admins where id = $1 and session_version = $2',
-    [payload.p, payload.v],
+    [t.p, t.v],
   );
-  if (!row || row.totp_on !== (payload.s === 'code')) return null;
-  return { id: row.id, name: row.name, stage: payload.s, session_version: row.session_version, totp_secret: row.totp_secret, last_step: row.last_step };
+  if (!row || row.totp_on !== (t.s === 'code')) return null;
+  return {
+    id: row.id, name: row.name, stage: t.s, session_version: row.session_version,
+    setup_secret: t.s === 'setup' ? (t.k as string) : null, totp_secret: row.totp_secret, last_step: row.last_step,
+  };
 }
 
 /* ---------- 새 예비 코드를 한 번 보여 주기: 암호화해 10분만 두고, 그 운영자만 열 수 있다 ---------- */

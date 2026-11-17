@@ -98,9 +98,12 @@ export async function openText(sealed: string | null | undefined): Promise<strin
   if (!sealed) return null;
   const [v, iv, tag, body] = sealed.split('.');
   if (v !== 'v1' || !iv || !tag || !body) return null;
+  // 브라우저가 보내는 쿠키도 이 함수로 열므로, 인증 태그 길이를 16바이트로 고정해 짧은 태그를 받지 않는다
+  const tagBuf = Buffer.from(tag, 'base64url');
+  if (tagBuf.length !== 16) return null;
   try {
-    const decipher = crypto.createDecipheriv('aes-256-gcm', await sealKey(), Buffer.from(iv, 'base64url'));
-    decipher.setAuthTag(Buffer.from(tag, 'base64url'));
+    const decipher = crypto.createDecipheriv('aes-256-gcm', await sealKey(), Buffer.from(iv, 'base64url'), { authTagLength: 16 });
+    decipher.setAuthTag(tagBuf);
     return Buffer.concat([decipher.update(Buffer.from(body, 'base64url')), decipher.final()]).toString('utf8');
   } catch {
     return null;

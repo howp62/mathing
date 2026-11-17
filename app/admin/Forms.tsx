@@ -47,6 +47,7 @@ export function AdminTotpSetup({ qr, secretKey }: { qr: string; secretKey: strin
         <li>찍을 수 없으면 &lsquo;설정 키 입력&rsquo;으로 아래 키를 넣어요.</li>
         <li>앱에 생긴 <b>mathing</b>의 6자리를 넣으면 끝이에요.</li>
       </ol>
+      <p className="muted" style={{ margin: '0 0 8px' }}>이 QR은 이번 로그인에서 10분 동안만 쓸 수 있어요. 시간이 지나면 다시 로그인해서 새 QR로 연결해 주세요.</p>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img className="qr" src={qr} alt="인증 앱 연결용 QR 코드" width={208} height={208} />
       <div className="secret-key" aria-label="설정 키">{secretKey}</div>

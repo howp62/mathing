@@ -1,6 +1,5 @@
 import { renderSVG } from 'uqr';
 import { currentAdmin, currentAdminPending, hasAdmin, readBackupCodes } from '@/lib/auth';
-import { openText } from '@/lib/security';
 import { otpauthUri } from '@/lib/totp';
 import { q } from '@/lib/db';
 import { getSet } from '@/lib/content';
@@ -31,7 +30,8 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
     // 비밀번호는 맞았고 2단계를 기다리는 중이면 그 단계 화면
     const pending = await currentAdminPending();
     if (pending?.stage === 'setup') {
-      const secret = await openText(pending.totp_secret);
+      // 이 대기 표에서만 쓰는 새 비밀값(DB 값이 아님)
+      const secret = pending.setup_secret;
       if (secret) {
         const qr = `data:image/svg+xml;base64,${Buffer.from(renderSVG(otpauthUri(pending.name, secret))).toString('base64')}`;
         return <div className="narrow"><AdminTotpSetup qr={qr} secretKey={secret.match(/.{1,4}/g)!.join(' ')} /></div>;
