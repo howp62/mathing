@@ -28,6 +28,17 @@
 
 보안 문제를 발견하면 공개 이슈 대신 이 저장소의 **Security → Report a vulnerability**로 알려 주세요.
 
+## 운영자 2단계 초기화
+
+운영자 화면은 비밀번호 다음에 휴대폰 인증 앱의 6자리를 한 번 더 확인해요. 휴대폰을 바꿨다면 운영자 화면의 **기록 → 인증 앱 다시 연결**을 쓰고, 휴대폰이 없으면 예비 코드로 들어갈 수 있어요.
+
+휴대폰과 예비 코드를 **모두** 잃었을 때만, Supabase 대시보드의 SQL Editor에서 아래를 실행한 뒤 다시 로그인하면 인증 앱 연결 화면이 나와요. 모든 운영자 로그인이 끊기고, 이 일은 기록에 "인증 앱 다시 연결"로 남지 않으니 직접 메모해 두세요.
+
+```sql
+update admins set totp_on = false, totp_on_at = null, totp_secret = null, totp_last_step = 0,
+  backup_hashes = '[]', session_version = session_version + 1;
+```
+
 ## 라이선스
 
 - 앱 코드: [MIT](LICENSE)

@@ -79,6 +79,34 @@ export async function keyedHash(value: string): Promise<string> {
   return crypto.createHmac('sha256', await getServerSecret()).update(value).digest('base64url').slice(0, 32);
 }
 
+/* ---------- 되돌려 읽어야 하는 비밀(운영자 인증 앱 비밀값): 암호화해서 저장 ---------- */
+async function sealKey(): Promise<Buffer> {
+  // 서버 비밀값에서 이 용도만의 열쇠를 따로 만든다
+  return crypto.createHmac('sha256', await getServerSecret()).update('mathing:seal:v1').digest();
+}
+
+/** AES-256-GCM으로 암호화. 저장 형식: v1.<iv>.<tag>.<암호문> */
+export async function sealText(plain: string): Promise<string> {
+  const iv = crypto.randomBytes(12);
+  const cipher = crypto.createCipheriv('aes-256-gcm', await sealKey(), iv);
+  const body = Buffer.concat([cipher.update(plain, 'utf8'), cipher.final()]);
+  return ['v1', iv.toString('base64url'), cipher.getAuthTag().toString('base64url'), body.toString('base64url')].join('.');
+}
+
+/** 암호를 풀고, 누가 바꿨거나 형식이 다르면 null */
+export async function openText(sealed: string | null | undefined): Promise<string | null> {
+  if (!sealed) return null;
+  const [v, iv, tag, body] = sealed.split('.');
+  if (v !== 'v1' || !iv || !tag || !body) return null;
+  try {
+    const decipher = crypto.createDecipheriv('aes-256-gcm', await sealKey(), Buffer.from(iv, 'base64url'));
+    decipher.setAuthTag(Buffer.from(tag, 'base64url'));
+    return Buffer.concat([decipher.update(Buffer.from(body, 'base64url')), decipher.final()]).toString('utf8');
+  } catch {
+    return null;
+  }
+}
+
 /* ---------- 복구 코드: 헷갈리는 글자(0/O, 1/I/L)는 뺀다 ---------- */
 const CODE_ALPHABET = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
 export function makeRecoveryCode(): string {
@@ -89,4 +117,14 @@ export function makeRecoveryCode(): string {
 export function normalizeRecoveryCode(input: string): string {
   const c = input.toUpperCase().replace(/[^A-Z0-9]/g, '');
   return c.length === 12 ? `${c.slice(0, 4)}-${c.slice(4, 8)}-${c.slice(8, 12)}` : '';
+}
+
+/* ---------- 운영자 예비 코드: 인증 앱을 못 쓸 때 한 번씩만 ---------- */
+export const BACKUP_CODE_COUNT = 10;
+export function makeBackupCodes(): string[] {
+  return Array.from({ length: BACKUP_CODE_COUNT }, () => makeRecoveryCode());
+}
+/** 예비 코드는 섞은 값만 저장한다(무작위 12글자라 서버 비밀값으로 섞으면 충분) */
+export async function hashBackupCode(code: string): Promise<string> {
+  return keyedHash(`backup:${normalizeRecoveryCode(code)}`);
 }

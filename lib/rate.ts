@@ -33,4 +33,6 @@ export async function forget(kind: string, rawKey: string) {
 /** 1년 동안 로그인하지 않은 계정과 그 글을 지운다(글·공감·신고는 함께 지워진다) */
 export async function purgeInactive() {
   await q(`delete from users where last_login_at < now() - interval '1 year'`);
+  // 운영자 활동 기록은 2년 보관한다(접속기록 법정 최소 1년보다 넉넉히)
+  await q(`delete from admin_log where at < now() - interval '2 years'`);
 }

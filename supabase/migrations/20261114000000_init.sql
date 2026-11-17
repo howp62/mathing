@@ -95,3 +95,24 @@ alter table reports enable row level security;
 alter table admins enable row level security;
 alter table rate_events enable row level security;
 -- 배열 값은 jsonb로 둔다. postgres.js로 보낼 때는 JSON 문자열을 $n::text::jsonb 로 바꾼다(tasks/lessons.md).
+
+-- 운영자 2단계 인증(인증 앱 6자리). 비밀값은 서버에서 암호화해 넣고, 예비 코드는 섞은 값만 둔다
+alter table admins add column if not exists totp_secret text;
+alter table admins add column if not exists totp_on boolean not null default false;
+alter table admins add column if not exists totp_on_at timestamptz;
+alter table admins add column if not exists totp_last_step bigint not null default 0;
+alter table admins add column if not exists backup_hashes jsonb not null default '[]';
+
+-- 운영자 활동 기록: 접속(로그인·로그아웃·2단계)과 바꾼 것(숨기기·막기·추천). 2년 보관.
+-- 글·계정이 지워져도 기록은 남도록 외래 키를 두지 않는다(별명 같은 내용은 적지 않고 번호만 둔다)
+create table if not exists admin_log (
+  id bigserial primary key,
+  admin_id uuid,
+  action text not null,
+  target_connection uuid,
+  target_user uuid,
+  ip text,
+  at timestamptz not null default now()
+);
+create index if not exists admin_log_at_idx on admin_log (at desc);
+alter table admin_log enable row level security;

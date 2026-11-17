@@ -1,10 +1,14 @@
-import { currentAdmin, hasAdmin } from '@/lib/auth';
+import { renderSVG } from 'uqr';
+import { currentAdmin, currentAdminPending, hasAdmin, readBackupCodes } from '@/lib/auth';
+import { openText } from '@/lib/security';
+import { otpauthUri } from '@/lib/totp';
 import { q } from '@/lib/db';
 import { getSet } from '@/lib/content';
 import { withConcepts } from '@/lib/views';
 import { Logo } from '@/components/ui';
 import { adminLogout } from '@/app/actions/admin';
-import { AdminLogin, AdminSetup } from './Forms';
+import { AdminCode, AdminLogin, AdminSetup, AdminTotpSetup, BackupCodes } from './Forms';
+import { AdminLogView } from './Log';
 import { RowActions, StarButton } from './Actions';
 import { Stats } from './Stats';
 
@@ -23,9 +27,24 @@ const unitName = (id: string) => getSet(id)?.unit ?? id;
 export default async function AdminPage({ searchParams }: { searchParams: Promise<{ tab?: string }> }) {
   if (!(await hasAdmin())) return <div className="narrow"><AdminSetup needsCode={!!process.env.SETUP_CODE} /></div>;
   const admin = await currentAdmin();
-  if (!admin) return <div className="narrow"><AdminLogin /></div>;
+  if (!admin) {
+    // 비밀번호는 맞았고 2단계를 기다리는 중이면 그 단계 화면
+    const pending = await currentAdminPending();
+    if (pending?.stage === 'setup') {
+      const secret = await openText(pending.totp_secret);
+      if (secret) {
+        const qr = `data:image/svg+xml;base64,${Buffer.from(renderSVG(otpauthUri(pending.name, secret))).toString('base64')}`;
+        return <div className="narrow"><AdminTotpSetup qr={qr} secretKey={secret.match(/.{1,4}/g)!.join(' ')} /></div>;
+      }
+    }
+    if (pending?.stage === 'code') return <div className="narrow"><AdminCode /></div>;
+    return <div className="narrow"><AdminLogin /></div>;
+  }
+  // 새로 만든 예비 코드가 있으면 먼저 보여 준다(적어 두었다고 누를 때까지)
+  const backup = await readBackupCodes(admin.id);
+  if (backup) return <div className="narrow"><BackupCodes codes={backup} /></div>;
   const asked = (await searchParams).tab;
-  const tab = asked === 'featured' || asked === 'stats' ? asked : 'reports';
+  const tab = asked === 'featured' || asked === 'stats' || asked === 'log' ? asked : 'reports';
 
   const reported = await q<Row & { reasons: Record<string, number>; n: number }>(
     `select c.id, c.unit_id, c.interest, c.answers, c.concepts, c.free, c.re_answers, c.re_concepts, c.re_free,
@@ -55,11 +74,12 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
             <a href="/admin" className={tab === 'reports' ? 'on' : ''}>신고함 {reported.length}</a>
             <a href="/admin?tab=featured" className={tab === 'featured' ? 'on' : ''}>추천 연결</a>
             <a href="/admin?tab=stats" className={tab === 'stats' ? 'on' : ''}>합계</a>
+            <a href="/admin?tab=log" className={tab === 'log' ? 'on' : ''}>기록</a>
           </span>
           <form action={adminLogout}><button className="mini">로그아웃</button></form>
         </div>
         <div className="body">
-          {tab === 'stats' ? <Stats /> : tab === 'reports' ? (
+          {tab === 'log' ? <AdminLogView adminId={admin.id} /> : tab === 'stats' ? <Stats /> : tab === 'reports' ? (
             <>
               <p className="muted" style={{ marginTop: 0 }}>숨겨진 글이 맨 위에 와요. 가입한 지 하루 지난 학생 3명이 신고하면 자동으로 숨겨지고, 새 계정의 신고는 여기에만 쌓여요. 운영자는 별명을 볼 수 있지만 비밀번호·복구 코드는 볼 수 없어요.</p>
               {reported.length === 0 ? <p className="muted">신고된 글이 없어요.</p> : (
