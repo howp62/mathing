@@ -1,12 +1,13 @@
 'use client';
-import { useEffect, useMemo, useRef, useState, useTransition } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState, useTransition, type ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
 import { saveProfile } from '@/app/actions/account';
 import { saveConnection } from '@/app/actions/connect';
 import { ExampleCardView, Rows } from '@/components/ui';
-import { INTERESTS, MAX_ANSWER, STEP_QUESTIONS, josa, type ExampleCard } from '@/lib/constants';
+import { FRAME_BLANK, FREE_FRAMES, INTERESTS, MAX_ANSWER, STEP_QUESTIONS, josa, type ExampleCard } from '@/lib/constants';
 
-type SetData = { id: string; subject: string; unit: string; concepts: string[]; thinkCards: string[]; examples: ExampleCard[] };
+/** interestPrompts: 관심사 맞춤 생각 열기 질문. 서버가 검수 상태를 보고 공개할 것만 넘긴다 */
+type SetData = { id: string; subject: string; unit: string; concepts: string[]; thinkCards: string[]; interestPrompts: Record<string, string>; examples: ExampleCard[] };
 type Profile = { interests: string[]; career: string; careerUnknown: boolean };
 type Rewrite = { answers: string[]; free: boolean; concepts: string[]; share: boolean; interest: string } | null;
 type Step = 'pre' | 'intro' | 'interests' | 'examples' | 'think' | 'write' | 'save';
@@ -83,10 +84,52 @@ export function UnitFlow({ set, profile, rewrite, userKey }: { set: SetData; pro
     return matched.length ? { cards: matched.slice(0, 3), none: false } : { cards: notIntro.slice(0, 3), none: true };
   }, [interests, set.examples]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // 생각 열기: 고른 관심사의 맞춤 질문(최대 3개)을 먼저, 이어서 단원 공통 질문
+  const thinkList = useMemo(() => [
+    ...interests.filter((t) => set.interestPrompts[t]).slice(0, 3).map((t) => ({ mine: `${josa(t, '을/를')} 고른 너에게` as string | null, text: set.interestPrompts[t] })),
+    ...set.thinkCards.map((text) => ({ mine: null as string | null, text })),
+  ], [interests, set.interestPrompts, set.thinkCards]);
+  const ti = Math.min(thinkI, thinkList.length - 1);
+  const hasMine = thinkList.some((t) => t.mine);
+
   const finalAnswers = free ? [freeText] : answers;
   const hasText = finalAnswers.join('').trim().length > 0;
 
   const toggle = (list: string[], v: string) => (list.includes(v) ? list.filter((x) => x !== v) : [...list, v]);
+
+  // 문장 틀: 칸 끝에 붙이고 첫 빈칸을 선택해 바로 타이핑하면 채워지게 한다. slot 0~2는 3단계 칸, 3은 자유 쓰기 칸
+  const areas = useRef<(HTMLTextAreaElement | null)[]>([]);
+  // 넣은 틀의 빈칸 위치. 화면에 새 글이 그려진 바로 뒤에 그 칸을 골라 둔다
+  const pendingSel = useRef<{ slot: number; start: number; end: number } | null>(null);
+  useLayoutEffect(() => {
+    const p = pendingSel.current;
+    if (!p) return;
+    pendingSel.current = null;
+    const ta = areas.current[p.slot];
+    if (!ta) return;
+    ta.focus();
+    ta.setSelectionRange(p.start, p.end);
+  });
+  const insertFrame = (slot: number, frame: string) => {
+    const cur = slot === 3 ? freeText : answers[slot];
+    const sep = cur && !/\s$/.test(cur) ? ' ' : '';
+    const next = cur + sep + frame;
+    if (next.length > MAX_ANSWER) return;
+    if (slot === 3) setFreeText(next);
+    else setAnswers(answers.map((a, j) => (j === slot ? next : a)));
+    const at = cur.length + sep.length + frame.indexOf(FRAME_BLANK);
+    pendingSel.current = frame.includes(FRAME_BLANK) ? { slot, start: at, end: at + FRAME_BLANK.length } : { slot, start: next.length, end: next.length };
+  };
+  const frames = (slot: number, list: readonly string[]) => (
+    <div className="frames" role="group" aria-label="문장 틀">
+      <span className="lbl">이렇게 시작해 봐</span>
+      {list.map((f) => <button key={f} type="button" onClick={() => insertFrame(slot, f)}>{f.split(FRAME_BLANK).join('…')}</button>)}
+    </div>
+  );
+  const finishWriting = () => {
+    if (finalAnswers.some((a) => a.includes(FRAME_BLANK))) return setError(`아직 채우지 않은 빈칸 ${FRAME_BLANK}이 있어. 채우거나 지워 줘.`);
+    go('save');
+  };
 
   const submitProfile = () => start(async () => {
     const res = await saveProfile({ interests, career, careerUnknown: unknown });
@@ -124,6 +167,30 @@ export function UnitFlow({ set, profile, rewrite, userKey }: { set: SetData; pro
     </>
   );
   const err = error && <p className="msg err" role="alert">{error}</p>;
+  // 아래쪽 버튼 줄: 이전 단계로 가는 버튼(어디로 가는지 이름까지)과 이 단계의 버튼. 쓰던 글은 그대로 남는다
+  const foot = (children: ReactNode) => (
+    <div className="foot">
+      {back ? (
+        <div className="foot-row">
+          <button type="button" className="btn prev" onClick={() => go(back)} aria-label={`이전 단계: ${STEP_NAMES[back]}`}>
+            <span aria-hidden="true">‹ 이전</span><small aria-hidden="true">{STEP_NAMES[back]}</small>
+          </button>
+          <div className="main">{children}</div>
+        </div>
+      ) : children}
+    </div>
+  );
+  const recall = (
+    <details className="recall">
+      <summary>막혔어? 예시·질문 다시 보기<small>예시 카드 하나를 골라 내 말로 바꿔 써도 돼.</small></summary>
+      <div className="in">
+        <h3>{picked.none ? '예시 카드' : '네 관심사 예시'}</h3>
+        <div className="deck">{picked.cards.map((e) => <ExampleCardView key={e.id} card={e} />)}</div>
+        <h3>생각 열기 질문</h3>
+        <ol>{thinkList.map((t, i) => <li key={i}>{t.mine && <b>{t.mine}</b>}{t.text}</li>)}</ol>
+      </div>
+    </details>
+  );
 
   if (step === 'pre') return (
     <div>{header}
@@ -141,9 +208,9 @@ export function UnitFlow({ set, profile, rewrite, userKey }: { set: SetData; pro
   if (step === 'intro') return (
     <div>{header}
       <h1>{set.unit}{josa(set.unit, '은/는').slice(set.unit.length)} 어디서 나올까?</h1>
-      <p className="sub">옆으로 넘겨 봐.</p>
+      <p className="sub">아래로 내려 봐.</p>
       <div className="deck">{intro.map((e) => <ExampleCardView key={e.id} card={e} />)}</div>
-      <div className="foot"><button className="btn" onClick={() => go('interests')}>다음</button></div>
+      {foot(<button className="btn" onClick={() => go('interests')}>다음</button>)}
     </div>
   );
 
@@ -156,10 +223,10 @@ export function UnitFlow({ set, profile, rewrite, userKey }: { set: SetData; pro
           <div className="chips">{interests.map((t) => <span key={t} className="chip on">{t}</span>)}</div>
           <p className="muted" style={{ margin: '10px 0 0' }}>진로: {unknown ? '아직 몰라요' : career || '안 적음'}</p>
         </div>
-        <div className="foot">
+        {foot(<>
           <button className="btn" onClick={() => go('examples')}>이대로 갈래</button>
           <button className="btn ghost" onClick={() => setEditProfile(true)}>바꿀래</button>
-        </div>
+        </>)}
       </div>
     );
     const customs = interests.filter((t) => !(INTERESTS as readonly string[]).includes(t));
@@ -180,7 +247,7 @@ export function UnitFlow({ set, profile, rewrite, userKey }: { set: SetData; pro
         <div className="field"><input aria-label="진로" value={career} maxLength={40} disabled={unknown} placeholder="예: 게임 기획자, 간호사, 건축가" onChange={(e) => setCareer(e.target.value)} /></div>
         <label className="check"><input type="checkbox" checked={unknown} onChange={(e) => setUnknown(e.target.checked)} /><span>아직 몰라요 (괜찮아!)</span></label>
         {err}
-        <div className="foot"><button className="btn" disabled={!interests.length || pending} onClick={submitProfile}>{pending ? '저장 중…' : '다음'}</button></div>
+        {foot(<button className="btn" disabled={!interests.length || pending} onClick={submitProfile}>{pending ? '저장 중…' : '다음'}</button>)}
       </div>
     );
   }
@@ -190,20 +257,22 @@ export function UnitFlow({ set, profile, rewrite, userKey }: { set: SetData; pro
       <h1>네 관심사로 보면</h1>
       <p className="sub">{picked.none ? <>아직 네 관심사에 맞는 카드가 없어. <b>네가 첫 번째로 연결해 볼래?</b> 대신 다른 예시를 보여 줄게.</> : `${interests.join(', ')}에서 찾은 예시야.`}</p>
       <div className="deck">{picked.cards.map((e) => <ExampleCardView key={e.id} card={e} />)}</div>
-      <div className="foot"><button className="btn" onClick={() => go('think')}>다음</button></div>
+      {foot(<button className="btn" onClick={() => go('think')}>다음</button>)}
     </div>
   );
 
   if (step === 'think') return (
     <div>{header}
       <h1>생각을 열어 보자</h1>
-      <p className="sub">질문을 넘기면서 떠오르는 장면을 찾아 봐.</p>
-      <div className="card think" aria-live="polite"><small>생각 열기 {thinkI + 1} / {set.thinkCards.length}</small>{set.thinkCards[thinkI]}</div>
-      <div className="row-btns" style={{ marginTop: 12 }}>
-        <button className="btn ghost" disabled={thinkI === 0} onClick={() => setThinkI(thinkI - 1)}>‹ 이전</button>
-        <button className="btn ghost" disabled={thinkI >= set.thinkCards.length - 1} onClick={() => setThinkI(thinkI + 1)}>다음 질문 ›</button>
+      <p className="sub">{hasMine ? '네 관심사에 맞춘 질문부터 볼게. 넘기면서 떠오르는 장면을 찾아 봐.' : '질문을 넘기면서 떠오르는 장면을 찾아 봐.'}</p>
+      <div className="card think" aria-live="polite">
+        <small className={thinkList[ti].mine ? 'mine' : ''}>{thinkList[ti].mine ?? '생각 열기'} · {ti + 1} / {thinkList.length}</small>{thinkList[ti].text}
       </div>
-      <div className="foot"><button className="btn" onClick={() => go('write')}>떠올랐어, 쓰러 가기</button></div>
+      <div className="row-btns" style={{ marginTop: 12 }}>
+        <button className="btn ghost" disabled={ti === 0} onClick={() => setThinkI(ti - 1)}>‹ 이전 질문</button>
+        <button className="btn ghost" disabled={ti >= thinkList.length - 1} onClick={() => setThinkI(ti + 1)}>다음 질문 ›</button>
+      </div>
+      {foot(<button className="btn" onClick={() => go('write')}>떠올랐어, 쓰러 가기</button>)}
     </div>
   );
 
@@ -211,6 +280,7 @@ export function UnitFlow({ set, profile, rewrite, userKey }: { set: SetData; pro
     <div>{header}
       <h1>{rewrite ? '배우고 나서 다시 써 보자' : '나만의 연결 쓰기'}</h1>
       {rewrite && <p className="sub">처음 쓴 글을 불러왔어. 더 구체적으로 고쳐 봐. 처음 연결은 노트에 그대로 남아.</p>}
+      {recall}
       <div className="chips" role="group" aria-label="쓰는 방식">
         <button type="button" className={`chip sm ${!free ? 'on' : ''}`} aria-pressed={!free} onClick={() => setFree(false)}>3단계로</button>
         <button type="button" className={`chip sm ${free ? 'on' : ''}`} aria-pressed={free} onClick={() => setFree(true)}>한 칸에 자유롭게</button>
@@ -223,16 +293,19 @@ export function UnitFlow({ set, profile, rewrite, userKey }: { set: SetData; pro
               {set.concepts.map((c) => <button key={c} type="button" className={`chip sm ${concepts.includes(c) ? 'on' : ''}`} aria-pressed={concepts.includes(c)} onClick={() => setConcepts(toggle(concepts, c))}>{c}</button>)}
             </div>
           )}
-          <div className="field"><textarea aria-label={sq.q} maxLength={MAX_ANSWER} placeholder={sq.ph} value={answers[i]} onChange={(e) => setAnswers(answers.map((a, j) => (j === i ? e.target.value : a)))} /></div>
+          {frames(i, sq.frames)}
+          <div className="field"><textarea ref={(el) => { areas.current[i] = el; }} aria-label={sq.q} maxLength={MAX_ANSWER} placeholder={sq.ph} value={answers[i]} onChange={(e) => setAnswers(answers.map((a, j) => (j === i ? e.target.value : a)))} /></div>
         </div>
       )) : (
         <>
           <div className="stepq"><div className="q">{set.unit}{josa(set.unit, '과/와').slice(set.unit.length)} 네 관심사가 어떻게 이어지는지 자유롭게 써 봐.</div><div className="s">한두 문장이어도 충분해.</div></div>
-          <div className="field"><textarea aria-label="자유롭게 쓰기" maxLength={MAX_ANSWER} style={{ minHeight: 160 }} value={freeText} onChange={(e) => setFreeText(e.target.value)} /></div>
+          {frames(3, FREE_FRAMES)}
+          <div className="field"><textarea ref={(el) => { areas.current[3] = el; }} aria-label="자유롭게 쓰기" maxLength={MAX_ANSWER} style={{ minHeight: 160 }} value={freeText} onChange={(e) => setFreeText(e.target.value)} /></div>
         </>
       )}
       <p className="muted">쓰던 글은 이 기기에 잠깐 보관돼. 로그아웃하면 지워져.</p>
-      <div className="foot"><button className="btn" disabled={!hasText} onClick={() => go('save')}>다 썼어</button></div>
+      {err}
+      {foot(<button className="btn" disabled={!hasText} onClick={finishWriting}>다 썼어</button>)}
     </div>
   );
 
@@ -255,7 +328,7 @@ export function UnitFlow({ set, profile, rewrite, userKey }: { set: SetData; pro
       <h2>다 쓰고 나니, &ldquo;{set.unit}&rdquo;{unitJ.slice(set.unit.length)} 나와 관련 있다고 느껴?</h2>
       <Scale value={post} onChange={setPost} />
       {err}
-      <div className="foot"><button className="btn" disabled={pending} onClick={submit}>{pending ? '저장 중…' : '저장하기'}</button></div>
+      {foot(<button className="btn" disabled={pending} onClick={submit}>{pending ? '저장 중…' : '저장하기'}</button>)}
     </div>
   );
 }

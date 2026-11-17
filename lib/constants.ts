@@ -2,13 +2,20 @@ export const INTERESTS = [
   '게임', '음악', '스포츠', '패션·뷰티', '요리', '영상·SNS', '그림·디자인', '동물',
   '여행', '자동차', '건강·의학', '환경', '컴퓨터·AI', '건축', '공연·아이돌',
 ] as const;
+export type Interest = (typeof INTERESTS)[number];
 
 export const STEP_LABELS = ['장면', '계산·비교·예측', '닮은 개념'] as const;
 export const STEP_QUESTIONS = [
-  { label: '1단계 · 장면', q: '어떤 장면을 떠올렸어?', sub: '네 관심사에서 떠오르는 순간이면 뭐든 좋아.', ph: '예: 게임에서 레벨이 오를수록 다음 레벨까지 필요한 경험치가 확 늘어나는 장면' },
-  { label: '2단계 · 계산·비교·예측', q: '그 장면에서 무엇을 계산하거나, 비교하거나, 예측해?', sub: '정확한 숫자가 아니어도 괜찮아.', ph: '예: 레벨이 하나 오를 때마다 경험치가 얼마나 더 필요해지는지' },
-  { label: '3단계 · 닮은 개념', q: '그게 이 단원의 어떤 개념이랑 닮았어?', sub: '골라도 되고, 직접 써도 돼.', ph: '예: 레벨 n을 넣으면 경험치가 나오는 식이라서' },
+  { label: '1단계 · 장면', q: '어떤 장면을 떠올렸어?', sub: '네 관심사에서 떠오르는 순간이면 뭐든 좋아.', ph: '예: 게임에서 레벨이 오를수록 다음 레벨까지 필요한 경험치가 확 늘어나는 장면',
+    frames: ['나는 (   ) 때가 떠올라.', '(   ) 장면이 떠올라.'] },
+  { label: '2단계 · 계산·비교·예측', q: '그 장면에서 무엇을 계산하거나, 비교하거나, 예측해?', sub: '정확한 숫자가 아니어도 괜찮아.', ph: '예: 레벨이 하나 오를 때마다 경험치가 얼마나 더 필요해지는지',
+    frames: ['얼마인지 계산해: (   )', '어느 쪽이 나은지 비교해: (   )', '앞으로 어떻게 될지 예측해: (   )'] },
+  { label: '3단계 · 닮은 개념', q: '그게 이 단원의 어떤 개념이랑 닮았어?', sub: '골라도 되고, 직접 써도 돼.', ph: '예: 레벨 n을 넣으면 경험치가 나오는 식이라서',
+    frames: ['(   ) 바뀌면 (   ) 바뀌는 게 닮았어.', '(   ) 식으로 나타낼 수 있어서 닮았어.'] },
 ] as const;
+/** 쓰기 문장 틀의 빈칸. 틀을 넣으면 첫 빈칸이 선택돼서 바로 타이핑하면 채워진다 */
+export const FRAME_BLANK = '(   )';
+export const FREE_FRAMES = ['(   ) 장면에서 (   ) 계산하거나 비교해. 이 단원의 (   ) 개념이랑 닮았어.'] as const;
 
 export const REPORT_REASONS = ['욕설·놀림', '개인정보(이름, 학교, 연락처)', '장난·관계없는 글', '기타'] as const;
 
@@ -40,6 +47,9 @@ export type ContentSet = {
   topics: string[];
   concepts: string[];
   thinkCards: string[];
+  /** 관심사 맞춤 생각 열기 질문(기본 관심사 이름 → 질문). 검수 상태가 따로 있다 */
+  interestPrompts?: Partial<Record<Interest, string>>;
+  interestPromptsStatus?: 'draft' | 'reviewed';
   examples: ExampleCard[];
 };
 

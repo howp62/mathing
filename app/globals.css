@@ -125,8 +125,8 @@ h2 { font-size: 17px; margin: 22px 0 8px; }
 .scale button { aspect-ratio: 1; border-radius: 14px; border: 1px solid var(--line-2); background: var(--surface); font-size: 20px; font-weight: 800; color: var(--ink-2); }
 .scale button.on { background: var(--primary); color: #fff; border-color: var(--primary); }
 .scale-lbl { display: flex; justify-content: space-between; font-size: 12px; color: var(--ink-3); }
-.deck { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; margin: 0 -20px; padding: 4px 20px 12px; }
-.mcard { flex: 0 0 86%; scroll-snap-align: center; background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 8px; box-shadow: var(--shadow-sm); }
+.deck { display: grid; gap: 12px; padding: 4px 0 12px; }
+.mcard { background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 8px; box-shadow: var(--shadow-sm); }
 .mcard .tags { display: flex; gap: 6px; flex-wrap: wrap; }
 .mcard .illus { height: 80px; border-radius: 12px; background: var(--paper); display: flex; align-items: center; justify-content: center; overflow: hidden; }
 .mcard .illus svg { width: 100%; height: 100%; }
@@ -137,6 +137,24 @@ h2 { font-size: 17px; margin: 22px 0 8px; }
 .concept::before { content: "닮은 개념 · "; color: var(--ink-3); font-weight: 600; }
 .think { min-height: 170px; display: flex; flex-direction: column; justify-content: center; font-size: 18px; font-weight: 700; line-height: 1.5; background: var(--q-soft); border-color: var(--q-line); }
 .think small { display: block; color: var(--q); font-size: 12px; font-weight: 800; margin-bottom: 8px; }
+.think small.mine { color: var(--accent-ink); }
+.foot-row { display: grid; grid-template-columns: auto 1fr; gap: 8px; align-items: end; }
+.foot-row .main .btn + .btn { margin-top: 10px; }
+.btn.prev { width: auto; min-width: 84px; padding: 6px 14px; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.2; background: var(--surface); color: var(--ink); border: 1px solid var(--line-2); font-size: 15px; }
+.btn.prev:hover { background: var(--paper); }
+.btn.prev small { font-size: 11.5px; font-weight: 600; color: var(--ink-3); }
+.recall { margin: 4px 0 6px; border: 1px solid var(--q-line); border-radius: 14px; background: var(--q-soft); }
+.recall summary { cursor: pointer; padding: 12px 14px; font-size: 14px; font-weight: 700; color: var(--q); list-style-position: inside; }
+.recall summary small { display: block; margin-top: 2px; font-weight: 500; color: var(--ink-3); font-size: 12.5px; }
+.recall .in { padding: 0 14px 14px; }
+.recall h3 { margin: 6px 0 8px; font-size: 14px; }
+.recall ol { margin: 0; padding-left: 20px; font-size: 14px; line-height: 1.55; color: var(--ink-2); }
+.recall ol li + li { margin-top: 6px; }
+.recall ol b { color: var(--accent-ink); font-size: 12px; margin-right: 4px; }
+.frames { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0 6px; align-items: center; }
+.frames .lbl { font-size: 12px; font-weight: 700; color: var(--ink-3); margin-right: 2px; }
+.frames button { padding: 5px 10px; border-radius: 999px; border: 1px dashed var(--line-2); background: var(--surface); font-size: 13px; color: var(--ink-2); min-height: 32px; text-align: left; }
+.frames button:hover { border-color: var(--q); color: var(--q); }
 .stepq { margin: 18px 0 6px; }
 .stepq .lbl { font-size: 12px; font-weight: 800; color: var(--primary); }
 .stepq .q { font-size: 16px; font-weight: 700; margin-top: 2px; }
