@@ -1,0 +1,244 @@
+{
+  "status": "draft",
+  "description": "기존 4세트에서 예시 태그가 없는 17개 조합을 보강하는 검수용 초안. 앱은 이 디렉터리를 읽지 않습니다. 그림 제작·수학·말투 검수 후에만 공개 세트로 옮깁니다.",
+  "examples": [
+    {
+      "unitId": "cm1-polynomial",
+      "status": "draft",
+      "id": "animal-area",
+      "tags": [
+        "동물"
+      ],
+      "title": "울타리를 넓히면",
+      "body": "강아지 운동장을 가로 6 m, 세로 4 m라고 해 볼게. 가로와 세로를 모두 x m씩 늘리면 넓이는 (6+x)(4+x)야. 전개하면 원래 넓이와 늘어난 넓이를 나누어 볼 수 있어.",
+      "formula": "(6+x)(4+x)=x²+10x+24",
+      "concept": "다항식의 곱셈(전개)",
+      "illus": null,
+      "illustrationBrief": "6×4 직사각형에 폭 x인 두 띠와 x×x 모서리를 다른 색으로 표시"
+    },
+    {
+      "unitId": "cm1-polynomial",
+      "status": "draft",
+      "id": "travel-bag",
+      "tags": [
+        "여행"
+      ],
+      "title": "커지는 여행 상자",
+      "body": "여행 물건을 담는 상자의 안쪽 길이가 가로 4, 세로 3, 높이 2라고 해 볼게. 세 길이를 모두 x만큼 늘리면 부피는 (x+4)(x+3)(x+2)야. 전개한 식에 x를 넣어 커진 상자의 부피를 비교할 수 있어.",
+      "formula": "(x+4)(x+3)(x+2)=x³+9x²+26x+24",
+      "concept": "다항식의 곱셈(전개)",
+      "illus": null,
+      "illustrationBrief": "상자 세 변에 x+4, x+3, x+2 표시; 단위는 같은 길이 단위"
+    },
+    {
+      "unitId": "cm1-polynomial",
+      "status": "draft",
+      "id": "exercise-time",
+      "tags": [
+        "건강·의학"
+      ],
+      "title": "일주일 운동 시간",
+      "body": "평일에는 하루 x분, 주말에는 하루 x+10분 운동할 계획이라고 해 볼게. 일주일 총시간은 5x+2(x+10)이야. 식을 정리하면 하루 계획을 바꿀 때 전체 시간이 어떻게 달라지는지 볼 수 있어.",
+      "formula": "5x+2(x+10)=7x+20",
+      "concept": "다항식의 덧셈·뺄셈",
+      "illus": null,
+      "illustrationBrief": "달력 평일 5칸에 x, 주말 2칸에 x+10 표시"
+    },
+    {
+      "unitId": "cm1-counting",
+      "status": "draft",
+      "id": "game-avatar",
+      "tags": [
+        "게임"
+      ],
+      "title": "내 캐릭터 꾸미기",
+      "body": "게임에서 머리 모양 3가지, 옷 4가지를 하나씩 고른다고 해 볼게. 어느 머리에도 어느 옷이든 입힐 수 있다면 3×4가지 모습이 나와. 장식 2가지 중 하나까지 더하면 경우의 수가 다시 2배가 돼.",
+      "formula": "3×4=12, 3×4×2=24",
+      "concept": "곱의 법칙",
+      "illus": null,
+      "illustrationBrief": "머리 3개와 옷 4개의 선택 가지를 연결"
+    },
+    {
+      "unitId": "cm1-counting",
+      "status": "draft",
+      "id": "video-order",
+      "tags": [
+        "영상·SNS"
+      ],
+      "title": "영상 세 장면 순서",
+      "body": "서로 다른 영상 클립 5개 중 3개를 골라 이어 붙인다고 해 볼게. 같은 클립은 다시 쓰지 않고, 순서가 다르면 다른 영상으로 볼 거야. 첫째 자리에 5개, 둘째에 4개, 셋째에 3개가 가능해.",
+      "formula": "5×4×3=60",
+      "concept": "순열",
+      "illus": null,
+      "illustrationBrief": "클립 5장과 편집 타임라인의 빈칸 3개"
+    },
+    {
+      "unitId": "cm1-counting",
+      "status": "draft",
+      "id": "design-colors",
+      "tags": [
+        "그림·디자인"
+      ],
+      "title": "로고에 쓸 세 색",
+      "body": "서로 다른 색 6개 중 로고에 쓸 3개를 고른다고 해 볼게. 여기서는 색의 자리나 순서는 정하지 않고, 어떤 세 색인지로만 구별해. 순서 있게 고른 6×5×4에서 같은 색 묶음이 세어진 횟수 3×2×1을 나누면 돼.",
+      "formula": "(6×5×4)÷(3×2×1)=20",
+      "concept": "조합",
+      "illus": null,
+      "illustrationBrief": "색 견본 6개에서 3개를 묶고 순서를 바꿔도 같은 묶음임을 표시"
+    },
+    {
+      "unitId": "cm1-counting",
+      "status": "draft",
+      "id": "building-route",
+      "tags": [
+        "건축"
+      ],
+      "title": "건물 안으로 가는 길",
+      "body": "건물 입구가 3곳이고 위층으로 가는 계단이 2곳이라고 해 볼게. 어느 입구에서도 두 계단에 모두 갈 수 있어. 입구 하나와 계단 하나를 고르는 경로는 모두 몇 가지일까?",
+      "formula": "3×2=6",
+      "concept": "곱의 법칙",
+      "illus": null,
+      "illustrationBrief": "입구 3개에서 계단 2개로 이어지는 6개 경로"
+    },
+    {
+      "unitId": "cm1-equations",
+      "status": "draft",
+      "id": "fashion-profit",
+      "tags": [
+        "패션·뷰티"
+      ],
+      "title": "굿즈 제작비를 넘으려면",
+      "body": "직접 디자인한 파우치를 만든다고 해 볼게. 준비 비용은 2만 원, 하나당 재료비는 3천 원이고 판매가는 5천 원이라고 가정하자. 최대 30개까지 만들 수 있을 때 판매액이 전체 비용 이상인 판매 개수 x의 범위를 두 부등식으로 구할 수 있어.",
+      "formula": "5000x≥20000+3000x, 0≤x≤30 → 10≤x≤30 (x는 정수)",
+      "concept": "연립부등식",
+      "illus": null,
+      "illustrationBrief": "고정 준비비와 개당 비용, 10개 지점의 수입·비용 표시"
+    },
+    {
+      "unitId": "cm1-equations",
+      "status": "draft",
+      "id": "video-area",
+      "tags": [
+        "영상·SNS"
+      ],
+      "title": "썸네일 그림 칸",
+      "body": "썸네일에 넣을 직사각형 그림의 가로와 세로 합을 10이라고 해 볼게. 가로를 x라 하면 넓이는 x(10−x)야. 이차식을 완전제곱식으로 바꾸면 넓이가 가장 커지는 가로를 찾을 수 있어.",
+      "formula": "A=x(10−x)=−(x−5)²+25 (0<x<10)",
+      "concept": "이차함수의 최대·최소",
+      "illus": null,
+      "illustrationBrief": "가로 x 세로 10−x인 그림 칸과 꼭짓점 (5,25)"
+    },
+    {
+      "unitId": "cm1-equations",
+      "status": "draft",
+      "id": "design-frame",
+      "tags": [
+        "그림·디자인"
+      ],
+      "title": "포스터 여백 정하기",
+      "body": "가로 10, 세로 8인 종이 안에 같은 폭 x의 여백을 둔다고 해 볼게. 그림 칸의 넓이를 24로 만들려면 (10−2x)(8−2x)=24를 풀면 돼. 해 두 개 중 실제 종이 안에서 가능한 값인지도 살펴봐야 해.",
+      "formula": "(10−2x)(8−2x)=24 → x²−9x+14=0 → x=2 (0<x<4)",
+      "concept": "방정식 세워서 풀기",
+      "illus": null,
+      "illustrationBrief": "바깥 10×8, 안쪽 6×4, 여백 2인 포스터"
+    },
+    {
+      "unitId": "cm1-equations",
+      "status": "draft",
+      "id": "car-distance",
+      "tags": [
+        "자동차"
+      ],
+      "title": "멈추는 거리의 모형",
+      "body": "어떤 자동차의 멈추는 거리를 d=v²/100으로 단순하게 나타낸다고 해 볼게. v의 단위는 km/h, d의 단위는 m로 정한 가상의 모형이야. d가 25 이하가 되는 v의 범위를 구할 수 있어. 실제 운전 판단에 쓰는 공식은 아니야.",
+      "formula": "v²/100≤25, v≥0 → 0≤v≤50",
+      "concept": "이차부등식",
+      "illus": null,
+      "illustrationBrief": "가상의 거리 곡선과 d=25 선, v=50 교점; 가상 모형임을 표시"
+    },
+    {
+      "unitId": "cm1-equations",
+      "status": "draft",
+      "id": "architecture-arch",
+      "tags": [
+        "건축"
+      ],
+      "title": "아치 아래 높이",
+      "body": "아치 아래쪽 경계를 y=4−x²인 곡선으로 나타낸다고 해 볼게. 가운데는 x=0이고 길이 단위는 m야. 높이 3 m인 물체의 윗부분이 이 경계보다 높지 않으려면 어느 가로 범위에 있어야 할까?",
+      "formula": "3≤4−x² → −1≤x≤1",
+      "concept": "이차부등식",
+      "illus": null,
+      "illustrationBrief": "아치와 y=3 수평선, x=−1과 1의 교점; 폭 전체를 판단하려면 물체 폭도 필요"
+    },
+    {
+      "unitId": "cm1-equations",
+      "status": "draft",
+      "id": "concert-income",
+      "tags": [
+        "공연·아이돌"
+      ],
+      "title": "공연 굿즈 가격 모형",
+      "body": "굿즈 값을 x천 원 올릴 때 판매량이 100−10x개가 된다고 가정해 볼게. 원래 가격이 5천 원이면 판매액은 (5+x)(100−10x)천 원이야. 비용을 빼기 전 판매액이 가장 커지는 x를 이차함수로 찾을 수 있어.",
+      "formula": "R=−10x²+50x+500=−10(x−2.5)²+562.5 (0≤x≤10)",
+      "concept": "이차함수의 최대·최소",
+      "illus": null,
+      "illustrationBrief": "가정한 판매액 곡선의 꼭짓점; 실제 수요 예측이 아님을 표시"
+    },
+    {
+      "unitId": "cm1-matrices",
+      "status": "draft",
+      "id": "music-listens",
+      "tags": [
+        "음악"
+      ],
+      "title": "두 주의 재생 기록",
+      "body": "두 사람이 두 노래를 들은 횟수를 표로 적는다고 해 볼게. 행은 사람, 열은 노래 순서로 고정하자. 첫째 주와 둘째 주의 같은 칸끼리 더하면 두 주 동안 각 사람이 각 노래를 들은 횟수가 돼.",
+      "formula": "[[2,1],[0,3]]+[[1,2],[4,0]]=[[3,3],[4,3]]",
+      "concept": "행렬의 덧셈·뺄셈",
+      "illus": null,
+      "illustrationBrief": "사람×노래 2×2 표 두 개와 합; 행·열 이름 표시"
+    },
+    {
+      "unitId": "cm1-matrices",
+      "status": "draft",
+      "id": "fashion-stock",
+      "tags": [
+        "패션·뷰티"
+      ],
+      "title": "두 매장의 옷 재고",
+      "body": "매장 두 곳이 티셔츠와 바지의 S, M 재고를 같은 순서로 적었다고 해 볼게. 행은 옷 종류, 열은 크기로 정하자. 두 표의 같은 칸을 더하면 매장 전체의 종류별·크기별 재고를 볼 수 있어.",
+      "formula": "[[3,2],[1,4]]+[[2,1],[3,0]]=[[5,3],[4,4]]",
+      "concept": "행렬의 덧셈·뺄셈",
+      "illus": null,
+      "illustrationBrief": "종류×크기 재고 표 두 개와 합"
+    },
+    {
+      "unitId": "cm1-matrices",
+      "status": "draft",
+      "id": "car-comparison",
+      "tags": [
+        "자동차"
+      ],
+      "title": "차종 비교표 읽기",
+      "body": "두 차종의 가격과 좌석 수를 표로 적는다고 해 볼게. 행은 차종, 열은 가격(만 원)과 좌석 수로 정하자. 2행 1열의 3000은 두 번째 차의 가격이야. 단위가 다른 두 열을 그대로 더해 좋고 나쁨을 정할 수는 없어.",
+      "formula": "A=[[2000,4],[3000,5]], a₂₁=3000",
+      "concept": "(i, j) 성분",
+      "illus": null,
+      "illustrationBrief": "차종 두 개의 가격·좌석 표와 2행 1열 강조; 단위 표시"
+    },
+    {
+      "unitId": "cm1-matrices",
+      "status": "draft",
+      "id": "concert-goods",
+      "tags": [
+        "공연·아이돌"
+      ],
+      "title": "굿즈 구매 금액",
+      "body": "두 친구가 포토카드와 키링을 산다고 해 볼게. 구매 개수를 행은 친구, 열은 상품인 표로 적고, 가격은 포토카드 2천 원·키링 5천 원이라고 하자. 개수 행렬에 가격 열을 곱하면 친구별 총금액이 나와.",
+      "formula": "[[2,1],[1,3]]×[[2],[5]]=[[9],[17]] (천 원)",
+      "concept": "행렬의 곱셈",
+      "illus": null,
+      "illustrationBrief": "친구×상품 개수 표, 가격 열, 9천 원과 17천 원 결과"
+    }
+  ]
+}

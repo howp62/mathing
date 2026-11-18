@@ -43,9 +43,9 @@ export async function saveConnection(input: SaveInput): Promise<{ error?: string
     // 다시 쓰면 갤러리에는 새 글이 보이고, 받은 공감은 그대로, 추천은 운영자가 다시 보도록 푼다
     const row = await one<{ id: string }>(
       `update connections set re_answers = $3::text::jsonb, re_concepts = $4::text::jsonb, re_free = $5,
-              share = $6, post = coalesce($7::smallint, post), featured = false, updated_at = now()
+              share = $6, post = coalesce($7::smallint, post), interest = $8, featured = false, updated_at = now()
         where user_id = $1 and unit_id = $2 returning id`,
-      [user.id, set.id, JSON.stringify(answers), JSON.stringify(concepts), free, !!input.share, score(input.post)],
+      [user.id, set.id, JSON.stringify(answers), JSON.stringify(concepts), free, !!input.share, score(input.post), interest],
     );
     if (!row) return { error: '처음 쓴 연결을 찾지 못했어.' };
     // 내용이 바뀌었으니, 운영자가 되살리며 '처리함'으로 둔 예전 신고는 지운다. 그래야 예전에 신고한

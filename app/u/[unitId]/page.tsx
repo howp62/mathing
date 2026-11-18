@@ -20,6 +20,7 @@ export default async function UnitPage({ params, searchParams }: { params: Promi
   return (
     <Plain>
       <UnitFlow
+        key={`${user.id}:${set.id}:${rewrite ? 're' : 'first'}`}
         userKey={user.id.slice(0, 8)}
         set={{ id: set.id, subject: set.subject, unit: set.unit, concepts: set.concepts, thinkCards: set.thinkCards, interestPrompts: prompts, examples: set.examples }}
         profile={{ interests: user.interests, career: user.career, careerUnknown: user.career_unknown }}

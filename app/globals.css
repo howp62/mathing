@@ -163,7 +163,7 @@ h2 { font-size: 17px; margin: 22px 0 8px; }
 .recall ol b { color: var(--accent-ink); font-size: 12px; margin-right: 4px; }
 .frames { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0 6px; align-items: center; }
 .frames .lbl { font-size: 12px; font-weight: 700; color: var(--ink-3); margin-right: 2px; }
-.frames button { padding: 5px 10px; border-radius: 999px; border: 1px dashed var(--line-2); background: var(--surface); font-size: 13px; color: var(--ink-2); min-height: 32px; text-align: left; }
+.frames button { padding: 5px 10px; border-radius: 999px; border: 1px dashed var(--line-2); background: var(--surface); font-size: 13px; color: var(--ink-2); min-height: 44px; text-align: left; }
 .frames button:hover { border-color: var(--q); color: var(--q); }
 .stepq { margin: 18px 0 6px; }
 .stepq .lbl { font-size: 12px; font-weight: 800; color: var(--primary); }

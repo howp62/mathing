@@ -52,24 +52,29 @@ export function UnitFlow({ set, profile, rewrite, userKey }: { set: SetData; pro
   // 쓰던 글을 이 기기에 잠깐 보관한다(새로고침해도 사라지지 않게). 로그아웃하면 지운다
   // 키에 계정 표시를 넣어, 같은 기기를 다음 학생이 써도 앞 학생의 글이 채워지지 않게 한다
   const draftKey = `mathing-draft-${userKey}-${set.id}${rewrite ? '-re' : ''}`;
-  const restored = useRef(false);
+  const [restored, setRestored] = useState(false);
   useEffect(() => {
-    if (restored.current) return;
-    restored.current = true;
     try {
       const raw = localStorage.getItem(draftKey);
       if (!raw) return;
-      const d = JSON.parse(raw) as { answers?: string[]; freeText?: string; free?: boolean; concepts?: string[] };
+      const d = JSON.parse(raw) as { answers?: string[]; freeText?: string; free?: boolean; concepts?: string[]; share?: boolean; interest?: string; pre?: number | null; post?: number | null };
       if (Array.isArray(d.answers) && d.answers.length === 3) setAnswers(d.answers.map(String));
       if (typeof d.freeText === 'string') setFreeText(d.freeText);
       if (typeof d.free === 'boolean') setFree(d.free);
       if (Array.isArray(d.concepts)) setConcepts(d.concepts.map(String));
+      if (typeof d.share === 'boolean') setShare(d.share);
+      if (typeof d.interest === 'string' && profile.interests.includes(d.interest)) setInterest(d.interest);
+      for (const [value, update] of [[d.pre, setPre], [d.post, setPost]] as const) {
+        if (value === null || (typeof value === 'number' && Number.isInteger(value) && value >= 1 && value <= 5)) update(value);
+      }
     } catch { /* 보관한 글을 못 읽으면 새로 쓴다 */ }
+    finally { setRestored(true); }
   }, [draftKey]);
   useEffect(() => {
-    if (!restored.current) return;
-    try { localStorage.setItem(draftKey, JSON.stringify({ answers, freeText, free, concepts })); } catch { /* 보관 못 해도 쓰기는 계속 */ }
-  }, [draftKey, answers, freeText, free, concepts]);
+    // 복원이 끝난 렌더부터 저장해, 처음 화면의 기본값으로 기존 선택을 덮어쓰지 않는다.
+    if (!restored) return;
+    try { localStorage.setItem(draftKey, JSON.stringify({ answers, freeText, free, concepts, share, interest, pre, post })); } catch { /* 보관 못 해도 쓰기는 계속 */ }
+  }, [draftKey, restored, answers, freeText, free, concepts, share, interest, pre, post]);
 
   const go = (s: Step) => { setError(null); setStep(s); window.scrollTo(0, 0); };
   const idx = FLOW.indexOf(step);
@@ -96,6 +101,10 @@ export function UnitFlow({ set, profile, rewrite, userKey }: { set: SetData; pro
   const hasText = finalAnswers.join('').trim().length > 0;
 
   const toggle = (list: string[], v: string) => (list.includes(v) ? list.filter((x) => x !== v) : [...list, v]);
+  const changeInterests = (next: string[]) => {
+    setInterests(next);
+    setThinkI(0);
+  };
 
   // 문장 틀: 칸 끝에 붙이고 첫 빈칸을 선택해 바로 타이핑하면 채워지게 한다. slot 0~2는 3단계 칸, 3은 자유 쓰기 칸
   const areas = useRef<(HTMLTextAreaElement | null)[]>([]);
@@ -236,12 +245,12 @@ export function UnitFlow({ set, profile, rewrite, userKey }: { set: SetData; pro
         <p className="sub">여러 개 골라도 돼. 다음 단원부터는 기억해 둘게.</p>
         <div className="chips">
           {[...INTERESTS, ...customs].map((t) => (
-            <button key={t} type="button" className={`chip ${interests.includes(t) ? 'on' : ''}`} aria-pressed={interests.includes(t)} onClick={() => setInterests(toggle(interests, t))}>{t}</button>
+            <button key={t} type="button" className={`chip ${interests.includes(t) ? 'on' : ''}`} aria-pressed={interests.includes(t)} onClick={() => changeInterests(toggle(interests, t))}>{t}</button>
           ))}
         </div>
         <div className="row-btns" style={{ marginTop: 10 }}>
           <div className="field" style={{ flex: 1, margin: 0 }}><input aria-label="관심사 직접 쓰기" value={custom} maxLength={12} placeholder="직접 쓰기 (예: 천문학)" onChange={(e) => setCustom(e.target.value)} /></div>
-          <button type="button" className="mini" onClick={() => { const t = custom.trim(); if (t && !interests.includes(t)) setInterests([...interests, t]); setCustom(''); }}>추가</button>
+          <button type="button" className="mini" onClick={() => { const t = custom.trim(); if (t && !interests.includes(t)) changeInterests([...interests, t]); setCustom(''); }}>추가</button>
         </div>
         <h2>진로 (선택)</h2>
         <div className="field"><input aria-label="진로" value={career} maxLength={40} disabled={unknown} placeholder="예: 게임 기획자, 간호사, 건축가" onChange={(e) => setCareer(e.target.value)} /></div>
