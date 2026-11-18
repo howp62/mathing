@@ -1,4 +1,4 @@
-import { ILLUS, safeSvg } from '@/lib/illus';
+import { Illus } from './Illus';
 import { STEP_LABELS, type ExampleCard } from '@/lib/constants';
 
 export function LogoMark() {
@@ -22,12 +22,6 @@ export function Heart({ size = 16 }: { size?: number }) {
       <path d="M12 20.5s-7.5-4.6-9.6-9.2C.9 7.9 3 4.5 6.5 4.5c2.2 0 3.6 1.2 4.5 2.6.9-1.4 2.3-2.6 4.5-2.6 3.5 0 5.6 3.4 4.1 6.8-2.1 4.6-9.6 9.2-9.6 9.2z" fill="currentColor" />
     </svg>
   );
-}
-
-export function Illus({ card }: { card: ExampleCard }) {
-  const svg = card.illus ? ILLUS[card.illus] : safeSvg(card.svg);
-  if (!svg) return null;
-  return <div className="illus" dangerouslySetInnerHTML={{ __html: svg }} />;
 }
 
 export function ExampleCardView({ card }: { card: ExampleCard }) {
