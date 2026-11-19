@@ -1,0 +1,10 @@
+{
+  "metadataGeneration": {
+    "commitMessage": {
+      "instructions": "오늘 한 일, 정한 것, 남은 일, 주의할 점을 HANDOFF.md에 짧게 정리해. 다음 대화에서 이 파일만 읽고 바로 이어서 작업할 수 있게 써."
+    },
+    "pullRequest": {
+      "instructions": "HANDOFF.md 읽고 남은 일부터 이어서 해."
+    }
+  }
+}
