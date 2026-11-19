@@ -47,7 +47,7 @@ export function UnitFlow({ set, profile, rewrite, userKey }: { set: SetData; pro
   const [freeText, setFreeText] = useState(rewrite?.free ? rewrite.answers[0] ?? '' : '');
   const [concepts, setConcepts] = useState<string[]>(rewrite?.concepts ?? []);
   const [share, setShare] = useState(rewrite?.share ?? true);
-  const [interest, setInterest] = useState(rewrite?.interest || profile.interests[0] || '');
+  const [interest, setInterest] = useState(rewrite && profile.interests.includes(rewrite.interest) ? rewrite.interest : profile.interests[0] || '');
 
   // 쓰던 글을 이 기기에 잠깐 보관한다(새로고침해도 사라지지 않게). 로그아웃하면 지운다
   // 키에 계정 표시를 넣어, 같은 기기를 다음 학생이 써도 앞 학생의 글이 채워지지 않게 한다
