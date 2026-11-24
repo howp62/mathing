@@ -12,7 +12,7 @@ export default async function Home() {
     <Shell tab="units">
       <div className="top"><Logo /><span className="right"><LogoutButton /></span></div>
       <h1>{user.nickname}, 어떤 단원을 시작해?</h1>
-      <p className="sub">새 단원을 배우기 전에 5분만 써 보자.</p>
+      <p className="sub">새 단원을 배우기 전, 5분만 시간 내줘. 네가 좋아하는 일에서 수학을 찾아보자.</p>
 
       {/* 다음 단원 추천: 순서대로 하나를 권하고, 아래 목록에서 다른 단원도 고를 수 있다 */}
       <section className="next" aria-label="다음 단원 추천">
@@ -21,7 +21,7 @@ export default async function Home() {
             <div className="k">{wroteAny ? '순서대로 보면 다음은' : '처음이라면 여기서 시작해'}</div>
             <div className="v">{next.unit}</div>
             <div className="s">{next.subject} · 5~10분</div>
-            <a className="go" href={`/u/${next.id}`}>연결 쓰러 가기 ›</a>
+            <a className="go" href={`/u/${next.id}`}>나와 수학 연결하기 ›</a>
             <a className="other" href="#units">다른 단원 고르기 ↓</a>
           </>
         ) : (
