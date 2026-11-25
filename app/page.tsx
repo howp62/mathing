@@ -4,9 +4,9 @@ import { currentUser } from '@/lib/auth';
 import { Logo } from '@/components/ui';
 
 export const dynamic = 'force-dynamic';
-export const viewport: Viewport = { themeColor: '#13203A' };
+export const viewport: Viewport = { themeColor: '#FAF7F0' };
 
-// 관심사(벽돌색 점)와 수학 개념(옅은 남색 점)이 이어지는 그림. 선이 차례로 그려진다.
+// 관심사(벽돌색 점)와 수학 개념(남색 점)이 이어지는 그림.
 const INTERESTS = [
   { l: '게임', x: 58, y: 64, lx: 34, ly: 46 }, { l: '음악', x: 292, y: 48, lx: 278, ly: 30 },
   { l: '축구', x: 320, y: 168, lx: 306, ly: 150 }, { l: '요리', x: 46, y: 196, lx: 18, ly: 222 },
@@ -43,14 +43,16 @@ export default async function Welcome({ searchParams }: { searchParams: Promise<
     <main className="landing">
       <div className="landing-in">
         <Logo />
-        <Network />
         <div className="kicker">새 단원 시작 전 5분</div>
         <h1>수학과<br /><em>나를</em> 잇는 시간</h1>
         <p className="lead">내 관심사와 이번 단원이 어떻게 이어지는지 써 보고, 다른 학생들의 연결을 이름 없이 둘러봐요.</p>
-        {deleted && <p className="msg ok">계정과 글을 모두 지웠어.</p>}
-        <a className="cta" href="/signup">가입하고 시작하기</a>
-        <p className="login">이미 계정이 있어요 · <a href="/login">로그인</a></p>
-        <p className="tiny">이름·학교·이메일은 받지 않아요 · <a href="/privacy">개인정보 처리방침</a></p>
+        <div className="landing-art"><Network /></div>
+        <div className="landing-actions">
+          {deleted && <p className="msg ok">계정과 글을 모두 지웠어.</p>}
+          <a className="cta" href="/signup">가입하고 시작하기</a>
+          <p className="login">이미 계정이 있어요 · <a href="/login">로그인</a></p>
+          <p className="tiny">이름·학교·이메일은 받지 않아요 · <a href="/privacy">개인정보 처리방침</a></p>
+        </div>
       </div>
     </main>
   );

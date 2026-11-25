@@ -1,0 +1,201 @@
+<div id="mathing-first-screen-comparison" lang="ko">
+  <style>
+    #mathing-first-screen-comparison { font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif; color: var(--foreground, #252525); }
+    #mathing-first-screen-comparison * { box-sizing: border-box; }
+    #mathing-first-screen-comparison .designs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; align-items: start; }
+    #mathing-first-screen-comparison .design { min-width: 0; }
+    #mathing-first-screen-comparison .design-name { display: flex; align-items: baseline; gap: 8px; margin-bottom: 12px; }
+    #mathing-first-screen-comparison .design-name strong { font-size: 17px; font-weight: 600; }
+    #mathing-first-screen-comparison .design-name span { font-size: 12px; color: var(--muted-foreground, #686868); }
+    #mathing-first-screen-comparison .product { --page: #faf7f0; --surface: #f0e9de; --ink: #29251f; --body: #574e43; --subtle: #6c6256; --edge: #e0d7c9; --action: #9b432e; --on-action: #ffffff; --interest: #9b432e; --math: #2f4d7a; position: relative; display: flex; flex-direction: column; min-height: 740px; width: 100%; padding: 26px 22px 20px; border: 1px solid var(--edge); border-radius: 28px; background: var(--page); color: var(--ink); box-shadow: 0 8px 28px #0000000a; color-scheme: light; container-type: inline-size; }
+    #mathing-first-screen-comparison .product p,
+    #mathing-first-screen-comparison .product h1 { margin: 0; }
+    #mathing-first-screen-comparison .brand { display: flex; align-items: center; gap: 7px; min-height: 32px; color: var(--ink); font-size: 22px; font-weight: 800; letter-spacing: -.7px; }
+    #mathing-first-screen-comparison .brand-mark { width: 28px; height: 28px; object-fit: contain; }
+    #mathing-first-screen-comparison .eyebrow { color: var(--action); font-size: 12px; font-weight: 700; line-height: 1.5; }
+    #mathing-first-screen-comparison .product h1 { font-size: clamp(34px, 13cqi, 44px); font-weight: 700; line-height: 1.25; letter-spacing: -.045em; word-break: keep-all; }
+    #mathing-first-screen-comparison .product h1 span { display: block; }
+    #mathing-first-screen-comparison .product h1 em { font-style: normal; color: var(--action); }
+    #mathing-first-screen-comparison .product .lead { font-size: 15px; font-weight: 400; line-height: 1.75; color: var(--body); word-break: keep-all; overflow-wrap: anywhere; }
+    #mathing-first-screen-comparison .diagram { margin: 22px 0; border: 1px solid var(--edge); border-radius: 20px; background: var(--surface); overflow: hidden; }
+    #mathing-first-screen-comparison .diagram svg { display: block; width: 100%; height: auto; }
+    #mathing-first-screen-comparison .diagram .network-lines { fill: none; stroke: var(--math); stroke-width: 1.5; opacity: .32; }
+    #mathing-first-screen-comparison .diagram .interest-dot { fill: var(--interest); }
+    #mathing-first-screen-comparison .diagram .math-dot { fill: var(--math); }
+    #mathing-first-screen-comparison .diagram .interest-label { fill: var(--interest); font-size: 17px; font-weight: 600; }
+    #mathing-first-screen-comparison .diagram .math-label { fill: var(--math); font-size: 17px; font-weight: 700; }
+    #mathing-first-screen-comparison .product .start { display: flex; align-items: center; justify-content: center; min-height: 54px; width: 100%; padding: 14px 12px; background: var(--action); color: var(--on-action); border: 1px solid var(--action); border-radius: 12px; font-size: 16px; font-weight: 700; line-height: 1.5; text-align: center; text-decoration: none; transition: filter 120ms, transform 120ms; }
+    #mathing-first-screen-comparison .product .start:hover { filter: brightness(.94); }
+    #mathing-first-screen-comparison .product .start:active { transform: translateY(1px); filter: brightness(.88); }
+    #mathing-first-screen-comparison .product a:focus-visible { outline: 3px solid var(--action); outline-offset: 4px; }
+    #mathing-first-screen-comparison .product .login { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 3px; color: var(--subtle); font-size: 13px; line-height: 1.5; min-height: 48px; }
+    #mathing-first-screen-comparison .product .login a { display: inline-flex; align-items: center; min-height: 44px; padding: 8px 5px; font-weight: 700; color: var(--ink); text-underline-offset: 3px; }
+    #mathing-first-screen-comparison .product .privacy { text-align: center; color: var(--subtle); font-size: 12px; line-height: 1.6; }
+    #mathing-first-screen-comparison .product .privacy a { display: inline-flex; align-items: center; min-height: 44px; padding: 4px 0; color: var(--body); text-underline-offset: 3px; }
+    #mathing-first-screen-comparison .paper .eyebrow { margin-top: 30px; }
+    #mathing-first-screen-comparison .paper h1 { font-family: "Gowun Batang", "Noto Serif KR", "AppleMyungjo", "Batang", serif; margin-top: 8px; }
+    #mathing-first-screen-comparison .paper .lead { margin-top: 14px; }
+    #mathing-first-screen-comparison .paper .diagram { background-image: repeating-linear-gradient(0deg, transparent 0px, transparent 23px, #82673e0c 23px, #82673e0c 24px); border-radius: 18px; }
+    #mathing-first-screen-comparison .paper .actions { margin-top: auto; }
+    #mathing-first-screen-comparison .clear { --page: #ffffff; --surface: #f6f8fc; --ink: #171d29; --body: #4b5466; --subtle: #616b7b; --edge: #e2e7ef; --action: #2353c5; --interest: #9a4638; --math: #2353c5; }
+    #mathing-first-screen-comparison .clear .eyebrow { margin-top: 38px; }
+    #mathing-first-screen-comparison .clear h1 { margin-top: 10px; font-weight: 800; }
+    #mathing-first-screen-comparison .clear .lead { margin-top: 16px; }
+    #mathing-first-screen-comparison .clear .actions { margin-top: 24px; }
+    #mathing-first-screen-comparison .clear .start { border-radius: 999px; box-shadow: 0 3px 0 #173e9a; }
+    #mathing-first-screen-comparison .clear .start:active { transform: translateY(2px); box-shadow: none; }
+    #mathing-first-screen-comparison .clear .diagram { margin-top: 22px; margin-bottom: 16px; padding: 8px; border-radius: 18px; background: linear-gradient(145deg, #f7f9ff, #f0f4fc); }
+    #mathing-first-screen-comparison .clear .privacy { margin-top: auto; }
+    #mathing-first-screen-comparison .board { --page: #fff9e9; --surface: #fffdf7; --ink: #27251e; --body: #514e43; --subtle: #666153; --edge: #e4deca; --action: #25251f; --interest: #795012; --math: #304d91; background-image: radial-gradient(#b7a97b42 .8px, transparent .8px); background-size: 16px 16px; }
+    #mathing-first-screen-comparison .board .brand { align-self: flex-start; padding: 3px 9px 3px 5px; border-radius: 8px; background: #ffdf65; }
+    #mathing-first-screen-comparison .board .board-sheet { margin-top: 22px; padding: 20px 16px 0; border: 1px solid var(--edge); border-radius: 22px; background: var(--surface); box-shadow: 0 5px 0 #d7caa54d; }
+    #mathing-first-screen-comparison .board .eyebrow { color: var(--body); }
+    #mathing-first-screen-comparison .board h1 { margin-top: 8px; font-size: clamp(32px, 12cqi, 40px); font-weight: 800; }
+    #mathing-first-screen-comparison .board h1 em { background: linear-gradient(transparent 60%, #ffdf65 60%); }
+    #mathing-first-screen-comparison .board .lead { margin-top: 14px; font-size: 14px; line-height: 1.75; }
+    #mathing-first-screen-comparison .board .diagram { margin: 16px -6px 12px; border: 0; border-radius: 0; background: transparent; }
+    #mathing-first-screen-comparison .board .actions { margin-top: auto; padding-top: 22px; }
+    #mathing-first-screen-comparison .board .start { border-radius: 999px; }
+    #mathing-first-screen-comparison .references { display: grid; gap: 5px; margin-top: 14px; font-size: 12px; line-height: 1.65; }
+    #mathing-first-screen-comparison .references a { color: var(--foreground, #252525); text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; min-height: 32px; display: flex; align-items: center; }
+    #mathing-first-screen-comparison .references span { color: var(--muted-foreground, #686868); }
+    #mathing-first-screen-comparison .choose { margin-top: 12px; }
+    #mathing-first-screen-comparison .selection { min-height: 26px; padding-top: 16px; font-size: 14px; color: var(--foreground, #252525); }
+    @media (max-width: 760px) {
+      #mathing-first-screen-comparison .designs { grid-template-columns: 1fr; gap: 30px; }
+      #mathing-first-screen-comparison .design { max-width: 390px; width: 100%; margin: 0 auto; }
+      #mathing-first-screen-comparison .product { min-height: 740px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #mathing-first-screen-comparison .product .start { transition: none; }
+    }
+  </style>
+
+  <div class="designs">
+    <section class="design" aria-label="종이 노트형 시안">
+      <div class="design-name"><strong>종이 노트형</strong><span>따뜻한 색 · 읽기 중심</span></div>
+      <div class="product paper" data-design="paper" aria-label="종이 노트형 첫 화면">
+        <div class="brand"><img class="brand-mark" alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M6 25C9 6 23 27 26 7' fill='none' stroke='%232F4D7A' stroke-width='2.6' stroke-linecap='round'/%3E%3Ccircle cx='6' cy='25' r='3.6' fill='%23C8553D'/%3E%3Ccircle cx='26' cy='7' r='3.6' fill='%232F4D7A'/%3E%3C/svg%3E">mathing</div>
+        <p class="eyebrow">새 단원 시작 전 5분</p>
+        <h1><span>수학과</span><span><em>나를</em> 잇는 시간</span></h1>
+        <p class="lead">내 관심사와 이번 단원이 어떻게 이어지는지 써 보고, 다른 학생들의 연결을 이름 없이 둘러봐요.</p>
+        <div class="diagram" aria-hidden="true">
+          <svg viewBox="0 0 360 300">
+            <g class="network-lines"><line x1="58" y1="64" x2="176" y2="112"/><line x1="292" y1="48" x2="176" y2="112"/><line x1="320" y1="168" x2="250" y2="232"/><line x1="46" y1="196" x2="116" y2="238"/><line x1="160" y1="272" x2="206" y2="176"/><line x1="58" y1="64" x2="206" y2="176"/></g>
+            <g class="interest-dot"><circle cx="58" cy="64" r="5.5"/><circle cx="292" cy="48" r="5.5"/><circle cx="320" cy="168" r="5.5"/><circle cx="46" cy="196" r="5.5"/><circle cx="160" cy="272" r="5.5"/></g>
+            <g class="math-dot"><circle cx="176" cy="112" r="6.5"/><circle cx="250" cy="232" r="6.5"/><circle cx="116" cy="238" r="6.5"/><circle cx="206" cy="176" r="6.5"/></g>
+            <g class="interest-label"><text x="34" y="46">게임</text><text x="278" y="30">음악</text><text x="292" y="150">축구</text><text x="18" y="222">요리</text><text x="120" y="290">사진</text></g>
+            <g class="math-label"><text x="188" y="104">함수</text><text x="262" y="236">확률</text><text x="62" y="262">방정식</text><text x="218" y="172">행렬</text></g>
+          </svg>
+        </div>
+        <div class="actions">
+          <a class="start" href="https://imathingyou.vercel.app/signup" target="_blank" rel="noopener">가입하고 시작하기</a>
+          <p class="login">이미 계정이 있어요 · <a href="https://imathingyou.vercel.app/login" target="_blank" rel="noopener">로그인</a></p>
+          <p class="privacy">이름·학교·이메일은 받지 않아요 · <a href="https://imathingyou.vercel.app/privacy" target="_blank" rel="noopener">개인정보 처리방침</a></p>
+        </div>
+      </div>
+      <div class="references" aria-label="종이 노트형 참고 자료">
+        <a href="https://getdesign.md/claude/design-md" target="_blank" rel="noopener">규칙 · getdesign.md — Claude</a>
+        <span>크림색 바탕, 제목과 본문의 글꼴 구분, 따뜻한 강조색</span>
+        <a href="https://21st.dev/@shadcn/components/button" target="_blank" rel="noopener">버튼 · 21st.dev — shadcn Button</a>
+        <span>채운 주 버튼, 누름·초점 표시, 로그인은 보조 링크</span>
+        <a href="https://21st.dev/@shadcn/components/card" target="_blank" rel="noopener">카드 · 21st.dev — shadcn Card</a>
+        <span>얇은 테두리와 여백으로 기존 연결 그림을 묶기</span>
+      </div>
+      <button type="button" class="btn choose" data-select="종이 노트형">종이 노트형 고르기</button>
+    </section>
+
+    <section class="design" aria-label="단정한 시작형 시안">
+      <div class="design-name"><strong>단정한 시작형</strong><span>선명한 버튼 · 시작 우선</span></div>
+      <div class="product clear" data-design="clear" aria-label="단정한 시작형 첫 화면">
+        <div class="brand"><img class="brand-mark" alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M6 25C9 6 23 27 26 7' fill='none' stroke='%232F4D7A' stroke-width='2.6' stroke-linecap='round'/%3E%3Ccircle cx='6' cy='25' r='3.6' fill='%23C8553D'/%3E%3Ccircle cx='26' cy='7' r='3.6' fill='%232F4D7A'/%3E%3C/svg%3E">mathing</div>
+        <p class="eyebrow">새 단원 시작 전 5분</p>
+        <h1><span>수학과</span><span><em>나를</em> 잇는 시간</span></h1>
+        <p class="lead">내 관심사와 이번 단원이 어떻게 이어지는지 써 보고, 다른 학생들의 연결을 이름 없이 둘러봐요.</p>
+        <div class="actions">
+          <a class="start" href="https://imathingyou.vercel.app/signup" target="_blank" rel="noopener">가입하고 시작하기</a>
+          <p class="login">이미 계정이 있어요 · <a href="https://imathingyou.vercel.app/login" target="_blank" rel="noopener">로그인</a></p>
+        </div>
+        <div class="diagram" aria-hidden="true">
+          <svg viewBox="0 0 360 280">
+            <g class="network-lines"><path d="M66 55Q124 55 185 105"/><path d="M292 43Q243 45 185 105"/><path d="M309 151Q293 191 248 218"/><path d="M45 180Q80 182 114 223"/><path d="M154 250Q154 207 208 168"/><path d="M66 55Q148 60 208 168"/></g>
+            <g class="interest-dot"><circle cx="66" cy="55" r="5"/><circle cx="292" cy="43" r="5"/><circle cx="309" cy="151" r="5"/><circle cx="45" cy="180" r="5"/><circle cx="154" cy="250" r="5"/></g>
+            <g class="math-dot"><circle cx="185" cy="105" r="6"/><circle cx="248" cy="218" r="6"/><circle cx="114" cy="223" r="6"/><circle cx="208" cy="168" r="6"/></g>
+            <g class="interest-label"><text x="39" y="36">게임</text><text x="278" y="25">음악</text><text x="284" y="132">축구</text><text x="18" y="205">요리</text><text x="112" y="268">사진</text></g>
+            <g class="math-label"><text x="198" y="98">함수</text><text x="262" y="223">확률</text><text x="61" y="249">방정식</text><text x="220" y="163">행렬</text></g>
+          </svg>
+        </div>
+        <p class="privacy">이름·학교·이메일은 받지 않아요 · <a href="https://imathingyou.vercel.app/privacy" target="_blank" rel="noopener">개인정보 처리방침</a></p>
+      </div>
+      <div class="references" aria-label="단정한 시작형 참고 자료">
+        <a href="https://getdesign.md/notion/design-md" target="_blank" rel="noopener">규칙 · getdesign.md — Notion</a>
+        <span>밝은 바탕, 단정한 글자, 주 행동에만 선명한 파랑</span>
+        <a href="https://21st.dev/@shadcn/components/button" target="_blank" rel="noopener">버튼 · 21st.dev — shadcn Button</a>
+        <span>그림보다 앞에 놓는 주 버튼과 구분된 보조 링크</span>
+        <a href="https://21st.dev/@shadcnspace/components/integration-card" target="_blank" rel="noopener">카드 · 21st.dev — Integration Card</a>
+        <span>연결선으로 대상을 잇는 구성에 기존 관심사·개념을 배치</span>
+      </div>
+      <button type="button" class="btn choose" data-select="단정한 시작형">단정한 시작형 고르기</button>
+    </section>
+
+    <section class="design" aria-label="연결 보드형 시안">
+      <div class="design-name"><strong>연결 보드형</strong><span>메모 모양 · 관계 강조</span></div>
+      <div class="product board" data-design="board" aria-label="연결 보드형 첫 화면">
+        <div class="brand"><img class="brand-mark" alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M6 25C9 6 23 27 26 7' fill='none' stroke='%232F4D7A' stroke-width='2.6' stroke-linecap='round'/%3E%3Ccircle cx='6' cy='25' r='3.6' fill='%23C8553D'/%3E%3Ccircle cx='26' cy='7' r='3.6' fill='%232F4D7A'/%3E%3C/svg%3E">mathing</div>
+        <div class="board-sheet">
+          <p class="eyebrow">새 단원 시작 전 5분</p>
+          <h1><span>수학과</span><span><em>나를</em> 잇는 시간</span></h1>
+          <p class="lead">내 관심사와 이번 단원이 어떻게 이어지는지 써 보고, 다른 학생들의 연결을 이름 없이 둘러봐요.</p>
+          <div class="diagram" aria-hidden="true">
+            <svg viewBox="0 0 340 285">
+              <g class="network-lines"><path d="M96 36C156 36 170 65 240 65"/><path d="M96 88C156 88 177 65 240 65"/><path d="M96 140C160 140 176 117 240 117"/><path d="M96 192C155 192 176 169 240 169"/><path d="M96 244C158 244 178 221 240 221"/><path d="M96 36C161 36 180 221 240 221"/></g>
+              <g fill="#ffedb1"><rect x="10" y="18" width="86" height="36" rx="6"/><rect x="10" y="70" width="86" height="36" rx="6"/><rect x="10" y="122" width="86" height="36" rx="6"/><rect x="10" y="174" width="86" height="36" rx="6"/><rect x="10" y="226" width="86" height="36" rx="6"/></g>
+              <g fill="#e4ecfa"><rect x="240" y="47" width="90" height="36" rx="6"/><rect x="240" y="99" width="90" height="36" rx="6"/><rect x="240" y="151" width="90" height="36" rx="6"/><rect x="240" y="203" width="90" height="36" rx="6"/></g>
+              <g class="interest-label" text-anchor="middle"><text x="53" y="42">게임</text><text x="53" y="94">음악</text><text x="53" y="146">축구</text><text x="53" y="198">요리</text><text x="53" y="250">사진</text></g>
+              <g class="math-label" text-anchor="middle"><text x="285" y="71">함수</text><text x="285" y="123">확률</text><text x="285" y="175">방정식</text><text x="285" y="227">행렬</text></g>
+            </svg>
+          </div>
+        </div>
+        <div class="actions">
+          <a class="start" href="https://imathingyou.vercel.app/signup" target="_blank" rel="noopener">가입하고 시작하기</a>
+          <p class="login">이미 계정이 있어요 · <a href="https://imathingyou.vercel.app/login" target="_blank" rel="noopener">로그인</a></p>
+          <p class="privacy">이름·학교·이메일은 받지 않아요 · <a href="https://imathingyou.vercel.app/privacy" target="_blank" rel="noopener">개인정보 처리방침</a></p>
+        </div>
+      </div>
+      <div class="references" aria-label="연결 보드형 참고 자료">
+        <a href="https://getdesign.md/miro/design-md" target="_blank" rel="noopener">규칙 · getdesign.md — Miro</a>
+        <span>밝은 보드, 노랑 메모, 이름과 색으로 구분하는 대상</span>
+        <a href="https://21st.dev/@shadcn/components/button" target="_blank" rel="noopener">버튼 · 21st.dev — shadcn Button</a>
+        <span>검은색 채움과 넓은 누름 영역을 가진 둥근 버튼</span>
+        <a href="https://21st.dev/@ruixen.ui/components/ruixen-bento-cards" target="_blank" rel="noopener">카드 · 21st.dev — Ruixen Bento Cards</a>
+        <span>내용을 둥근 면으로 묶고 기존 연결 그림을 메모처럼 표현</span>
+      </div>
+      <button type="button" class="btn choose" data-select="연결 보드형">연결 보드형 고르기</button>
+    </section>
+  </div>
+  <p class="selection" role="status" aria-live="polite"></p>
+
+  <script>
+    (() => {
+      const root = document.getElementById('mathing-first-screen-comparison');
+      const status = root.querySelector('.selection');
+      root.querySelectorAll('[data-select]').forEach(button => {
+        button.addEventListener('click', async () => {
+          const name = button.dataset.select;
+          root.querySelectorAll('[data-select]').forEach(other => {
+            other.setAttribute('aria-pressed', String(other === button));
+          });
+          status.textContent = `${name}을 골랐어요.`;
+          if (window.openai?.sendFollowUpMessage) {
+            await window.openai.sendFollowUpMessage({
+              prompt: `첫 화면 디자인은 '${name}'을 골랐어. 기능과 문구, AGENTS.md의 사용자 관점 규칙은 유지하면서 이 안을 적용하고, 휴대폰 폭 390px으로 열어 확인해 줘.`,
+              title: `${name} 적용하기`
+            }).catch(() => { status.textContent = `${name}을 골랐어요. 대화창에 이 이름을 보내 주세요.`; });
+          } else {
+            status.textContent = `${name}을 골랐어요. 대화창에 이 이름을 보내 주세요.`;
+          }
+        });
+      });
+    })();
+  </script>
+</div>
