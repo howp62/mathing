@@ -12,9 +12,11 @@ export function Illus({ card }: { card: ExampleCard }) {
   const box = useRef<HTMLDivElement>(null);
   const [mode, setMode] = useState<'' | 'wait' | 'wait play'>('');
   useLayoutEffect(() => {
+    // 이전 그림이 감지를 기다리던 중이어도, 정적 대체로 넘어가면 숨긴 상태를 남기지 않는다.
+    setMode('');
     const el = box.current;
     if (!el || !el.querySelector('.draw, .pop')) return;
-    if (typeof IntersectionObserver === 'undefined' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (typeof IntersectionObserver === 'undefined' || window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
     setMode('wait');
     const io = new IntersectionObserver((entries) => {
       if (entries.some((e) => e.isIntersecting)) {
