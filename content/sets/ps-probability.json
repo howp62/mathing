@@ -1,0 +1,184 @@
+{
+  "id": "ps-probability",
+  "subject": "확률과 통계",
+  "unit": "확률",
+  "order": 15,
+  "status": "reviewed",
+  "topics": [
+    "확률의 뜻과 성질",
+    "확률의 덧셈정리와 여사건",
+    "조건부확률과 사건의 독립",
+    "확률의 곱셈정리"
+  ],
+  "concepts": [
+    "수학적 확률",
+    "통계적 확률",
+    "확률의 덧셈정리",
+    "여사건의 확률",
+    "조건부확률",
+    "사건의 독립과 종속",
+    "확률의 곱셈정리"
+  ],
+  "thinkCards": [
+    "가능한 결과가 모두 같은 가능성으로 나온다고 말할 수 있는 장면은 무엇일까?",
+    "둘 중 하나라도 해당할 가능성을 더할 때, 겹치는 경우는 어떻게 처리할까?",
+    "이미 알게 된 조건 때문에 비교할 전체가 바뀌는 경험이 있을까?",
+    "한 번의 결과가 다음 결과의 가능성을 바꾸는지, 어떻게 확인할 수 있을까?"
+  ],
+  "interestPromptsStatus": "reviewed",
+  "interestPrompts": {
+    "게임": "뽑기 규칙에서 각 결과의 가능성이 같은지, 반복 기록과 설명을 어떻게 비교할 수 있을까?",
+    "음악": "두 음악 장르를 좋아하는 사람의 비율을 합칠 때, 둘 다 좋아하는 사람은 어떻게 셀까?",
+    "스포츠": "여러 번 시도해 한 번 이상 성공할 확률을 구하려면, 어떤 독립 가정이 필요할까?",
+    "패션·뷰티": "모의 취향표에서 파란색을 고른 사람 중 무광을 고른 비율은 전체 비율과 같을까?",
+    "요리": "상자에서 쿠키를 꺼내 다시 넣지 않을 때, 두 번째 맛의 확률은 왜 바뀔까?",
+    "영상·SNS": "같은 규칙으로 반복한 영상 배치 실험의 성공 비율은 시행 횟수에 따라 어떻게 달라질까?",
+    "그림·디자인": "디자인 선택 자료에서 특정 색을 골랐다는 조건을 주면, 비교할 전체는 어디까지일까?",
+    "동물": "모의 서식지 자료에서 새 관찰 여부와 물가 여부가 독립인지, 어떤 비율로 확인할까?",
+    "여행": "비 오는 날이라는 조건이 주어지면, 모의 여행 지연 자료의 분모는 무엇일까?",
+    "자동차": "모의 주행 기록에서 혼잡 시간대만 고르면, 지연 비율을 계산할 전체가 어떻게 바뀔까?",
+    "건강·의학": "가상 생활 기록에서 걷기를 한 날 중 일찍 잔 날의 비율로 원인까지 말할 수 있을까?",
+    "환경": "두 환경 관찰 항목이 자주 함께 나타나면, 그것만으로 독립이 아니라고 할 수 있을까?",
+    "컴퓨터·AI": "AI가 고양이라고 표시한 그림 중 실제 고양이인 비율은, 어느 그림들을 분모로 삼을까?",
+    "건축": "두 모형 창의 색을 독립적으로 정한다면, 둘 다 파란색일 확률은 어떻게 구할까?",
+    "공연·아이돌": "춤 영상과 무대 영상을 본 경우가 겹치면, 하나라도 본 비율을 어떻게 계산할까?"
+  },
+  "examples": [
+    {
+      "id": "equal-box",
+      "tags": [
+        "게임"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><rect class='pop' style='--d:0.1s' x='26' y='22' width='26' height='23' rx='4' fill='#D79A2B' stroke='#2F4D7A' stroke-width='1.5'/><rect class='pop' style='--d:0.25s' x='58' y='22' width='26' height='23' rx='4' fill='#D79A2B' stroke='#2F4D7A' stroke-width='1.5'/><rect class='pop' style='--d:0.4s' x='90' y='22' width='26' height='23' rx='4' fill='#D79A2B' stroke='#2F4D7A' stroke-width='1.5'/><rect class='pop' style='--d:0.55s' x='122' y='22' width='26' height='23' rx='4' fill='#EDE4D3' stroke='#2F4D7A' stroke-width='1.5'/><rect class='pop' style='--d:0.7s' x='154' y='22' width='26' height='23' rx='4' fill='#EDE4D3' stroke='#2F4D7A' stroke-width='1.5'/><rect class='pop' style='--d:0.85s' x='186' y='22' width='26' height='23' rx='4' fill='#EDE4D3' stroke='#2F4D7A' stroke-width='1.5'/><rect class='pop' style='--d:0.1s' x='26' y='51' width='26' height='23' rx='4' fill='#EDE4D3' stroke='#2F4D7A' stroke-width='1.5'/><rect class='pop' style='--d:0.25s' x='58' y='51' width='26' height='23' rx='4' fill='#EDE4D3' stroke='#2F4D7A' stroke-width='1.5'/><rect class='pop' style='--d:0.4s' x='90' y='51' width='26' height='23' rx='4' fill='#EDE4D3' stroke='#2F4D7A' stroke-width='1.5'/><rect class='pop' style='--d:0.55s' x='122' y='51' width='26' height='23' rx='4' fill='#EDE4D3' stroke='#2F4D7A' stroke-width='1.5'/><rect class='pop' style='--d:0.7s' x='154' y='51' width='26' height='23' rx='4' fill='#EDE4D3' stroke='#2F4D7A' stroke-width='1.5'/><rect class='pop' style='--d:0.85s' x='186' y='51' width='26' height='23' rx='4' fill='#EDE4D3' stroke='#2F4D7A' stroke-width='1.5'/><text x='120' y='108' font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2F4D7A' class='pop' style='--d:1.3s'>같은 가능성의 12칸 · 보상 3칸</text></svg>",
+      "title": "열두 칸 중 보상 칸 세 개",
+      "body": "연습용 게임판의 열두 칸 중 세 칸에 보상을 표시해요. 무작위 도구가 모든 칸을 같은 확률로 하나 고른다고 가정해요. 이때 보상을 받을 수학적 확률은 3/12=1/4이며, 칸마다 확률이 다르면 개수만 나눌 수 없어요.",
+      "formula": "P(보상) = 3/12 = 1/4",
+      "concept": "수학적 확률"
+    },
+    {
+      "id": "music-union",
+      "tags": [
+        "음악",
+        "공연·아이돌"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><ellipse class='draw' style='--d:0.1s' pathLength='1' cx='95' cy='49' rx='52' ry='30' fill='#EDE4D3' stroke='#2F4D7A'/><ellipse class='draw' style='--d:0.3s' pathLength='1' cx='148' cy='49' rx='52' ry='30' fill='none' stroke='#C8553D'/><text class='pop' style='--d:0.5s' x='65' y='52' font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2A2522'>35</text><text class='pop' style='--d:0.9s' x='121' y='52' font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2A2522'>20</text><text class='pop' style='--d:0.7s' x='175' y='52' font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2A2522'>20</text><text class='pop' style='--d:0.9s' x='213' y='84' font-family='sans-serif' font-size='10' text-anchor='middle' fill='#2A2522'>밖 25</text><text x='120' y='108' font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2F4D7A' class='pop' style='--d:1.5s'>둘 중 하나라도 → 75/100</text></svg>",
+      "title": "댄스와 발라드를 둘 다 좋아한다면",
+      "body": "가상 공연 취향 카드 100장 중 댄스 표시가 55장, 발라드 표시가 40장이고 두 표시가 함께 있는 것은 20장이에요. 한 장을 같은 확률로 뽑을 때 둘 중 하나라도 표시된 확률을 구해 봐요. 겹친 20장을 한 번 빼면 75/100이므로 0.75예요.",
+      "formula": "P(A∪B) = (55+40−20)/100 = 0.75",
+      "concept": "확률의 덧셈정리"
+    },
+    {
+      "id": "shot-complement",
+      "tags": [
+        "스포츠"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><path d='M165 28H215M176 29L181 65H204L209 29' fill='none' stroke='#C8553D' stroke-width='2'/><circle cx='56' cy='42' r='15' fill='#D79A2B' stroke='#2F4D7A' stroke-width='1.5'/><path d='M75 40Q122 9 173 34' fill='none' stroke='#2F4D7A' stroke-width='2' class='draw' pathLength='1'/><text x='94' y='83' font-family='sans-serif' font-size='11' text-anchor='middle' fill='#2A2522'>실패 · 실패 · 실패</text><text x='120' y='108' font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2F4D7A' class='pop' style='--d:.2s'>전체 1 − 모두 실패 0.064</text></svg>",
+      "title": "세 번 중 한 번이라도 성공할까?",
+      "body": "가상 슛 연습에서 매번 성공할 확률이 0.6으로 같고, 세 번의 결과가 서로 독립이라고 가정해요. 한 번 이상 성공할 확률은 세 번 모두 실패할 확률을 1에서 빼면 돼요. 1−0.4³=0.936이며, 실제 슛의 피로나 실력 변화는 이 모형에 포함하지 않아요.",
+      "formula": "P(한 번 이상 성공) = 1−0.4³ = 0.936",
+      "concept": "여사건의 확률"
+    },
+    {
+      "id": "design-condition",
+      "tags": [
+        "패션·뷰티",
+        "그림·디자인"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><rect class='pop' style='--d:0.1s' x='26' y='20' width='187' height='64' rx='4' fill='#EDE4D3' stroke='#2F4D7A' stroke-width='1.5'/><rect class='pop' style='--d:0.5s' x='43' y='31' width='90' height='43' rx='4' fill='#D8CCB7' stroke='#2F4D7A' stroke-width='1.5'/><rect class='pop' style='--d:0.3s' x='145' y='31' width='54' height='43' rx='4' fill='#F7F2E8' stroke='#2F4D7A' stroke-width='1.5'/><text class='pop' style='--d:0.5s' x='88' y='48' font-family='sans-serif' font-size='11' text-anchor='middle' fill='#2A2522'>파랑 20</text><text class='pop' style='--d:0.7s' x='88' y='65' font-family='sans-serif' font-size='11' text-anchor='middle' fill='#2A2522'>무광 12</text><text class='pop' style='--d:0.3s' x='172' y='56' font-family='sans-serif' font-size='10' text-anchor='middle' fill='#2A2522'>나머지 30</text><text x='120' y='108' font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2F4D7A' class='pop' style='--d:1.2s'>조건 뒤의 전체는 파랑 20장</text></svg>",
+      "title": "파란 네일 도안 중 무광은 얼마나 될까?",
+      "body": "가상 네일 도안 카드 50장 중 파란색 도안은 20장이고, 그중 무광은 12장이에요. 파란색이라는 조건 아래 한 장을 같은 확률로 고르면 전체가 50장이 아니라 20장으로 줄어요. 무광일 조건부확률은 12/20=0.6이며, 색이 무광 선택의 원인이라는 뜻은 아니에요.",
+      "formula": "P(무광 | 파란색) = 12/20 = 0.6",
+      "concept": "조건부확률"
+    },
+    {
+      "id": "cookie-without",
+      "tags": [
+        "요리"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><rect x='22' y='20' width='127' height='65' rx='4' fill='#EDE4D3' stroke='#2F4D7A' stroke-width='1.5'/><circle cx='40' cy='48' r='10' fill='#C8553D' stroke='#2F4D7A' stroke-width='1.5'/><circle cx='64' cy='48' r='10' fill='#C8553D' stroke='#2F4D7A' stroke-width='1.5'/><circle cx='88' cy='48' r='10' fill='#C8553D' stroke='#2F4D7A' stroke-width='1.5'/><circle cx='112' cy='48' r='10' fill='#D8CCB7' stroke='#2F4D7A' stroke-width='1.5'/><circle cx='136' cy='48' r='10' fill='#D8CCB7' stroke='#2F4D7A' stroke-width='1.5'/><path d='M157 47H205L195 38M205 47L195 56' fill='none' stroke='#2F4D7A' stroke-width='2' class='draw' pathLength='1'/><text x='188' y='79' font-family='sans-serif' font-size='10' text-anchor='middle' fill='#2A2522'>다시 안 넣음</text><text x='120' y='108' font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2F4D7A' class='pop' style='--d:.2s'>첫째 3/5 × 다음 2/4 = 3/10</text></svg>",
+      "title": "딸기 쿠키를 두 번 연속 꺼내기",
+      "body": "상자에 딸기 쿠키 세 개와 초코 쿠키 두 개가 있고, 구별되는 다섯 쿠키를 같은 확률로 꺼내요. 첫 쿠키를 다시 넣지 않으면 첫 번째가 딸기일 때 두 번째의 딸기 확률은 2/4로 바뀌어요. 두 번 모두 딸기일 확률은 곱셈정리로 (3/5)×(2/4)=3/10이에요.",
+      "formula": "P(딸기 두 번) = (3/5) × (2/4) = 3/10",
+      "concept": "확률의 곱셈정리"
+    },
+    {
+      "id": "video-trials",
+      "tags": [
+        "영상·SNS"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><g class='pop' style='--d:0.1s'><rect x='24' y='17' width='85' height='61' rx='4' fill='#EDE4D3' stroke='#2F4D7A' stroke-width='1.5'/><path d='M54 32L78 47L54 61Z' fill='#2F4D7A' stroke='#2F4D7A' stroke-width='2'/></g><path class='draw' style='--d:0.3s' pathLength='1' d='M137 24V80H220' fill='none' stroke='#8A8178' stroke-width='2'/><g class='pop' style='--d:0.5s'><rect x='149' y='44.599999999999994' width='26' height='35.400000000000006' rx='1' fill='#2F4D7A' stroke='#2F4D7A' stroke-width='1.5'/><text x='162' y='94' font-family='sans-serif' font-size='10' text-anchor='middle' fill='#2A2522'>A</text></g><g class='pop' style='--d:0.7s'><rect x='185' y='55.400000000000006' width='26' height='24.599999999999998' rx='1' fill='#D8CCB7' stroke='#2F4D7A' stroke-width='1.5'/><text x='198' y='94' font-family='sans-serif' font-size='10' text-anchor='middle' fill='#2A2522'>다른 안</text></g><text x='120' y='108' font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2F4D7A' class='pop' style='--d:1.5s'>모의 200회 중 A안 118회</text></svg>",
+      "title": "썸네일 배치 실험을 반복해 보면",
+      "body": "모의 영상 실험에서 같은 규칙의 무작위 배치를 200번 반복했더니 A안이 선택된 것은 118번이었어요. 이 기록의 상대도수 118/200=0.59를 통계적 확률을 살펴보는 값으로 써요. 유한한 실험에서 얻은 비율이므로 앞으로 항상 59%가 선택하거나 더 인기 있다는 뜻은 아니에요.",
+      "formula": "선택 상대도수 = 118/200 = 0.59",
+      "concept": "통계적 확률"
+    },
+    {
+      "id": "habitat-independence",
+      "tags": [
+        "동물",
+        "환경"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><path class='draw' style='--d:0.1s' pathLength='1' d='M23 70Q42 47 61 70T99 70' fill='none' stroke='#2F4D7A' stroke-width='2'/><path class='draw' style='--d:0.3s' pathLength='1' d='M154 37Q166 23 178 37Q190 23 202 37' fill='none' stroke='#2F4D7A' stroke-width='2'/><g class='pop' style='--d:0.5s'><rect x='92' y='22' width='45' height='45' rx='4' fill='#D8CCB7' stroke='#2F4D7A' stroke-width='1.5'/><text x='114' y='50' font-family='sans-serif' font-size='10' text-anchor='middle' fill='#2A2522'>둘 다 12</text></g><text class='pop' style='--d:0.1s' x='57' y='88' font-family='sans-serif' font-size='10' text-anchor='middle' fill='#2A2522'>물가 40</text><text class='pop' style='--d:0.3s' x='179' y='88' font-family='sans-serif' font-size='10' text-anchor='middle' fill='#2A2522'>새 30</text><text x='120' y='108' font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2F4D7A' class='pop' style='--d:1.5s'>12/40 = 30/100 → 독립</text></svg>",
+      "title": "물가 표시와 새 관찰 표시가 함께 있을 때",
+      "body": "가상 관찰 카드 100장 중 물가 표시 A는 40장, 새 관찰 표시 B는 30장이고 둘 다 있는 것은 12장이에요. 한 장을 같은 확률로 뽑으면 P(B|A)=12/40=0.3으로 P(B)=0.3과 같아요. 이 카드 모형에서는 두 사건이 독립이며, 실제 서식지 전체의 독립까지 확인한 것은 아니에요.",
+      "formula": "P(A∩B)=0.12=0.4×0.3=P(A)P(B)",
+      "concept": "사건의 독립과 종속"
+    },
+    {
+      "id": "road-delay",
+      "tags": [
+        "여행",
+        "자동차"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><path class='draw' style='--d:0.1s' pathLength='1' d='M22 33H216M22 75H216' fill='none' stroke='#8A8178' stroke-width='2'/><g class='pop' style='--d:0.3s'><rect x='40' y='40' width='53' height='24' rx='4' fill='#EDE4D3' stroke='#2F4D7A' stroke-width='1.5'/><circle cx='51' cy='70' r='6' fill='#D79A2B' stroke='#2F4D7A' stroke-width='1.5'/><circle cx='82' cy='70' r='6' fill='#D79A2B' stroke='#2F4D7A' stroke-width='1.5'/></g><g class='pop' style='--d:0.5s'><rect x='128' y='40' width='62' height='24' rx='4' fill='#D8CCB7' stroke='#2F4D7A' stroke-width='1.5'/><text x='159' y='56' font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2A2522'>18 / 30</text></g><text x='120' y='108' font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2F4D7A' class='pop' style='--d:1.3s'>혼잡 시간 출발 30장만 비교</text></svg>",
+      "title": "혼잡 시간에 출발한 기록만 고르기",
+      "body": "모의 자동차 여행 기록 100장 중 혼잡 시간 출발은 30장이고, 그중 지연된 것은 18장이에요. 전체 지연 기록이 몇 장인지 몰라도, 혼잡 시간이라는 조건 아래 지연될 확률은 18/30=0.6이에요. 이 비율은 주어진 모의 기록에서 구한 값으로, 모든 여행의 지연 확률이나 원인을 말해 주지는 않아요.",
+      "formula": "P(지연 | 혼잡 시간) = 18/30 = 0.6",
+      "concept": "조건부확률"
+    },
+    {
+      "id": "routine-condition",
+      "tags": [
+        "건강·의학"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><rect x='30' y='20' width='75' height='62' rx='4' fill='#EDE4D3' stroke='#2F4D7A' stroke-width='1.5'/><text x='67' y='42' font-family='sans-serif' font-size='13' text-anchor='middle' fill='#2A2522'>걷기</text><text x='67' y='63' font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2A2522'>16장</text><path d='M114 49H140L132 42M140 49L132 56' fill='none' stroke='#2F4D7A' stroke-width='2' class='draw' pathLength='1'/><rect x='149' y='20' width='61' height='62' rx='4' fill='#D8CCB7' stroke='#2F4D7A' stroke-width='1.5'/><text x='179' y='43' font-family='sans-serif' font-size='10' text-anchor='middle' fill='#2A2522'>일찍 잠듦</text><text x='179' y='65' font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2A2522'>10장</text><text x='120' y='108' font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2F4D7A' class='pop' style='--d:.2s'>걷기 카드 16장 중 10장</text></svg>",
+      "title": "걷기 표시가 있는 날만 다시 보기",
+      "body": "가상 생활 기록 카드 40장 중 걷기 표시는 16장이고, 그중 일찍 잠든 표시까지 있는 것은 10장이에요. 한 장을 무작위로 고를 때 걷기 표시가 있다는 조건 아래 일찍 잠든 확률은 10/16=0.625예요. 함께 표시된 비율을 계산한 것이어서 걷기가 수면을 바꿨다는 의학적 결론은 낼 수 없어요.",
+      "formula": "P(일찍 잠듦 | 걷기) = 10/16 = 0.625",
+      "concept": "조건부확률"
+    },
+    {
+      "id": "ai-labels",
+      "tags": [
+        "컴퓨터·AI"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><rect x='25' y='20' width='86' height='63' rx='4' fill='#EDE4D3' stroke='#2F4D7A' stroke-width='1.5'/><path d='M43 57V35L54 43L68 43L80 35V57Q62 76 43 57Z' fill='#EDE4D3' stroke='#2F4D7A' stroke-width='2'/><path d='M120 49H144L136 42M144 49L136 56' fill='none' stroke='#2F4D7A' stroke-width='2' class='draw' pathLength='1'/><rect x='152' y='20' width='61' height='63' rx='4' fill='#D8CCB7' stroke='#2F4D7A' stroke-width='1.5'/><text x='182' y='42' font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2A2522'>표시 25</text><text x='182' y='63' font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2A2522'>정답 20</text><text x='120' y='108' font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2F4D7A' class='pop' style='--d:.2s'>비교할 전체 = 표시된 25장</text></svg>",
+      "title": "고양이라고 표시한 그림을 다시 확인하기",
+      "body": "가상 그림 분류 결과 100장 중 AI가 고양이라고 표시한 그림은 25장이에요. 그 25장을 정답표와 맞춰 보니 실제 고양이는 20장이었어요. 표시된 그림 중 정답일 조건부확률은 20/25=0.8이며, 실제 고양이 전체 중 찾아낸 비율과는 분모가 달라요.",
+      "formula": "P(실제 고양이 | 고양이 표시) = 20/25 = 0.8",
+      "concept": "조건부확률"
+    },
+    {
+      "id": "window-draws",
+      "tags": [
+        "건축"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><path class='draw' style='--d:0.1s' pathLength='1' d='M31 83V35L80 15L129 35V83Z' fill='#EDE4D3' stroke='#2F4D7A' stroke-width='2'/><rect class='pop' style='--d:0.3s' x='50' y='42' width='24' height='27' rx='4' fill='#2F4D7A' stroke='#2F4D7A' stroke-width='1.5'/><rect class='pop' style='--d:0.7s' x='87' y='42' width='24' height='27' rx='4' fill='#2F4D7A' stroke='#2F4D7A' stroke-width='1.5'/><g class='pop' style='--d:0.5s'><rect x='157' y='30' width='52' height='51' rx='4' fill='#D8CCB7' stroke='#2F4D7A' stroke-width='1.5'/><text x='183' y='47' font-family='sans-serif' font-size='11' text-anchor='middle' fill='#2A2522'>뽑고</text><text x='183' y='65' font-family='sans-serif' font-size='10' text-anchor='middle' fill='#2A2522'>다시 넣기</text></g><text x='120' y='108' font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2F4D7A' class='pop' style='--d:1.3s'>복원 · 독립 → (2/5)²</text></svg>",
+      "title": "모형 창 두 개를 파란색으로 고르기",
+      "body": "건축 모형의 창 두 개를 칠하려고, 파란 카드 두 장과 흰 카드 세 장이 든 주머니에서 한 장씩 뽑아요. 첫 색을 기록한 뒤 카드를 다시 넣고 잘 섞어 독립적으로 뽑는다고 가정해요. 두 창이 모두 파란색일 확률은 (2/5)²=4/25예요.",
+      "formula": "P(둘 다 파랑) = (2/5) × (2/5) = 4/25",
+      "concept": "확률의 곱셈정리"
+    }
+  ]
+}

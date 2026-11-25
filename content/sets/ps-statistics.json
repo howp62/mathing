@@ -1,0 +1,186 @@
+{
+  "id": "ps-statistics",
+  "subject": "확률과 통계",
+  "unit": "통계",
+  "order": 16,
+  "status": "reviewed",
+  "topics": [
+    "확률변수와 확률분포",
+    "이항분포와 정규분포",
+    "모집단과 표본",
+    "모평균과 모비율의 추정"
+  ],
+  "concepts": [
+    "확률변수와 확률분포",
+    "기댓값과 표준편차",
+    "이항분포",
+    "정규분포",
+    "모집단과 표본",
+    "표본평균과 모평균",
+    "표본비율과 모비율",
+    "모평균의 추정",
+    "모비율의 추정"
+  ],
+  "thinkCards": [
+    "같은 규칙으로 해도 결과가 달라지는 장면을 숫자로 나타내면 어떤 분포가 나올까?",
+    "평균이 같은 두 결과라도, 흩어지는 정도가 다르면 선택이 달라질까?",
+    "전체를 모두 살피기 어렵다면, 일부를 어떤 방법으로 골라야 할까?",
+    "표본에서 얻은 숫자를 전체의 값이라고 확정하지 않고 어떻게 범위로 말할 수 있을까?"
+  ],
+  "interestPromptsStatus": "reviewed",
+  "interestPrompts": {
+    "게임": "보상이 달라지는 게임에서, 보상값과 각각의 확률을 표로 만들면 무엇을 비교할 수 있을까?",
+    "음악": "모의 음악 공연의 추가 연주 시간이 달라진다면, 평균 시간과 실제 한 번의 시간은 같을까?",
+    "스포츠": "성공 확률이 같은 독립 시도에서, 시도 횟수가 늘면 평균 성공 수와 표준편차는 어떻게 변할까?",
+    "패션·뷰티": "도안의 색 측정 오차를 정규분포로 가정하면, 다른 표준편차의 도안을 어떻게 비교할까?",
+    "요리": "많은 쿠키 모형의 무게를 알아보려면, 눈에 잘 띄는 것 대신 어떤 표본을 골라야 할까?",
+    "영상·SNS": "모의 영상의 음성과 화면 어긋남을 표본으로 측정하면, 평균 오차를 어떤 범위로 추정할까?",
+    "그림·디자인": "그림 출력의 색 오차가 평균에서 얼마나 떨어졌는지, 표준편차를 기준으로 말해 볼까?",
+    "동물": "가상 생태 관찰 기록 일부에서 새가 보인 비율로, 전체 비율을 추정할 때 무엇이 필요할까?",
+    "여행": "모의 여행 시간 오차의 평균을 구할 때, 표본을 더 많이 뽑으면 평균의 흔들림은 어떻게 될까?",
+    "자동차": "모의 주행 시간 오차를 여러 번 평균 내면, 한 번의 오차보다 얼마나 덜 흔들릴까?",
+    "건강·의학": "걷기 계획 놀이의 보너스 점수에서, 기댓값이 실제 한 번의 점수와 달라도 괜찮을까?",
+    "환경": "가상 관찰 기록의 비율을 추정할 때, 표본을 크게 하는 것과 고르게 뽑는 것은 어떻게 다를까?",
+    "컴퓨터·AI": "독립적인 0·1 난수의 합은, 횟수를 늘릴 때 어떤 모양의 분포에 가까워질까?",
+    "건축": "모형 창 색을 일부만 조사해 전체의 비율을 가늠할 때, 표본마다 값이 달라지는 이유는 뭘까?",
+    "공연·아이돌": "모의 공연의 추가 무대 시간을 기댓값으로 계획하면, 한 공연의 시간과 무엇이 다를까?"
+  },
+  "examples": [
+    {
+      "id": "reward-distribution",
+      "tags": [
+        "게임"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><path class='draw' style='--d:0.1s' pathLength='1' d='M42 24V80H209' fill='none' stroke='#8A8178' stroke-width='2'/><g class='pop' style='--d:0.3s'><rect x='57' y='62' width='26' height='18' rx='1' fill='#2F4D7A' stroke='#2F4D7A' stroke-width='1.5'/><text x='70' y='94' font-family='sans-serif' font-size='10' text-anchor='middle' fill='#2A2522'>0점</text></g><g class='pop' style='--d:0.5s'><rect x='101' y='44' width='26' height='36' rx='1' fill='#D8CCB7' stroke='#2F4D7A' stroke-width='1.5'/><text x='114' y='94' font-family='sans-serif' font-size='10' text-anchor='middle' fill='#2A2522'>1점</text></g><g class='pop' style='--d:0.7s'><rect x='145' y='62' width='26' height='18' rx='1' fill='#2F4D7A' stroke='#2F4D7A' stroke-width='1.5'/><text x='158' y='94' font-family='sans-serif' font-size='10' text-anchor='middle' fill='#2A2522'>2점</text></g><text class='pop' style='--d:0.1s' x='120' y='16' font-family='sans-serif' font-size='11' text-anchor='middle' fill='#2A2522'>보상 X의 확률</text><text x='120' y='108' font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2F4D7A' class='pop' style='--d:1.3s'>1/4 + 1/2 + 1/4 = 1</text></svg>",
+      "title": "보상은 0점인데 평균은 1점일 수 있을까?",
+      "body": "가상 게임에서 보상 X가 0점, 1점, 2점일 확률을 각각 1/4, 1/2, 1/4로 정해요. 가능한 값과 확률을 모은 것이 확률분포이며, 확률의 합은 1이에요. X의 기댓값은 1점이지만 매번 1점이 나온다는 뜻은 아니에요.",
+      "formula": "P(X=0,1,2) = (1/4,1/2,1/4), E(X)=1점",
+      "concept": "확률변수와 확률분포"
+    },
+    {
+      "id": "encore-time",
+      "tags": [
+        "음악",
+        "공연·아이돌"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><g class='pop' style='--d:0.1s'><rect x='23' y='23' width='139' height='59' rx='4' fill='#2F4D7A' stroke='#2F4D7A' stroke-width='1.5'/><path d='M34 71Q48 44 62 71T90 71T118 71T146 71' fill='none' stroke='#D79A2B' stroke-width='2'/></g><circle class='pop' style='--d:0.3s' cx='190' cy='48' r='23' fill='#EDE4D3' stroke='#2F4D7A' stroke-width='1.5'/><path class='draw' style='--d:0.5s' pathLength='1' d='M190 32V48L203 57' fill='none' stroke='#2F4D7A' stroke-width='2'/><text class='pop' style='--d:0.1s' x='91' y='36' font-family='sans-serif' font-size='11' text-anchor='middle' fill='#F7F2E8'>추가 무대</text><text x='120' y='108' font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2F4D7A' class='pop' style='--d:1.5s'>1분 (1/4) · 3분 (3/4)</text></svg>",
+      "title": "추가 무대는 평균 몇 분일까?",
+      "body": "가상 음악 공연의 추가 무대 시간 X를 1분일 확률 1/4, 3분일 확률 3/4로 정해요. 기댓값은 2.5분이고 분산은 0.75분²여서 표준편차는 약 0.87분이에요. 평균과 표준편차로 시간의 중심과 흩어짐을 설명하지만, 실제 한 공연은 이 모형에서 1분 또는 3분이에요.",
+      "formula": "E(X)=2.5분, σ=√0.75≈0.87분",
+      "concept": "기댓값과 표준편차"
+    },
+    {
+      "id": "shots-binomial",
+      "tags": [
+        "스포츠"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><path class='draw' style='--d:0.1s' pathLength='1' d='M28 23V82H213V23' fill='none' stroke='#8A8178' stroke-width='2'/><circle class='pop' style='--d:0.1s' cx='47' cy='38' r='9' fill='#D79A2B' stroke='#2F4D7A' stroke-width='1.5'/><circle class='pop' style='--d:0.25s' cx='83' cy='38' r='9' fill='#D79A2B' stroke='#2F4D7A' stroke-width='1.5'/><circle class='pop' style='--d:0.4s' cx='119' cy='38' r='9' fill='#D79A2B' stroke='#2F4D7A' stroke-width='1.5'/><circle class='pop' style='--d:0.55s' cx='155' cy='38' r='9' fill='#D79A2B' stroke='#2F4D7A' stroke-width='1.5'/><circle class='pop' style='--d:0.7s' cx='191' cy='38' r='9' fill='#D79A2B' stroke='#2F4D7A' stroke-width='1.5'/><circle class='pop' style='--d:0.1s' cx='47' cy='65' r='9' fill='#D79A2B' stroke='#2F4D7A' stroke-width='1.5'/><circle class='pop' style='--d:0.25s' cx='83' cy='65' r='9' fill='#EDE4D3' stroke='#2F4D7A' stroke-width='1.5'/><circle class='pop' style='--d:0.4s' cx='119' cy='65' r='9' fill='#EDE4D3' stroke='#2F4D7A' stroke-width='1.5'/><circle class='pop' style='--d:0.55s' cx='155' cy='65' r='9' fill='#EDE4D3' stroke='#2F4D7A' stroke-width='1.5'/><circle class='pop' style='--d:0.7s' cx='191' cy='65' r='9' fill='#EDE4D3' stroke='#2F4D7A' stroke-width='1.5'/><text x='120' y='108' font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2F4D7A' class='pop' style='--d:1.3s'>평균 np=6 · 표준편차 √2.4</text></svg>",
+      "title": "열 번의 시도에서 성공 수를 세기",
+      "body": "가상 슛 실험에서 매번 성공 확률이 0.6으로 같고, 열 번의 시도는 서로 독립이라고 정해요. 성공 횟수 X는 이항분포 B(10,0.6)을 따르며 평균은 6회, 표준편차는 √2.4≈1.55회예요. 한 번의 성공 여부와 열 번 합친 성공 횟수의 분포를 구별해야 해요.",
+      "formula": "X∼B(10,0.6), E(X)=6, σ=√2.4≈1.55",
+      "concept": "이항분포"
+    },
+    {
+      "id": "color-error",
+      "tags": [
+        "패션·뷰티",
+        "그림·디자인"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><rect x='22' y='25' width='42' height='51' rx='4' fill='#2F4D7A' stroke='#2F4D7A' stroke-width='1.5'/><text x='43' y='89' font-family='sans-serif' font-size='10' text-anchor='middle' fill='#2A2522'>도안</text><path d='M78 78H218M81 74C109 73 112 26 145 25C176 26 178 73 212 74' fill='none' stroke='#2F4D7A' stroke-width='2' class='draw' pathLength='1'/><path d='M145 26V79M188 57V79' fill='none' stroke='#8A8178' stroke-width='2'/><text x='145' y='91' font-family='sans-serif' font-size='10' text-anchor='middle' fill='#2A2522'>0</text><text x='188' y='91' font-family='sans-serif' font-size='10' text-anchor='middle' fill='#2A2522'>3</text><text x='120' y='108' font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2F4D7A' class='pop' style='--d:.2s'>오차 3 → 표준점수 1.5</text></svg>",
+      "title": "파란 도안의 색 오차를 같은 기준으로 보기",
+      "body": "가상 네일 도안 출력의 부호 있는 색 좌표 오차 X가 평균 0, 표준편차 2인 정규분포를 따른다고 가정해요. 오차 3은 평균보다 표준편차의 1.5배 큰 값이라 Z=(X−0)/2로 바꾸면 1.5가 돼요. 여기서는 한 색 좌표의 모의 오차만 비교하며, 실제 미용 결과나 전체 색 품질을 평가한 것은 아니에요.",
+      "formula": "X∼N(0,2²), X=3이면 Z=(3−0)/2=1.5",
+      "concept": "정규분포"
+    },
+    {
+      "id": "cookie-sampling",
+      "tags": [
+        "요리"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><rect x='20' y='20' width='121' height='66' rx='4' fill='#EDE4D3' stroke='#2F4D7A' stroke-width='1.5'/><circle cx='38' cy='37' r='6' fill='#EDE4D3' stroke='#2F4D7A' stroke-width='1.5'/><circle cx='59' cy='37' r='6' fill='#EDE4D3' stroke='#2F4D7A' stroke-width='1.5'/><circle cx='80' cy='37' r='6' fill='#EDE4D3' stroke='#2F4D7A' stroke-width='1.5'/><circle cx='101' cy='37' r='6' fill='#EDE4D3' stroke='#2F4D7A' stroke-width='1.5'/><circle cx='122' cy='37' r='6' fill='#EDE4D3' stroke='#2F4D7A' stroke-width='1.5'/><circle cx='38' cy='57' r='6' fill='#EDE4D3' stroke='#2F4D7A' stroke-width='1.5'/><circle cx='59' cy='57' r='6' fill='#EDE4D3' stroke='#2F4D7A' stroke-width='1.5'/><circle cx='80' cy='57' r='6' fill='#EDE4D3' stroke='#2F4D7A' stroke-width='1.5'/><circle cx='101' cy='57' r='6' fill='#EDE4D3' stroke='#2F4D7A' stroke-width='1.5'/><circle cx='122' cy='57' r='6' fill='#EDE4D3' stroke='#2F4D7A' stroke-width='1.5'/><path d='M148 51H173L164 43M173 51L164 59' fill='none' stroke='#2F4D7A' stroke-width='2' class='draw' pathLength='1'/><rect x='181' y='29' width='39' height='43' rx='4' fill='#D8CCB7' stroke='#2F4D7A' stroke-width='1.5'/><text x='200' y='56' font-family='sans-serif' font-size='11' text-anchor='middle' fill='#2A2522'>30개</text><text x='120' y='108' font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2F4D7A' class='pop' style='--d:.2s'>전체 500개 중 무작위 30개</text></svg>",
+      "title": "눈에 띄는 쿠키만 재도 괜찮을까?",
+      "body": "쿠키 모형 500개의 무게를 알아보는 모의 조사를 해요. 500개 전체가 모집단이고, 번호를 무작위로 골라 꺼낸 30개가 표본이에요. 큰 모형만 눈으로 골라 재면 작은 모형이 빠질 수 있어서, 단순히 많이 재는 것과 고르게 뽑는 것은 달라요.",
+      "formula": "모집단 500개 → 임의추출한 표본 30개",
+      "concept": "모집단과 표본"
+    },
+    {
+      "id": "video-mean-interval",
+      "tags": [
+        "영상·SNS"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><rect x='23' y='22' width='85' height='56' rx='4' fill='#EDE4D3' stroke='#2F4D7A' stroke-width='1.5'/><path d='M35 54L44 44L52 63L62 35L72 54H96' fill='none' stroke='#2F4D7A' stroke-width='2' class='draw' pathLength='1'/><path d='M132 49H214M132 41V57M214 41V57' fill='none' stroke='#2F4D7A' stroke-width='2'/><circle cx='173' cy='49' r='4' fill='#D79A2B' stroke='#2F4D7A' stroke-width='1.5'/><text x='132' y='77' font-family='sans-serif' font-size='10' text-anchor='middle' fill='#2A2522'>11.22</text><text x='173' y='33' font-family='sans-serif' font-size='11' text-anchor='middle' fill='#2A2522'>12</text><text x='214' y='77' font-family='sans-serif' font-size='10' text-anchor='middle' fill='#2A2522'>12.78</text><text x='120' y='108' font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2F4D7A' class='pop' style='--d:.2s'>n=25 · σ=2ms · 95% 구간</text></svg>",
+      "title": "음성과 화면은 평균 얼마나 어긋날까?",
+      "body": "모의 영상 재생의 부호 있는 동기화 오차가 정규분포를 따르고 모표준편차가 2ms로 알려져 있다고 가정해요. 서로 독립적으로 임의추출한 25회의 표본평균이 12ms이면, 계산기로 95% 신뢰구간을 12±1.96×2/√25로 구해요. 결과는 약 11.22~12.78ms로, 같은 절차를 반복해 만든 구간 중 약 95%가 모평균을 포함한다는 뜻이에요.",
+      "formula": "모평균의 95% 신뢰구간 ≈ [11.22,12.78]ms",
+      "concept": "모평균의 추정"
+    },
+    {
+      "id": "bird-proportion",
+      "tags": [
+        "동물",
+        "환경"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><path class='draw' style='--d:0.1s' pathLength='1' d='M28 60Q40 45 52 60Q64 45 76 60' fill='none' stroke='#2F4D7A' stroke-width='2'/><path class='draw' style='--d:0.3s' pathLength='1' d='M26 79Q44 66 62 79T98 79' fill='none' stroke='#2F4D7A' stroke-width='2'/><rect class='pop' style='--d:0.5s' x='113' y='23' width='100' height='58' rx='4' fill='#EDE4D3' stroke='#2F4D7A' stroke-width='1.5'/><text class='pop' style='--d:0.7s' x='163' y='43' font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2A2522'>새 표시 240</text><text class='pop' style='--d:0.5s' x='163' y='65' font-family='sans-serif' font-size='11' text-anchor='middle' fill='#2A2522'>전체 표본 400</text><text x='120' y='108' font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2F4D7A' class='pop' style='--d:1.5s'>p̂=0.6 → 약 55.2~64.8%</text></svg>",
+      "title": "새가 보인 관찰 기록은 전체의 몇 퍼센트일까?",
+      "body": "가상의 생태 관찰 기록 모집단에서 서로 독립적으로 임의추출한 400장 중 새 관찰 표시는 240장이에요. 표본비율은 0.6이고 두 범주의 수가 240장과 160장으로 충분히 커, 계산기로 모비율의 근사 95% 신뢰구간을 구해요. 약 55.2~64.8%는 기록의 전체 비율을 추정한 구간이며, 같은 절차를 반복한 구간 약 95%가 모비율을 포함한다는 뜻이에요.",
+      "formula": "p̂=0.6, 0.6±1.96√(0.6×0.4/400)≈[0.552,0.648]",
+      "concept": "모비율의 추정"
+    },
+    {
+      "id": "trip-means",
+      "tags": [
+        "여행",
+        "자동차"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><rect x='23' y='26' width='56' height='25' rx='4' fill='#EDE4D3' stroke='#2F4D7A' stroke-width='1.5'/><circle cx='35' cy='58' r='6' fill='#D79A2B' stroke='#2F4D7A' stroke-width='1.5'/><circle cx='66' cy='58' r='6' fill='#D79A2B' stroke='#2F4D7A' stroke-width='1.5'/><path d='M20 69H88' fill='none' stroke='#8A8178' stroke-width='2'/><path d='M107 76H218M110 74C130 74 130 33 151 32C174 33 174 74 195 74M132 74C142 74 141 16 151 16C161 16 160 74 170 74' fill='none' stroke='#2F4D7A' stroke-width='2' class='draw' pathLength='1'/><text x='150' y='92' font-family='sans-serif' font-size='10' text-anchor='middle' fill='#2A2522'>같은 평균 μ</text><text x='120' y='108' font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2F4D7A' class='pop' style='--d:.2s'>n: 9 → 36 · 표준편차: 2 → 1분</text></svg>",
+      "title": "주행 시간 오차를 많이 평균 내면",
+      "body": "모의 자동차 여행에서 계획 시간과 실제 시간의 차이가 평균 μ, 표준편차 6분인 정규분포를 따른다고 가정해요. 서로 독립적으로 뽑은 n개의 오차를 평균 낸 표본평균의 평균은 μ, 표준편차는 6/√n분이에요. 표본 9개일 때는 2분, 36개일 때는 1분으로 줄지만, 잘못 고른 경로만 조사한 편향까지 없애 주지는 않아요.",
+      "formula": "E(X̄)=μ, σ(X̄)=6/√n; n=9→2분, n=36→1분",
+      "concept": "표본평균과 모평균"
+    },
+    {
+      "id": "wellness-points",
+      "tags": [
+        "건강·의학"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><rect class='pop' style='--d:0.1s' x='35' y='21' width='63' height='60' rx='4' fill='#EDE4D3' stroke='#2F4D7A' stroke-width='1.5'/><rect class='pop' style='--d:0.3s' x='142' y='21' width='63' height='60' rx='4' fill='#D8CCB7' stroke='#2F4D7A' stroke-width='1.5'/><text class='pop' style='--d:0.1s' x='66' y='58' font-family='sans-serif' font-size='23' text-anchor='middle' fill='#2A2522'>0점</text><text class='pop' style='--d:0.3s' x='174' y='58' font-family='sans-serif' font-size='23' text-anchor='middle' fill='#2A2522'>2점</text><text class='pop' style='--d:0.1s' x='66' y='95' font-family='sans-serif' font-size='10' text-anchor='middle' fill='#2A2522'>확률 1/2</text><text class='pop' style='--d:0.3s' x='174' y='95' font-family='sans-serif' font-size='10' text-anchor='middle' fill='#2A2522'>확률 1/2</text><text x='120' y='108' font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2F4D7A' class='pop' style='--d:1s'>평균 1점 · 표준편차 1점</text></svg>",
+      "title": "걷기 계획 놀이의 점수는 얼마나 흔들릴까?",
+      "body": "가상 걷기 계획 놀이에서 같은 확률로 0점 카드 또는 2점 카드를 한 장 뽑아요. 점수 X의 기댓값은 1점, 분산은 1점², 표준편차는 1점이에요. 실제로 1점 카드는 없어도 평균은 1점일 수 있으며, 점수는 건강 효과를 뜻하지 않아요.",
+      "formula": "E(X)=1점, Var(X)=1점², σ=1점",
+      "concept": "기댓값과 표준편차"
+    },
+    {
+      "id": "random-bits",
+      "tags": [
+        "컴퓨터·AI"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><rect x='17' y='24' width='59' height='55' rx='4' fill='#2F4D7A' stroke='#2F4D7A' stroke-width='1.5'/><text x='46' y='45' font-family='sans-serif' font-size='13' text-anchor='middle' fill='#F7F2E8'>0101</text><text x='46' y='65' font-family='sans-serif' font-size='11' text-anchor='middle' fill='#F7F2E8'>100회</text><path d='M92 81H220' fill='none' stroke='#8A8178' stroke-width='2'/><rect x='98' y='74' width='11' height='6' rx='1' fill='#D8CCB7' stroke='#2F4D7A' stroke-width='1.5'/><rect x='113' y='63' width='11' height='17' rx='1' fill='#D8CCB7' stroke='#2F4D7A' stroke-width='1.5'/><rect x='128' y='47' width='11' height='33' rx='1' fill='#D8CCB7' stroke='#2F4D7A' stroke-width='1.5'/><rect x='143' y='32' width='11' height='48' rx='1' fill='#D8CCB7' stroke='#2F4D7A' stroke-width='1.5'/><rect x='158' y='32' width='11' height='48' rx='1' fill='#D8CCB7' stroke='#2F4D7A' stroke-width='1.5'/><rect x='173' y='47' width='11' height='33' rx='1' fill='#D8CCB7' stroke='#2F4D7A' stroke-width='1.5'/><rect x='188' y='63' width='11' height='17' rx='1' fill='#D8CCB7' stroke='#2F4D7A' stroke-width='1.5'/><rect x='203' y='74' width='11' height='6' rx='1' fill='#D8CCB7' stroke='#2F4D7A' stroke-width='1.5'/><path d='M94 77C124 77 125 28 157 26C188 28 189 77 218 77' fill='none' stroke='#2F4D7A' stroke-width='2' class='draw' pathLength='1'/><text x='120' y='108' font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2F4D7A' class='pop' style='--d:.2s'>평균 50 · 표준편차 5</text></svg>",
+      "title": "0과 1을 백 번 더한 모양",
+      "body": "컴퓨터 모의실험에서 독립적으로 0과 1이 각각 확률 1/2로 나오게 하고 100번의 합 X를 구해요. X는 이항분포 B(100,0.5)를 따라 평균은 50, 표준편차는 5예요. 이런 합을 많이 생성해 분포를 그리면 N(50,5²)의 종 모양과 가까운 모습을 비교할 수 있지만, 정수만 나오는 X가 연속적인 정규분포와 같은 것은 아니에요.",
+      "formula": "X∼B(100,0.5), E(X)=50, σ=5; 정규분포와 모양 비교",
+      "concept": "이항분포"
+    },
+    {
+      "id": "window-samples",
+      "tags": [
+        "건축"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><path class='draw' style='--d:0.1s' pathLength='1' d='M21 84V17H108V84' fill='#EDE4D3' stroke='#2F4D7A' stroke-width='2'/><rect class='pop' style='--d:0.3s' x='32' y='28' width='15' height='17' rx='1' fill='#2F4D7A' stroke='#2F4D7A' stroke-width='1.5'/><rect class='pop' style='--d:0.5s' x='55' y='28' width='15' height='17' rx='1' fill='#F7F2E8' stroke='#2F4D7A' stroke-width='1.5'/><rect class='pop' style='--d:0.7s' x='78' y='28' width='15' height='17' rx='1' fill='#2F4D7A' stroke='#2F4D7A' stroke-width='1.5'/><rect class='pop' style='--d:0.3s' x='32' y='52' width='15' height='17' rx='1' fill='#F7F2E8' stroke='#2F4D7A' stroke-width='1.5'/><rect class='pop' style='--d:0.5s' x='55' y='52' width='15' height='17' rx='1' fill='#2F4D7A' stroke='#2F4D7A' stroke-width='1.5'/><rect class='pop' style='--d:0.7s' x='78' y='52' width='15' height='17' rx='1' fill='#F7F2E8' stroke='#2F4D7A' stroke-width='1.5'/><rect class='pop' style='--d:0.5s' x='134' y='24' width='84' height='58' rx='4' fill='#D8CCB7' stroke='#2F4D7A' stroke-width='1.5'/><text class='pop' style='--d:0.7s' x='176' y='43' font-family='sans-serif' font-size='10' text-anchor='middle' fill='#2A2522'>표본1 30/100</text><text class='pop' style='--d:0.9s' x='176' y='66' font-family='sans-serif' font-size='10' text-anchor='middle' fill='#2A2522'>표본2 35/100</text><text x='120' y='108' font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2F4D7A' class='pop' style='--d:1.5s'>표본이 바뀌면 비율도 달라져요</text></svg>",
+      "title": "모형 창 일부만 골라 색 비율 살피기",
+      "body": "건축 모형 창 1000개 중 파란 창의 전체 비율 p를 알아보려 해요. 번호를 무작위로 골라 100개씩 조사했더니 두 번의 표본에서 파란 창은 각각 30개, 35개였다고 해 볼게요. 표본비율은 0.30과 0.35로 달라질 수 있으며, 어느 값도 전체 비율과 반드시 같지는 않아요.",
+      "formula": "p̂₁=30/100=0.30, p̂₂=35/100=0.35",
+      "concept": "표본비율과 모비율"
+    }
+  ]
+}

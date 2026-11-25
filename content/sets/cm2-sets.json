@@ -1,0 +1,228 @@
+{
+  "id": "cm2-sets",
+  "subject": "공통수학2",
+  "unit": "집합과 명제",
+  "order": 6,
+  "status": "reviewed",
+  "topics": [
+    "집합의 뜻과 연산",
+    "명제와 조건",
+    "간단한 증명과 절대부등식"
+  ],
+  "concepts": [
+    "집합의 뜻",
+    "집합의 포함 관계",
+    "집합의 연산",
+    "명제와 조건",
+    "역과 대우",
+    "충분조건과 필요조건",
+    "대우와 귀류법",
+    "절대부등식"
+  ],
+  "thinkCards": [
+    "좋아하는 것들을 기준 하나로 모으거나 나눠 본 적 있어?",
+    "두 조건을 모두 만족하는 것과 하나만 만족해도 되는 것은 어떻게 다를까?",
+    "모든·항상이라는 말을 듣고 예외를 떠올린 적 있어?",
+    "어떤 조건이 꼭 필요해도 그것만으로 충분하지 않은 장면이 있을까?"
+  ],
+  "interestPromptsStatus": "reviewed",
+  "interestPrompts": {
+    "게임": "게임에서 두 조건을 동시에 만족하는 대상을 고르는 장면이 있을까?",
+    "음악": "두 음악 목록을 합칠 때 겹치는 곡을 어떻게 한 번만 셀까?",
+    "스포츠": "운동 점수의 조건을 바꿔 말해도 항상 맞는지 반례를 찾을 수 있을까?",
+    "패션·뷰티": "옷이나 네일 색을 고를 때 이미 가진 것을 뺀 목록은 어떻게 만들까?",
+    "요리": "전체 메뉴 안에서 원하는 특징의 메뉴만 모으면 어떤 집합이 될까?",
+    "영상·SNS": "영상에 관한 모든·항상이라는 말을 보면 어떤 반례를 확인하고 싶어?",
+    "그림·디자인": "디자인 조건에서 이것도 저것도 아닌 대상을 어떻게 표시할까?",
+    "동물": "동물 분류에서 모두 그렇다와 그런 경우가 있다는 말은 어떻게 다를까?",
+    "여행": "여행 계획의 조건을 대우로 바꾸면 확인하기 쉬운 경우가 있을까?",
+    "자동차": "자동차 모형을 작동시키는 데 꼭 필요하지만 그것만으로 부족한 조건은 뭘까?",
+    "건강·의학": "운동 기록에서 어떤 활동을 하지 않은 날을 모으면 무엇을 더 물어볼 수 있을까?",
+    "환경": "환경 활동에서 절대 안 된다는 주장을 반대로 가정해 확인할 수 있을까?",
+    "컴퓨터·AI": "컴퓨터 검색에서 그리고를 또는과 부정으로 바꾸면 같은 결과를 낼 수 있을까?",
+    "건축": "건축 모형에서 정해진 둘레로 얻을 수 있는 넓이의 한계는 어떻게 보일까?",
+    "공연·아이돌": "공연 역할이 겹치는 사람과 한 역할만 맡는 사람을 어떻게 나눌까?"
+  },
+  "examples": [
+    {
+      "id": "game-filter",
+      "tags": [
+        "게임"
+      ],
+      "illus": null,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\"><g fill=\"#EDE4D3\" stroke=\"#2F4D7A\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"10\" y=\"43\" width=\"62\" height=\"34\" rx=\"12\"/><path d=\"M23 52v16m-8-8h16M52 55h1m9 10h1\"/></g><g fill=\"none\" stroke=\"#2F4D7A\" stroke-width=\"2\"><circle cx=\"145\" cy=\"57\" r=\"30\"/><circle class=\"pop\" cx=\"179\" cy=\"57\" r=\"30\" stroke=\"#C8553D\"/></g><text x=\"126\" y=\"60\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">A</text><text x=\"196\" y=\"60\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">B</text><g></g><text x=\"161\" y=\"14\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">같은 팀 A · 아이템 B</text><text x=\"161\" y=\"111\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">공통인 캐릭터 나</text></svg>",
+      "title": "같은 팀이면서 회복 아이템이 있는 사람은?",
+      "body": "연습 게임의 네 캐릭터를 전체집합 U={가, 나, 다, 라}로 정해 볼게. A={가, 나}는 같은 팀, B={나, 다}는 회복 아이템이 있는 캐릭터야. 두 조건을 모두 만족하는 캐릭터는 교집합 A∩B={나}야.",
+      "formula": "A∩B={나}",
+      "concept": "집합의 연산"
+    },
+    {
+      "id": "music-union",
+      "tags": [
+        "음악"
+      ],
+      "illus": null,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\"><g fill=\"#EDE4D3\" stroke=\"#2F4D7A\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M26 69V27l30-6v41M26 35l30-6\"/><ellipse cx=\"18\" cy=\"72\" rx=\"9\" ry=\"6\"/><ellipse cx=\"48\" cy=\"65\" rx=\"9\" ry=\"6\"/></g><g fill=\"none\" stroke=\"#2F4D7A\" stroke-width=\"2\"><circle cx=\"145\" cy=\"57\" r=\"30\"/><circle class=\"pop\" cx=\"179\" cy=\"57\" r=\"30\" stroke=\"#C8553D\"/></g><text x=\"126\" y=\"60\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">A</text><text x=\"196\" y=\"60\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">B</text><g></g><text x=\"161\" y=\"14\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">목록 A 6곡 · B 5곡</text><text x=\"161\" y=\"111\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">겹치는 2곡 → 합쳐 9곡</text></svg>",
+      "title": "두 재생목록을 합치면 몇 곡일까?",
+      "body": "내 재생목록 A와 친구의 목록 B에 각각 6곡, 5곡이 있다고 해 볼게. 같은 곡 2곡은 한 번만 넣어 합치려 해. 곡 수는 6+5−2=9곡이야.",
+      "formula": "n(A∪B)=6+5−2=9",
+      "concept": "집합의 연산"
+    },
+    {
+      "id": "sports-condition",
+      "tags": [
+        "스포츠"
+      ],
+      "illus": null,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\"><g fill=\"#EDE4D3\" stroke=\"#2F4D7A\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"40\" cy=\"53\" r=\"28\"/><path d=\"M12 53h56M40 25v56M20 33q35 20 40 40M60 33Q25 53 20 73\"/></g><g fill=\"none\" stroke=\"#2F4D7A\" stroke-width=\"2\"><rect x=\"102\" y=\"37\" width=\"41\" height=\"42\" rx=\"5\"/><path class=\"draw\" pathLength=\"1\" d=\"M150 58h23m-7-6 7 6-7 6\"/><rect class=\"pop\" x=\"180\" y=\"37\" width=\"41\" height=\"42\" rx=\"5\" stroke=\"#C8553D\"/></g><text x=\"161\" y=\"14\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">6의 배수 → 짝수</text><text x=\"161\" y=\"111\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">반례: 8</text></svg>",
+      "title": "6의 배수 점수는 모두 짝수일까?",
+      "body": "연습 점수를 정수로 기록한다고 해 볼게. 점수가 6의 배수라면 6k=2×3k라서 짝수야. 하지만 짝수 8은 6의 배수가 아니므로 반대 문장은 항상 참이 아니야.",
+      "formula": "6의 배수 ⇒ 짝수, 역은 거짓",
+      "concept": "충분조건과 필요조건"
+    },
+    {
+      "id": "fashion-difference",
+      "tags": [
+        "패션·뷰티"
+      ],
+      "illus": null,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\"><g fill=\"#EDE4D3\" stroke=\"#2F4D7A\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M24 26l16 7 16-7 17 19-12 10-6-7v37H25V48l-6 7L7 45Z\"/></g><g fill=\"none\" stroke=\"#2F4D7A\" stroke-width=\"2\"><circle cx=\"145\" cy=\"57\" r=\"30\"/><circle class=\"pop\" cx=\"179\" cy=\"57\" r=\"30\" stroke=\"#C8553D\"/></g><text x=\"126\" y=\"60\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">A</text><text x=\"196\" y=\"60\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">B</text><g></g><text x=\"161\" y=\"14\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">후보 A · 보유 B</text><text x=\"161\" y=\"111\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">A에서 B를 빼기</text></svg>",
+      "title": "이미 가진 색을 빼고 고르려면?",
+      "body": "새로 고를 네일 색을 A={빨강, 파랑, 노랑}, 이미 가진 색을 B={파랑, 초록}이라고 해 볼게. A 중에서 B에 없는 색만 고르면 빨강과 노랑이야. 이 목록을 차집합 A−B로 나타내.",
+      "formula": "A−B={빨강, 노랑}",
+      "concept": "집합의 연산"
+    },
+    {
+      "id": "cooking-subset",
+      "tags": [
+        "요리"
+      ],
+      "illus": null,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\"><g fill=\"#EDE4D3\" stroke=\"#2F4D7A\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M17 48h47v25q0 10-10 10H27q-10 0-10-10ZM10 44h61M26 37q-9-10 0-20M44 37q-9-10 0-20M62 37q-9-10 0-20\"/></g><g fill=\"none\" stroke=\"#2F4D7A\" stroke-width=\"2\"><rect x=\"104\" y=\"23\" width=\"115\" height=\"65\" rx=\"8\"/><rect class=\"pop\" x=\"125\" y=\"42\" width=\"57\" height=\"32\" rx=\"8\" stroke=\"#C8553D\"/></g><text x=\"161\" y=\"14\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">전체 메뉴 U</text><text x=\"161\" y=\"111\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">채소 메뉴 A ⊆ U</text></svg>",
+      "title": "채소 메뉴는 모두 전체 메뉴에 들어갈까?",
+      "body": "축제 메뉴를 U={샐러드, 구운 채소, 주먹밥}이라고 해 볼게. 그중 채소 메뉴 A={샐러드, 구운 채소}를 따로 모았어. A의 모든 원소가 U에도 있으니 A는 U의 부분집합이야.",
+      "formula": "A⊆U",
+      "concept": "집합의 포함 관계"
+    },
+    {
+      "id": "video-counter",
+      "tags": [
+        "영상·SNS"
+      ],
+      "illus": null,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\"><g fill=\"#EDE4D3\" stroke=\"#2F4D7A\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"21\" y=\"16\" width=\"40\" height=\"76\" rx=\"6\"/><path d=\"M26 27h30M26 79h30M35 42l14 10-14 10Z\"/></g><g fill=\"none\" stroke=\"#2F4D7A\" stroke-width=\"2\"><circle cx=\"134\" cy=\"54\" r=\"25\"/><path class=\"draw\" pathLength=\"1\" d=\"M178 36l30 34m0-34-30 34\" stroke=\"#C8553D\"/></g><text x=\"161\" y=\"14\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">모든 짧은 영상?</text><text x=\"161\" y=\"111\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">20초 · 10회인 반례</text></svg>",
+      "title": "모든 짧은 영상이 조회 수가 높을까?",
+      "body": "가상 영상 세 개의 길이와 조회 수를 적어 봤다고 해 볼게. 20초 영상 하나가 10회, 다른 두 영상은 100회 이상이었어. 이 예에서는 모든 짧은 영상이 100회 이상이라는 문장은 반례 하나로 거짓이 돼.",
+      "formula": "반례 1개 → 전체를 말한 명제는 거짓",
+      "concept": "명제와 조건"
+    },
+    {
+      "id": "design-de-morgan",
+      "tags": [
+        "그림·디자인"
+      ],
+      "illus": null,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\"><g fill=\"#EDE4D3\" stroke=\"#2F4D7A\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M14 75l7-20 34-34 14 14-34 34ZM21 55l14 14M55 21l14 14M14 75l21-6\"/></g><g fill=\"none\" stroke=\"#2F4D7A\" stroke-width=\"2\"><circle cx=\"145\" cy=\"57\" r=\"30\"/><circle class=\"pop\" cx=\"179\" cy=\"57\" r=\"30\" stroke=\"#C8553D\"/></g><text x=\"126\" y=\"60\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">A</text><text x=\"196\" y=\"60\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">B</text><g></g><text x=\"161\" y=\"14\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">파랑 A · 빨강 B</text><text x=\"161\" y=\"111\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">어느 색도 안 쓴 도안</text></svg>",
+      "title": "두 색을 모두 쓰지 않는 디자인은?",
+      "body": "도안 네 개 중 파랑을 쓴 도안을 A, 빨강을 쓴 도안을 B라고 해 볼게. 두 색 중 어느 것도 쓰지 않은 도안은 A∪B 바깥에 있어. 이는 파랑도 없고 빨강도 없는 도안을 함께 고르는 것과 같아.",
+      "formula": "(A∪B)ᶜ=Aᶜ∩Bᶜ",
+      "concept": "집합의 연산"
+    },
+    {
+      "id": "animal-quantifier",
+      "tags": [
+        "동물"
+      ],
+      "illus": null,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\"><g fill=\"#EDE4D3\" stroke=\"#2F4D7A\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><ellipse cx=\"40\" cy=\"67\" rx=\"20\" ry=\"14\"/><ellipse cx=\"20\" cy=\"39\" rx=\"6\" ry=\"9\"/><ellipse cx=\"36\" cy=\"28\" rx=\"6\" ry=\"9\"/><ellipse cx=\"53\" cy=\"32\" rx=\"6\" ry=\"9\"/><ellipse cx=\"65\" cy=\"47\" rx=\"6\" ry=\"9\"/></g><g fill=\"none\" stroke=\"#2F4D7A\" stroke-width=\"2\"><circle cx=\"134\" cy=\"54\" r=\"25\"/><path class=\"draw\" pathLength=\"1\" d=\"M178 36l30 34m0-34-30 34\" stroke=\"#C8553D\"/></g><text x=\"161\" y=\"14\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">고양이 2 · 강아지 1</text><text x=\"161\" y=\"111\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">모든과 어떤은 다름</text></svg>",
+      "title": "모든 동물과 어떤 동물은 어떻게 다를까?",
+      "body": "가상 동물 카드에 고양이 두 장과 강아지 한 장이 있다고 해 볼게. 모든 카드가 고양이라는 문장은 강아지 카드 때문에 거짓이야. 어떤 카드는 고양이라는 문장은 고양이 한 장만 있어도 참이야.",
+      "formula": "모든: 전부 확인 / 어떤: 적어도 하나",
+      "concept": "명제와 조건"
+    },
+    {
+      "id": "travel-contrapositive",
+      "tags": [
+        "여행"
+      ],
+      "illus": null,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\"><g fill=\"#EDE4D3\" stroke=\"#2F4D7A\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M8 35l21-9 24 9 22-9v57l-22 9-24-9-21 9ZM29 26v57M53 35v57\"/><circle cx=\"42\" cy=\"52\" r=\"7\"/></g><g fill=\"none\" stroke=\"#2F4D7A\" stroke-width=\"2\"><rect x=\"102\" y=\"37\" width=\"41\" height=\"42\" rx=\"5\"/><path class=\"draw\" pathLength=\"1\" d=\"M150 58h23m-7-6 7 6-7 6\"/><rect class=\"pop\" x=\"180\" y=\"37\" width=\"41\" height=\"42\" rx=\"5\" stroke=\"#C8553D\"/></g><text x=\"161\" y=\"14\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">탑승 가능 → 표 보유</text><text x=\"161\" y=\"111\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">표 없음 → 탑승 불가</text></svg>",
+      "title": "탑승 조건을 반대로 확인한다면?",
+      "body": "가상 여행 게임에서 탑승 가능 ⇒ 표 보유라는 규칙을 정해 볼게. 이 규칙의 대우는 표 미보유 ⇒ 탑승 불가야. 두 문장은 참·거짓이 같지만 표 보유 ⇒ 탑승 가능은 다른 조건이 있어 틀릴 수 있어.",
+      "formula": "p⇒q의 대우: ¬q⇒¬p",
+      "concept": "역과 대우"
+    },
+    {
+      "id": "car-necessary",
+      "tags": [
+        "자동차"
+      ],
+      "illus": null,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\"><g fill=\"#EDE4D3\" stroke=\"#2F4D7A\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M9 60l9-25h42l12 25v18H9ZM18 35l8-13h24l10 13M9 60h63\"/><circle cx=\"23\" cy=\"79\" r=\"7\"/><circle cx=\"59\" cy=\"79\" r=\"7\"/></g><g fill=\"none\" stroke=\"#2F4D7A\" stroke-width=\"2\"><rect x=\"102\" y=\"37\" width=\"41\" height=\"42\" rx=\"5\"/><path class=\"draw\" pathLength=\"1\" d=\"M150 58h23m-7-6 7 6-7 6\"/><rect class=\"pop\" x=\"180\" y=\"37\" width=\"41\" height=\"42\" rx=\"5\" stroke=\"#C8553D\"/></g><text x=\"161\" y=\"14\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">움직임 → 배터리 있음</text><text x=\"161\" y=\"111\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">배터리만으로 충분할까?</text></svg>",
+      "title": "충전되어 있으면 반드시 출발할 수 있을까?",
+      "body": "장난감 자동차가 움직이면 배터리가 있다는 규칙을 정해 볼게. 배터리가 있는 것은 움직이기 위한 필요조건이야. 배터리가 있어도 스위치가 꺼져 있으면 움직이지 않으니 충분조건은 아니야.",
+      "formula": "움직임 ⇒ 배터리 있음",
+      "concept": "충분조건과 필요조건"
+    },
+    {
+      "id": "health-records",
+      "tags": [
+        "건강·의학"
+      ],
+      "illus": null,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\"><g fill=\"#EDE4D3\" stroke=\"#2F4D7A\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M40 80L13 52C-5 28 22 11 40 34 58 11 85 28 67 52ZM17 54h13l6-14 9 29 7-15h15\"/></g><g fill=\"none\" stroke=\"#2F4D7A\" stroke-width=\"2\"><rect x=\"104\" y=\"23\" width=\"115\" height=\"65\" rx=\"8\"/><rect class=\"pop\" x=\"125\" y=\"42\" width=\"57\" height=\"32\" rx=\"8\" stroke=\"#C8553D\"/></g><text x=\"161\" y=\"14\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">전체는 일주일</text><text x=\"161\" y=\"111\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">산책하지 않은 4일</text></svg>",
+      "title": "운동 기록 중 산책이 아닌 날은?",
+      "body": "가상의 일주일 기록을 전체집합 U로 두고 산책한 날을 A={월, 수, 금}이라고 해 볼게. A의 여집합은 화, 목, 토, 일이야. 여기서는 산책 여부만 분류하므로 다른 운동을 했는지는 알 수 없어.",
+      "formula": "Aᶜ={화, 목, 토, 일}",
+      "concept": "집합의 연산"
+    },
+    {
+      "id": "environment-proof",
+      "tags": [
+        "환경"
+      ],
+      "illus": null,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\"><g fill=\"#EDE4D3\" stroke=\"#2F4D7A\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M40 89V41M40 65Q10 66 10 37q30 0 30 28M40 51q0-31 29-31 0 30-29 31M18 90h45\"/></g><g fill=\"none\" stroke=\"#2F4D7A\" stroke-width=\"2\"><rect x=\"102\" y=\"37\" width=\"41\" height=\"42\" rx=\"5\"/><path class=\"draw\" pathLength=\"1\" d=\"M150 58h23m-7-6 7 6-7 6\"/><rect class=\"pop\" x=\"180\" y=\"37\" width=\"41\" height=\"42\" rx=\"5\" stroke=\"#C8553D\"/></g><text x=\"161\" y=\"14\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">짝수 n=2k</text><text x=\"161\" y=\"111\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">1개 남는다는 가정과 모순</text></svg>",
+      "title": "짝수 개를 둘씩 모으면 남을까?",
+      "body": "환경 동아리가 뚜껑을 둘씩 짝지어 분류한다고 해 볼게. 뚜껑 수 n이 짝수라면 n=2k이므로 남지 않아. 남았다고 가정하면 n=2k+1인 홀수여야 해서 짝수라는 조건과 모순돼.",
+      "formula": "n=2k와 n=2k+1은 동시에 불가",
+      "concept": "대우와 귀류법"
+    },
+    {
+      "id": "computer-filter",
+      "tags": [
+        "컴퓨터·AI"
+      ],
+      "illus": null,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\"><g fill=\"#EDE4D3\" stroke=\"#2F4D7A\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"11\" y=\"24\" width=\"59\" height=\"44\" rx=\"3\"/><path d=\"M40 68v17M21 85h38M22 37l10 9-10 9M42 55h14\"/></g><g fill=\"none\" stroke=\"#2F4D7A\" stroke-width=\"2\"><circle cx=\"145\" cy=\"57\" r=\"30\"/><circle class=\"pop\" cx=\"179\" cy=\"57\" r=\"30\" stroke=\"#C8553D\"/></g><text x=\"126\" y=\"60\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">A</text><text x=\"196\" y=\"60\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">B</text><g></g><text x=\"161\" y=\"14\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">큰 파일 A · 그림 B</text><text x=\"161\" y=\"111\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">둘 다 만족한 것의 바깥</text></svg>",
+      "title": "두 검색 조건을 모두 만족하지 않으면?",
+      "body": "프로그램의 가상 파일들을 전체집합으로 정해 볼게. 큰 파일을 A, 그림 파일을 B라고 하면 두 조건을 함께 만족하는 집합은 A∩B야. 그 바깥은 크지 않거나 그림이 아닌 파일이라 Aᶜ∪Bᶜ로 나타내.",
+      "formula": "(A∩B)ᶜ=Aᶜ∪Bᶜ",
+      "concept": "집합의 연산"
+    },
+    {
+      "id": "architecture-inequality",
+      "tags": [
+        "건축"
+      ],
+      "illus": null,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\"><g fill=\"#EDE4D3\" stroke=\"#2F4D7A\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M7 48l33-27 33 27M15 44v44h50V44M33 88V63h15v25M23 52h5M53 52h5\"/></g><g fill=\"none\" stroke=\"#2F4D7A\" stroke-width=\"2\"><rect x=\"104\" y=\"23\" width=\"115\" height=\"65\" rx=\"8\"/><rect class=\"pop\" x=\"125\" y=\"42\" width=\"57\" height=\"32\" rx=\"8\" stroke=\"#C8553D\"/></g><text x=\"161\" y=\"14\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">a+b=10 · a,b&gt;0</text><text x=\"161\" y=\"111\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">넓이 ab ≤ 25</text></svg>",
+      "title": "같은 둘레라면 방 넓이는 어디까지일까?",
+      "body": "직사각형 모형 방의 가로 a와 세로 b가 양수이고 a+b=10이라고 해 볼게. (a−b)²≥0이므로 (a+b)²≥4ab야. 그래서 넓이 ab는 25 이하이고 a=b=5일 때 25가 돼.",
+      "formula": "ab≤(a+b)²/4=25",
+      "concept": "절대부등식"
+    },
+    {
+      "id": "performance-members",
+      "tags": [
+        "공연·아이돌"
+      ],
+      "illus": null,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\"><g fill=\"#EDE4D3\" stroke=\"#2F4D7A\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M9 23h62v64H9ZM9 23l17 32L9 70M71 23L54 55l17 15M27 87V65h26v22\"/><circle cx=\"40\" cy=\"47\" r=\"8\"/></g><g fill=\"none\" stroke=\"#2F4D7A\" stroke-width=\"2\"><circle cx=\"145\" cy=\"57\" r=\"30\"/><circle class=\"pop\" cx=\"179\" cy=\"57\" r=\"30\" stroke=\"#C8553D\"/></g><text x=\"126\" y=\"60\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">A</text><text x=\"196\" y=\"60\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">B</text><g></g><text x=\"161\" y=\"14\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">춤 A · 노래 B</text><text x=\"161\" y=\"111\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">둘 다: 나 · 다</text></svg>",
+      "title": "댄스도 노래도 하는 참가자는?",
+      "body": "가상 공연 팀에서 춤 담당을 A={가, 나, 다}, 노래 담당을 B={나, 다, 라}라고 해 볼게. 둘 다 맡는 사람은 나와 다야. 한 가지만 맡는 사람과 구별하려면 교집합을 보면 돼.",
+      "formula": "A∩B={나, 다}",
+      "concept": "집합의 연산"
+    }
+  ]
+}

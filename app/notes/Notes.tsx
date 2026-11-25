@@ -3,6 +3,7 @@ import { useEffect, useState, useTransition } from 'react';
 import { setShare } from '@/app/actions/connect';
 import { Rows } from '@/components/ui';
 import { STEP_LABELS } from '@/lib/constants';
+import { notebookPath } from '@/lib/notebook-layout';
 
 type Version = { answers: string[]; free: boolean };
 type Item = {
@@ -58,22 +59,28 @@ function saveImage(item: Item, v: Version) {
 }
 
 function MapPath({ items, catalog }: { items: Item[]; catalog: Catalog }) {
-  const all = catalog.flatMap((s) => s.units.map((u) => ({ ...u, subject: s.subject })));
-  const W = 340, step = W / (all.length + 1);
-  const pts = all.map((u, i) => ({ ...u, x: step * (i + 1), y: 80 + Math.sin(i * 0.9) * 18, d: items.find((n) => n.unitId === u.id) }));
-  const path = pts.map((p, i) => `${i ? 'L' : 'M'}${p.x.toFixed(1)} ${p.y.toFixed(1)}`).join(' ');
+  const layout = notebookPath(catalog);
   return (
-    <svg viewBox={`0 0 ${W} 150`} role="img" aria-label={`연결 지도: ${items.map((n) => `${n.unit}-${n.interest}`).join(', ') || '아직 없음'}`}>
-      <path d={path} fill="none" stroke="#D8CCB7" strokeWidth="2" strokeDasharray="4 4" />
-      {pts.map((p) => p.d ? (
-        <g key={p.id}>
-          <line x1={p.x} y1={p.y} x2={p.x} y2={p.y - 38} stroke="#C8553D" strokeWidth="1.5" />
-          <rect x={p.x - 28} y={p.y - 58} width="56" height="20" rx="10" fill="#F6E3D8" />
-          <text x={p.x} y={p.y - 44} textAnchor="middle" fontSize="10" fontWeight="700" fill="#8A3B26">{p.d.interest.slice(0, 6)}</text>
-          <circle cx={p.x} cy={p.y} r="7" fill="#2F4D7A" />
-          <text x={p.x} y={p.y + 22} textAnchor="middle" fontSize="9.5" fontWeight="700" fill="#2A2522">{p.unit.length > 7 ? p.unit.slice(0, 6) + '…' : p.unit}</text>
+    <svg viewBox={`0 0 ${layout.width} ${layout.height}`} role="img" aria-label={`과목별 연결 지도: ${items.map((n) => `${n.subject} · ${n.unit}-${n.interest}`).join(', ') || '아직 없음'}`}>
+      {layout.groups.map((group) => (
+        <g key={group.subject}>
+          <text x="12" y={group.headingY} fontSize="12" fontWeight="700" fill="#2A2522">{group.subject}</text>
+          <path d={group.points.map((p, i) => `${i ? 'L' : 'M'}${p.x.toFixed(1)} ${p.y.toFixed(1)}`).join(' ')} fill="none" stroke="#D8CCB7" strokeWidth="2" strokeDasharray="4 4" />
+          {group.points.map((p) => {
+            const item = items.find((n) => n.unitId === p.id);
+            return item ? (
+              <g key={p.id}>
+                <title>{`${group.subject} · ${p.unit} · ${item.interest}`}</title>
+                <line x1={p.x} y1={p.y} x2={p.x} y2={p.y - 38} stroke="#C8553D" strokeWidth="1.5" />
+                <rect x={p.x - 28} y={p.y - 58} width="56" height="20" rx="10" fill="#F6E3D8" />
+                <text x={p.x} y={p.y - 44} textAnchor="middle" fontSize="10" fontWeight="700" fill="#8A3B26">{item.interest.slice(0, 6)}</text>
+                <circle cx={p.x} cy={p.y} r="7" fill="#2F4D7A" />
+                <text x={p.x} y={p.y + 22} textAnchor="middle" fontSize="9.5" fontWeight="700" fill="#2A2522">{p.unit.length > 7 ? p.unit.slice(0, 6) + '…' : p.unit}</text>
+              </g>
+            ) : <circle key={p.id} cx={p.x} cy={p.y} r="3.5" fill="#D8CCB7"><title>{`${group.subject} · ${p.unit} · 아직 없음`}</title></circle>;
+          })}
         </g>
-      ) : <circle key={p.id} cx={p.x} cy={p.y} r="3.5" fill="#D8CCB7" />)}
+      ))}
     </svg>
   );
 }

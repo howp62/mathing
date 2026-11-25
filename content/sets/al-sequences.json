@@ -1,0 +1,230 @@
+{
+  "id": "al-sequences",
+  "subject": "대수",
+  "unit": "수열",
+  "order": 10,
+  "status": "reviewed",
+  "topics": [
+    "등차수열과 등비수열",
+    "수열의 합",
+    "수학적 귀납법"
+  ],
+  "concepts": [
+    "수열과 일반항",
+    "등차수열",
+    "등차수열의 합",
+    "등비수열",
+    "등비수열의 합",
+    "등비중항",
+    "시그마의 뜻과 성질",
+    "여러 가지 수열의 합",
+    "귀납적 정의",
+    "수학적 귀납법"
+  ],
+  "thinkCards": [
+    "날짜나 단계에 따라 숫자를 나열해 본 적 있어? 첫 번째를 어디로 잡고 어떤 규칙을 정하고 싶어?",
+    "매번 같은 양을 더하는 장면과 같은 비율을 곱하는 장면은 무엇이 다를까?",
+    "하루치나 한 줄의 양을 아는 것과 지금까지의 전체 양을 아는 것은 어떻게 다를까?",
+    "몇 번 계산해서 맞은 규칙을 모든 자연수에서도 맞다고 하려면, 어떤 설명이 더 필요할까?"
+  ],
+  "interestPromptsStatus": "reviewed",
+  "interestPrompts": {
+    "게임": "게임 보상이 매일 일정한 점수만큼 늘어날 때, 오늘 보상과 누적 보상을 어떻게 구별할까?",
+    "음악": "음악 연습 분량을 일정하게 늘린다면, 며칠 동안의 전체 분량을 어떻게 셀까?",
+    "스포츠": "스포츠 연습의 구간 길이가 일정하게 늘어나는 계획에서, 마지막 구간과 전체 길이는 어떻게 다를까?",
+    "패션·뷰티": "장식 구슬을 홀수 개씩 줄마다 늘리는 무늬가 늘 정사각형 개수가 되는 이유를 설명할 수 있을까?",
+    "요리": "매번 절반 분량으로 소스를 담는다면, 정해진 몇 그릇의 전체 양은 어떻게 계산할까?",
+    "영상·SNS": "장면마다 네모 칸 수를 늘리는 짧은 영상을 만들 때, 필요한 전체 칸 수는 어떻게 셀까?",
+    "그림·디자인": "차례에 따라 크기를 키우는 그림 무늬를 만들면, n번째 무늬의 칸 수를 어떻게 나타낼까?",
+    "동물": "동물 관찰 게임에서 다음 회차의 방문 횟수를 앞 회차로 정한다면, 시작값은 왜 필요할까?",
+    "여행": "여행 동선의 구간 길이를 일정하게 늘리면, 마지막 구간과 전체 이동 거리는 어떻게 다를까?",
+    "자동차": "장난감 자동차를 줄마다 다르게 전시할 때, 전체 대수를 시그마로 어떻게 적을까?",
+    "건강·의학": "건강 전시의 가상 점 무늬를 두 배씩 늘릴 때, 마지막 화면과 전체 화면의 점 수는 어떻게 다를까?",
+    "환경": "환경 캠페인에서 날마다 모으는 가상 재활용품 수가 늘어난다면, 누적량을 어떻게 표현할까?",
+    "컴퓨터·AI": "컴퓨터가 같은 규칙으로 복제하는 무늬에서, 첫 번째를 1로 셀 때 지수는 어디서 시작할까?",
+    "건축": "건축 모형의 연속한 세 장식판 넓이를 같은 비율로 키우려면, 가운데 넓이는 어떻게 정할까?",
+    "공연·아이돌": "공연장 좌석 수가 뒤로 갈수록 일정하게 늘어난다면, 총 좌석 수는 어떻게 구할까?"
+  },
+  "examples": [
+    {
+      "id": "game-daily",
+      "tags": [
+        "게임"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><g data-part='scene' stroke='#2F4D7A' stroke-width='2' fill='none' stroke-linejoin='round'><rect x='12' y='35' width='76' height='43' rx='13' fill='#EDE4D3'/><path d='M28 46v21m-10-10h20M66 49h1m9 12h1' stroke-width='5'/></g><g data-part='math'><path class='draw' pathLength='1' d='M119 62h25V49h25V36h25V23h24' stroke='#C8553D' fill='none' stroke-width='2'/><g font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2A2522'><text class='pop' style='--d:0.2s' x='168' y='83'>첫날 20점, 끝날 50점</text><text class='pop' style='--d:0.4s' x='168' y='101'>7일 합계 245점</text></g></g></svg>",
+      "title": "마지막 날 보상과 일주일 보상은 같을까?",
+      "body": "내 게임에서 첫날 보상을 20점으로 두고 날마다 5점씩 늘린다고 정했어요. 날 번호 n을 1부터 7까지 세면 aₙ=20+5(n−1)이고, 7일째 보상은 50점이에요. 7일 전체 보상은 7×(20+50)/2=245점이라서, 마지막 날 보상과 구별해야 해요.",
+      "formula": "aₙ=20+5(n−1), a₇=50점, S₇=245점 (1≤n≤7)",
+      "concept": "등차수열의 합"
+    },
+    {
+      "id": "music-practice",
+      "tags": [
+        "음악"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><g data-part='scene' stroke='#2F4D7A' stroke-width='2' fill='none' stroke-linejoin='round'><path d='M35 76V29l35-7v43M35 39l35-7'/><ellipse cx='26' cy='77' rx='10' ry='6' fill='#C8553D'/><ellipse cx='61' cy='66' rx='10' ry='6' fill='#C8553D'/></g><g data-part='math'><path class='draw' pathLength='1' d='M125.0 63v-10.8 M153.3 63v-21.5 M181.7 63v-32.2 M210.0 63v-43.0' stroke='#C8553D' stroke-width='9'/><g font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2A2522'><text class='pop' style='--d:0.2s' x='168' y='83'>2 → 4 → 6 → 8마디</text><text class='pop' style='--d:0.4s' x='168' y='101'>연습량 합계 20마디</text></g></g></svg>",
+      "title": "네 번 연습한 마디 수를 합치면?",
+      "body": "연습 계획에서 첫 회차에는 2마디, 다음부터는 앞 회차보다 2마디씩 더 연습한다고 해 봤어요. 회차 n=1, 2, 3, 4에서 분량은 aₙ=2n마디예요. 네 회차를 합치면 2+4+6+8=20마디이며, 반복해서 친 마디도 매번 센 연습량이에요.",
+      "formula": "aₙ=2n, S₄=2+4+6+8=20마디 (n=1,2,3,4)",
+      "concept": "등차수열의 합"
+    },
+    {
+      "id": "sports-segments",
+      "tags": [
+        "스포츠"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><g data-part='scene' stroke='#2F4D7A' stroke-width='2' fill='none' stroke-linejoin='round'><circle cx='50' cy='55' r='30' fill='#F7F2E8'/><path d='M26 36Q63 46 73 77M24 72Q39 45 76 34M20 55h60M50 25v60'/></g><g data-part='math'><path class='draw' pathLength='1' d='M119 62h25V49h25V36h25V23h24' stroke='#C8553D' fill='none' stroke-width='2'/><g font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2A2522'><text class='pop' style='--d:0.2s' x='168' y='83'>100 → … → 180m</text><text class='pop' style='--d:0.4s' x='168' y='101'>전체 길이 700m</text></g></g></svg>",
+      "title": "마지막 구간만 보면 전체 거리를 놓칠까?",
+      "body": "달리기 놀이의 다섯 구간을 100m부터 시작해 구간마다 20m씩 늘린다고 정했어요. 구간 번호 n=1부터 5까지의 길이는 aₙ=100+20(n−1)m예요. 마지막 구간은 180m이지만 다섯 구간의 합은 700m이고, 이 규칙이 운동 효과를 보장하는 것은 아니에요.",
+      "formula": "a₅=180m, S₅=5×(100+180)/2=700m",
+      "concept": "등차수열"
+    },
+    {
+      "id": "fashion-odd",
+      "tags": [
+        "패션·뷰티"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><g data-part='scene' stroke='#2F4D7A' stroke-width='2' fill='none' stroke-linejoin='round'><path d='M34 25l16 8 16-8 21 20-14 14-9-8v34H36V51l-9 8-14-14z' fill='#EDE4D3'/><path d='M43 37h14' stroke='#C8553D'/></g><g data-part='math'><g stroke='#2F4D7A'><rect class='pop' style='--d:0.1s' x='133' y='15' width='11' height='11' fill='#EDE4D3'/><rect class='pop' style='--d:0.1s' x='146' y='15' width='11' height='11' fill='#EDE4D3'/><rect class='pop' style='--d:0.1s' x='159' y='15' width='11' height='11' fill='#EDE4D3'/><rect class='pop' style='--d:0.3s' x='172' y='15' width='11' height='11' fill='#C8553D'/><rect class='pop' style='--d:0.1s' x='133' y='28' width='11' height='11' fill='#EDE4D3'/><rect class='pop' style='--d:0.1s' x='146' y='28' width='11' height='11' fill='#EDE4D3'/><rect class='pop' style='--d:0.1s' x='159' y='28' width='11' height='11' fill='#EDE4D3'/><rect class='pop' style='--d:0.5s' x='172' y='28' width='11' height='11' fill='#C8553D'/><rect class='pop' style='--d:0.1s' x='133' y='41' width='11' height='11' fill='#EDE4D3'/><rect class='pop' style='--d:0.1s' x='146' y='41' width='11' height='11' fill='#EDE4D3'/><rect class='pop' style='--d:0.1s' x='159' y='41' width='11' height='11' fill='#EDE4D3'/><rect class='pop' style='--d:0.7s' x='172' y='41' width='11' height='11' fill='#C8553D'/><rect class='pop' style='--d:0.9s' x='133' y='54' width='11' height='11' fill='#C8553D'/><rect class='pop' style='--d:0.9s' x='146' y='54' width='11' height='11' fill='#C8553D'/><rect class='pop' style='--d:0.9s' x='159' y='54' width='11' height='11' fill='#C8553D'/><rect class='pop' style='--d:0.9s' x='172' y='54' width='11' height='11' fill='#C8553D'/></g><g font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2A2522'><text class='pop' style='--d:1.4s' x='168' y='83'>시작: 1=1²</text><text class='pop' style='--d:1.6s' x='168' y='101'>k² + 2k+1 = (k+1)²</text></g></g></svg>",
+      "title": "홀수 개씩 붙인 구슬은 왜 정사각형이 될까?",
+      "body": "옷 장식 도안을 1개, 3개, 5개처럼 홀수 개의 구슬을 더해 정사각형으로 키운다고 해 봤어요. n=1에서는 합이 1=1²이라 시작이 맞아요. k번째까지 합이 k²라고 가정하면 다음 2k+1개를 더한 합은 k²+2k+1=(k+1)²예요. 이 시작과 이어짐을 함께 보이면 모든 자연수 n에 대해 첫 n개 홀수의 합이 n²임을 증명해요.",
+      "formula": "1+3+⋯+(2n−1)=n²; k²+(2k+1)=(k+1)² (n≥1)",
+      "concept": "수학적 귀납법"
+    },
+    {
+      "id": "cooking-sauce",
+      "tags": [
+        "요리"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><g data-part='scene' stroke='#2F4D7A' stroke-width='2' fill='none' stroke-linejoin='round'><path d='M15 49h72Q81 82 51 82T15 49z' fill='#EDE4D3'/><path d='M24 42h53M64 40l13-23M20 89h62'/></g><g data-part='math'><path class='draw' pathLength='1' d='M120 23Q151 58 216 62' stroke='#C8553D' fill='none' stroke-width='2'/><g font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2A2522'><text class='pop' style='--d:0.2s' x='168' y='83'>100 → 50 → 25mL</text><text class='pop' style='--d:0.4s' x='168' y='101'>세 그릇 합계 175mL</text></g></g></svg>",
+      "title": "세 그릇을 점점 적게 담으면 총량은?",
+      "body": "촬영용 소스를 첫 그릇에 100mL 담고 다음 그릇마다 바로 앞의 절반을 담는다고 해 봤어요. 그릇 번호 n=1, 2, 3에서 분량은 100×(1/2)ⁿ⁻¹mL예요. 세 그릇의 전체 양은 100+50+25=175mL이고, 끝없이 담는 상황은 여기서 다루지 않아요.",
+      "formula": "aₙ=100×(1/2)ⁿ⁻¹, S₃=100(1−(1/2)³)/(1−1/2)=175mL",
+      "concept": "등비수열의 합"
+    },
+    {
+      "id": "sns-squares",
+      "tags": [
+        "영상·SNS"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><g data-part='scene' stroke='#2F4D7A' stroke-width='2' fill='none' stroke-linejoin='round'><rect x='25' y='15' width='52' height='80' rx='8' fill='#EDE4D3'/><path d='M45 39l18 12-18 12z' fill='#C8553D'/><path d='M38 79h25'/></g><g data-part='math'><g fill='#EDE4D3' stroke='#2F4D7A'><g class='pop' style='--d:0.1s'><rect x='120' y='47' width='7' height='7'/></g><g class='pop' style='--d:0.3s'><rect x='139' y='38' width='7' height='7'/><rect x='148' y='38' width='7' height='7'/><rect x='139' y='47' width='7' height='7'/><rect x='148' y='47' width='7' height='7'/></g><g class='pop' style='--d:0.5s'><rect x='169' y='29' width='7' height='7'/><rect x='178' y='29' width='7' height='7'/><rect x='187' y='29' width='7' height='7'/><rect x='169' y='38' width='7' height='7'/><rect x='178' y='38' width='7' height='7'/><rect x='187' y='38' width='7' height='7'/><rect x='169' y='47' width='7' height='7'/><rect x='178' y='47' width='7' height='7'/><rect x='187' y='47' width='7' height='7'/></g></g><g font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2A2522'><text class='pop' style='--d:1.2s' x='168' y='83'>장면별 1, 4, 9칸</text><text class='pop' style='--d:1.4s' x='168' y='101'>세 장면 합계 14칸</text></g></g></svg>",
+      "title": "장면마다 네모 칸을 늘리면 몇 칸이 필요할까?",
+      "body": "짧은 영상의 1, 2, 3번째 장면에 각각 1×1, 2×2, 3×3개의 네모 칸을 따로 그리기로 했어요. n번째 장면의 칸 수는 n²개이고 세 장면 전체는 1²+2²+3²예요. 제곱의 합 공식 n(n+1)(2n+1)/6에 n=3을 넣어도 14개가 나와요.",
+      "formula": "Σ(k=1~3) k²=3×4×7/6=14개",
+      "concept": "여러 가지 수열의 합"
+    },
+    {
+      "id": "design-pattern",
+      "tags": [
+        "그림·디자인"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><g data-part='scene' stroke='#2F4D7A' stroke-width='2' fill='none' stroke-linejoin='round'><rect x='17' y='25' width='64' height='61' fill='#F7F2E8'/><path d='M25 76l25-36 23 36z' fill='#EDE4D3'/><circle cx='65' cy='39' r='6' fill='#D79A2B'/></g><g data-part='math'><g fill='#EDE4D3' stroke='#2F4D7A'><g class='pop' style='--d:0.1s'><rect x='119' y='43' width='6' height='6'/><rect x='127' y='43' width='6' height='6'/></g><g class='pop' style='--d:0.3s'><rect x='143' y='35' width='6' height='6'/><rect x='151' y='35' width='6' height='6'/><rect x='159' y='35' width='6' height='6'/><rect x='143' y='43' width='6' height='6'/><rect x='151' y='43' width='6' height='6'/><rect x='159' y='43' width='6' height='6'/></g><g class='pop' style='--d:0.5s'><rect x='175' y='27' width='6' height='6'/><rect x='183' y='27' width='6' height='6'/><rect x='191' y='27' width='6' height='6'/><rect x='199' y='27' width='6' height='6'/><rect x='175' y='35' width='6' height='6'/><rect x='183' y='35' width='6' height='6'/><rect x='191' y='35' width='6' height='6'/><rect x='199' y='35' width='6' height='6'/><rect x='175' y='43' width='6' height='6'/><rect x='183' y='43' width='6' height='6'/><rect x='191' y='43' width='6' height='6'/><rect x='199' y='43' width='6' height='6'/></g></g><g font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2A2522'><text class='pop' style='--d:1.2s' x='168' y='83'>세로 n, 가로 n+1</text><text class='pop' style='--d:1.4s' x='168' y='101'>칸 수 2, 6, 12, 20</text></g></g></svg>",
+      "title": "다음 무늬의 칸 수를 바로 알려면?",
+      "body": "그림 도안의 n번째 무늬를 세로 n칸, 가로 n+1칸인 직사각형으로 정했어요. n을 1, 2, 3, 4로 세면 칸 수 aₙ=n(n+1)은 2, 6, 12, 20개예요. 차례 번호를 넣어서 그 무늬의 칸 수를 바로 찾는 식을 일반항이라고 불러요.",
+      "formula": "aₙ=n(n+1), a₁=2, a₂=6, a₃=12, a₄=20",
+      "concept": "수열과 일반항"
+    },
+    {
+      "id": "animal-visits",
+      "tags": [
+        "동물"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><g data-part='scene' stroke='#2F4D7A' stroke-width='2' fill='none' stroke-linejoin='round'><path d='M24 45l-4-22 21 14q12-5 23 1l19-15-3 24q11 33-29 34T24 45z' fill='#EDE4D3'/><circle cx='39' cy='54' r='2' fill='#2A2522'/><circle cx='65' cy='54' r='2' fill='#2A2522'/><path d='M46 68h12'/></g><g data-part='math'><path class='draw' pathLength='1' d='M122 43h94' stroke='#C8553D' stroke-width='2'/><g fill='#EDE4D3' stroke='#2F4D7A'><circle cx='129' cy='43' r='10'/><circle cx='168' cy='43' r='10'/><circle cx='207' cy='43' r='10'/></g><g font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2A2522'><text class='pop' style='--d:0.2s' x='168' y='83'>시작 1번</text><text class='pop' style='--d:0.4s' x='168' y='101'>앞 회차 +2 → 3, 5, 7</text></g></g></svg>",
+      "title": "앞 회차 기록으로 다음 방문 횟수를 정하면?",
+      "body": "동물 관찰 게임에서 첫 회차의 가상 돌봄 방문 횟수를 1번으로 정했어요. 다음 회차 횟수는 바로 앞 회차보다 2번 많다는 규칙 aₙ₊₁=aₙ+2를 n=1, 2, 3에 적용해요. 시작값과 이 규칙을 함께 쓰면 1, 3, 5, 7번을 차례로 정할 수 있고, 실제 동물의 돌봄 횟수를 권하는 뜻은 아니에요.",
+      "formula": "a₁=1, aₙ₊₁=aₙ+2 (n=1,2,3), a₄=7번",
+      "concept": "귀납적 정의"
+    },
+    {
+      "id": "travel-stages",
+      "tags": [
+        "여행"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><g data-part='scene' stroke='#2F4D7A' stroke-width='2' fill='none' stroke-linejoin='round'><path d='M17 30l23-7 23 9 23-7v60l-23 7-23-9-23 7z' fill='#EDE4D3'/><path d='M40 23v60m23-51v60M26 67l22-22 24 16' stroke='#C8553D'/></g><g data-part='math'><path class='draw' pathLength='1' d='M119 62h25V49h25V36h25V23h24' stroke='#C8553D' fill='none' stroke-width='2'/><g font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2A2522'><text class='pop' style='--d:0.2s' x='168' y='83'>20 → 25 → 30 → 35m</text><text class='pop' style='--d:0.4s' x='168' y='101'>전체 길이 110m</text></g></g></svg>",
+      "title": "네 구간을 걸으면 전체 길이는?",
+      "body": "가상 여행 지도의 네 구간 길이를 20m, 25m, 30m, 35m로 만들었어요. 구간 번호 n=1부터 4까지는 aₙ=20+5(n−1)m인 등차수열이에요. 전체 길이는 4×(20+35)/2=110m여서, 마지막 구간 35m만 보고 여행 길이를 정하면 달라져요.",
+      "formula": "aₙ=20+5(n−1), S₄=4×55/2=110m",
+      "concept": "등차수열의 합"
+    },
+    {
+      "id": "car-display",
+      "tags": [
+        "자동차"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><g data-part='scene' stroke='#2F4D7A' stroke-width='2' fill='none' stroke-linejoin='round'><path d='M16 57l13-25h40l15 25v22H16z' fill='#EDE4D3'/><path d='M24 55h52M39 35v19M62 35l8 19'/><circle cx='31' cy='79' r='8' fill='#8A8178'/><circle cx='70' cy='79' r='8' fill='#8A8178'/></g><g data-part='math'><path class='draw' pathLength='1' d='M125.0 63v-8.6 M146.2 63v-17.2 M167.5 63v-25.8 M188.8 63v-34.4 M210.0 63v-43.0' stroke='#C8553D' stroke-width='9'/><g font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2A2522'><text class='pop' style='--d:0.2s' x='168' y='83'>1, 2, 3, 4, 5대</text><text class='pop' style='--d:0.4s' x='168' y='101'>Σ(k=1~5)k=15</text></g></g></svg>",
+      "title": "전시할 장난감 자동차는 모두 몇 대?",
+      "body": "장난감 자동차를 1번째 줄에는 1대, 2번째 줄에는 2대처럼 놓아 5번째 줄까지 전시해요. n번째 줄의 대수는 n대이고, 전체는 Σ(k=1~5)k로 짧게 적을 수 있어요. 합은 1+2+3+4+5=15대라서, 시그마는 정한 범위의 항을 더하라는 표시예요.",
+      "formula": "Σ(k=1~5) k=1+2+3+4+5=15대",
+      "concept": "시그마의 뜻과 성질"
+    },
+    {
+      "id": "health-points",
+      "tags": [
+        "건강·의학"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><g data-part='scene' stroke='#2F4D7A' stroke-width='2' fill='none' stroke-linejoin='round'><rect x='19' y='25' width='65' height='60' rx='6' fill='#EDE4D3'/><path d='M22 56h16l7-17 12 32 9-15h15' stroke='#C8553D'/></g><g data-part='math'><path class='draw' pathLength='1' d='M119 62h25V49h25V36h25V23h24' stroke='#C8553D' fill='none' stroke-width='2'/><g font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2A2522'><text class='pop' style='--d:0.2s' x='168' y='83'>화면별 2, 4, 8, 16개</text><text class='pop' style='--d:0.4s' x='168' y='101'>네 화면 합계 30개</text></g></g></svg>",
+      "title": "전시 화면을 모두 합치면 점은 몇 개일까?",
+      "body": "건강 전시에서 세포 분열을 떠올리는 가상 점 애니메이션을 만든다고 해 봤어요. 실제 세포 수 대신 1~4번째 화면에 점을 2, 4, 8, 16개로 배치했어요. 마지막 화면은 16개지만 네 화면에 그린 점 수를 합치면 30개라서, 시점의 양과 합계를 구별할 수 있어요.",
+      "formula": "aₙ=2×2ⁿ⁻¹, S₄=2(2⁴−1)/(2−1)=30개 (1≤n≤4)",
+      "concept": "등비수열의 합"
+    },
+    {
+      "id": "environment-count",
+      "tags": [
+        "환경"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><g data-part='scene' stroke='#2F4D7A' stroke-width='2' fill='none' stroke-linejoin='round'><path d='M51 83V47M51 64Q13 64 22 27q31-5 29 37M51 53Q84 54 81 22q-31-1-30 31' fill='#EDE4D3'/><path d='M30 90h43'/></g><g data-part='math'><path class='draw' pathLength='1' d='M125.0 63v-10.8 M153.3 63v-21.5 M181.7 63v-32.2 M210.0 63v-43.0' stroke='#C8553D' stroke-width='9'/><g font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2A2522'><text class='pop' style='--d:0.2s' x='168' y='83'>3 → 6 → 9 → 12개</text><text class='pop' style='--d:0.4s' x='168' y='101'>합계 3×10=30개</text></g></g></svg>",
+      "title": "캠페인 기록을 합계로 나타내려면?",
+      "body": "환경 캠페인 연습표에 첫날 3개, 둘째 날 6개처럼 n일째 재활용품을 3n개 모은다고 가정했어요. 날짜는 n=1, 2, 3, 4로만 정했어요. 네 날의 합계는 Σ(k=1~4)3k=3Σ(k=1~4)k=30개라서, 일정한 배수 3을 합 밖으로 꺼내 계산할 수 있어요.",
+      "formula": "Σ(k=1~4)3k=3Σ(k=1~4)k=3×10=30개",
+      "concept": "시그마의 뜻과 성질"
+    },
+    {
+      "id": "ai-copy",
+      "tags": [
+        "컴퓨터·AI"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><g data-part='scene' stroke='#2F4D7A' stroke-width='2' fill='none' stroke-linejoin='round'><rect x='18' y='23' width='67' height='49' rx='4' fill='#EDE4D3'/><path d='M40 87h24M51 72v15M35 40l-8 8 8 8m29-16 8 8-8 8'/></g><g data-part='math'><path class='draw' pathLength='1' d='M119 62h25V49h25V36h25V23h24' stroke='#C8553D' fill='none' stroke-width='2'/><g font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2A2522'><text class='pop' style='--d:0.2s' x='168' y='83'>첫 번째 1개=2⁰</text><text class='pop' style='--d:0.4s' x='168' y='101'>네 번째 8개=2³</text></g></g></svg>",
+      "title": "첫 번째 무늬의 지수는 왜 0일까?",
+      "body": "컴퓨터 그림 놀이에서 첫 번째 무늬는 점 1개이고, 다음 무늬마다 점을 두 배로 복제해요. 차례 번호를 n=1부터 4까지 세면 일반항은 aₙ=2ⁿ⁻¹이에요. 첫째항은 2⁰=1, 넷째항은 2³=8이므로 첫 번호와 지수의 시작을 다르게 잡아요.",
+      "formula": "aₙ=2ⁿ⁻¹, a₁=1, a₄=8개 (n=1,2,3,4)",
+      "concept": "등비수열"
+    },
+    {
+      "id": "building-mid",
+      "tags": [
+        "건축"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><g data-part='scene' stroke='#2F4D7A' stroke-width='2' fill='none' stroke-linejoin='round'><path d='M18 86V36l32-19 32 19v50z' fill='#EDE4D3'/><path d='M33 86V62h33v24M30 40h10v11H30zm30 0h10v11H60z'/></g><g data-part='math'><g stroke='#2F4D7A' fill='#EDE4D3'><g class='pop' style='--d:0.1s'><rect x='122' y='46' width='16' height='16'/></g><g class='pop' style='--d:0.3s'><rect x='148' y='39.372583002' width='22.627416998' height='22.627416998'/></g><g class='pop' style='--d:0.5s'><rect x='183' y='30' width='32' height='32'/></g></g><g font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2A2522'><text class='pop' style='--d:1.2s' x='168' y='83'>첫 판 2, 셋째 판 8cm²</text><text class='pop' style='--d:1.4s' x='168' y='101'>가운데 4cm²</text></g></g></svg>",
+      "title": "가운데 장식판 넓이는 얼마로 잡을까?",
+      "body": "건축 모형의 세 장식판 넓이를 같은 양수 비율로 키우려고 해요. 첫 판은 2cm², 셋째 판은 8cm²로 정하고 가운데 넓이를 b라고 놓았어요. 등비중항의 관계 b²=2×8에서 넓이는 양수이므로 b=4cm²이고, 넓이의 공비는 2예요.",
+      "formula": "b²=2×8=16, b=4cm²; 2, 4, 8의 공비는 2",
+      "concept": "등비중항"
+    },
+    {
+      "id": "stage-seats",
+      "tags": [
+        "공연·아이돌"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><g data-part='scene' stroke='#2F4D7A' stroke-width='2' fill='none' stroke-linejoin='round'><path d='M16 27h69v58H16z' fill='#EDE4D3'/><path d='M16 27l21 30-21 28m69-58L64 57l21 28M41 85V67q10-18 20 0v18'/><circle cx='51' cy='52' r='7' fill='#C8553D'/></g><g data-part='math'><path class='draw' pathLength='1' d='M125.0 63v-21.5 M146.2 63v-26.9 M167.5 63v-32.2 M188.8 63v-37.6 M210.0 63v-43.0' stroke='#C8553D' stroke-width='9'/><g font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2A2522'><text class='pop' style='--d:0.2s' x='168' y='83'>8 → … → 16자리</text><text class='pop' style='--d:0.4s' x='168' y='101'>5줄 합계 60자리</text></g></g></svg>",
+      "title": "뒷줄마다 두 자리씩 늘어나면 총 몇 자리?",
+      "body": "가상 공연장의 첫 줄을 8자리로 두고, 뒤로 갈 때마다 2자리씩 늘려 5줄을 만들었어요. 줄 번호 n=1부터 5까지는 aₙ=8+2(n−1)자리이고, 마지막 줄은 16자리예요. 전체 좌석은 5×(8+16)/2=60자리라서, 표를 몇 장 준비할지 셀 수 있어요.",
+      "formula": "a₅=16자리, S₅=5×(8+16)/2=60자리",
+      "concept": "등차수열의 합"
+    }
+  ]
+}

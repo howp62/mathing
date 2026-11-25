@@ -12,7 +12,7 @@ type Profile = { interests: string[]; career: string; careerUnknown: boolean };
 type Rewrite = { answers: string[]; free: boolean; concepts: string[]; share: boolean; interest: string } | null;
 type Step = 'pre' | 'intro' | 'interests' | 'examples' | 'think' | 'write' | 'save';
 const FLOW: Step[] = ['pre', 'intro', 'interests', 'examples', 'think', 'write', 'save'];
-const STEP_NAMES: Record<Step, string> = { pre: '관련성', intro: '도입', interests: '관심사', examples: '예시', think: '생각 열기', write: '쓰기', save: '저장' };
+const STEP_NAMES: Record<Step, string> = { pre: '시작 전', intro: '생활 속 예시', interests: '관심사', examples: '관심사 예시', think: '질문 고르기', write: '글쓰기', save: '저장' };
 
 function Scale({ value, onChange }: { value: number | null; onChange: (n: number) => void }) {
   return (
@@ -49,6 +49,15 @@ export function UnitFlow({ set, profile, rewrite, userKey }: { set: SetData; pro
   const [share, setShare] = useState(rewrite?.share ?? true);
   const [interest, setInterest] = useState(rewrite && profile.interests.includes(rewrite.interest) ? rewrite.interest : profile.interests[0] || '');
 
+  // 질문의 문장으로 기억해 두면 질문 순서가 바뀌어도 고른 것을 다시 찾을 수 있다.
+  const thinkList = useMemo(() => [
+    ...interests.filter((t) => set.interestPrompts[t]).slice(0, 3).map((t) => ({ mine: `${josa(t, '을/를')} 고른 너에게` as string | null, text: set.interestPrompts[t] })),
+    ...set.thinkCards.map((text) => ({ mine: null as string | null, text })),
+  ], [interests, set.interestPrompts, set.thinkCards]);
+  const ti = Math.min(thinkI, thinkList.length - 1);
+  const hasMine = thinkList.some((t) => t.mine);
+  const writingQuestion = thinkList[ti];
+
   // 쓰던 글을 이 기기에 잠깐 보관한다(새로고침해도 사라지지 않게). 로그아웃하면 지운다
   // 키에 계정 표시를 넣어, 같은 기기를 다음 학생이 써도 앞 학생의 글이 채워지지 않게 한다
   const draftKey = `mathing-draft-${userKey}-${set.id}${rewrite ? '-re' : ''}`;
@@ -57,13 +66,17 @@ export function UnitFlow({ set, profile, rewrite, userKey }: { set: SetData; pro
     try {
       const raw = localStorage.getItem(draftKey);
       if (!raw) return;
-      const d = JSON.parse(raw) as { answers?: string[]; freeText?: string; free?: boolean; concepts?: string[]; share?: boolean; interest?: string; pre?: number | null; post?: number | null };
+      const d = JSON.parse(raw) as { answers?: string[]; freeText?: string; free?: boolean; concepts?: string[]; share?: boolean; interest?: string; pre?: number | null; post?: number | null; question?: string };
       if (Array.isArray(d.answers) && d.answers.length === 3) setAnswers(d.answers.map(String));
       if (typeof d.freeText === 'string') setFreeText(d.freeText);
       if (typeof d.free === 'boolean') setFree(d.free);
       if (Array.isArray(d.concepts)) setConcepts(d.concepts.map(String));
       if (typeof d.share === 'boolean') setShare(d.share);
       if (typeof d.interest === 'string' && profile.interests.includes(d.interest)) setInterest(d.interest);
+      if (typeof d.question === 'string') {
+        const found = thinkList.findIndex((q) => q.text === d.question);
+        if (found >= 0) setThinkI(found);
+      }
       for (const [value, update] of [[d.pre, setPre], [d.post, setPost]] as const) {
         if (value === null || (typeof value === 'number' && Number.isInteger(value) && value >= 1 && value <= 5)) update(value);
       }
@@ -73,8 +86,8 @@ export function UnitFlow({ set, profile, rewrite, userKey }: { set: SetData; pro
   useEffect(() => {
     // 복원이 끝난 렌더부터 저장해, 처음 화면의 기본값으로 기존 선택을 덮어쓰지 않는다.
     if (!restored) return;
-    try { localStorage.setItem(draftKey, JSON.stringify({ answers, freeText, free, concepts, share, interest, pre, post })); } catch { /* 보관 못 해도 쓰기는 계속 */ }
-  }, [draftKey, restored, answers, freeText, free, concepts, share, interest, pre, post]);
+    try { localStorage.setItem(draftKey, JSON.stringify({ answers, freeText, free, concepts, share, interest, pre, post, question: writingQuestion?.text })); } catch { /* 보관 못 해도 쓰기는 계속 */ }
+  }, [draftKey, restored, answers, freeText, free, concepts, share, interest, pre, post, writingQuestion]);
 
   const go = (s: Step) => { setError(null); setStep(s); window.scrollTo(0, 0); };
   const idx = FLOW.indexOf(step);
@@ -88,14 +101,6 @@ export function UnitFlow({ set, profile, rewrite, userKey }: { set: SetData; pro
     const matched = [...notIntro.filter(has), ...intro.filter(has)];
     return matched.length ? { cards: matched.slice(0, 3), none: false } : { cards: notIntro.slice(0, 3), none: true };
   }, [interests, set.examples]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  // 생각 열기: 고른 관심사의 맞춤 질문(최대 3개)을 먼저, 이어서 단원 공통 질문
-  const thinkList = useMemo(() => [
-    ...interests.filter((t) => set.interestPrompts[t]).slice(0, 3).map((t) => ({ mine: `${josa(t, '을/를')} 고른 너에게` as string | null, text: set.interestPrompts[t] })),
-    ...set.thinkCards.map((text) => ({ mine: null as string | null, text })),
-  ], [interests, set.interestPrompts, set.thinkCards]);
-  const ti = Math.min(thinkI, thinkList.length - 1);
-  const hasMine = thinkList.some((t) => t.mine);
 
   const finalAnswers = free ? [freeText] : answers;
   const hasText = finalAnswers.join('').trim().length > 0;
@@ -191,7 +196,7 @@ export function UnitFlow({ set, profile, rewrite, userKey }: { set: SetData; pro
   );
   const recall = (
     <details className="recall">
-      <summary>막혔어? 예시·질문 다시 보기<small>예시 카드 하나를 골라 내 말로 바꿔 써도 돼.</small></summary>
+      <summary>예시와 다른 질문 더 보기<small>예시 하나를 골라 네 이야기로 바꿔 써도 돼.</small></summary>
       <div className="in">
         <h3>{picked.none ? '예시 카드' : '네 관심사 예시'}</h3>
         <div className="deck">{picked.cards.map((e) => <ExampleCardView key={e.id} card={e} />)}</div>
@@ -204,7 +209,7 @@ export function UnitFlow({ set, profile, rewrite, userKey }: { set: SetData; pro
   if (step === 'pre') return (
     <div>{header}
       <h1>시작하기 전에 하나만</h1>
-      <p className="sub">&ldquo;{set.unit}&rdquo;{unitJ.slice(set.unit.length)} 나와 관련 있다고 느껴?</p>
+      <p className="sub">&ldquo;{set.unit}&rdquo;{unitJ.slice(set.unit.length)} 내 생활과 이어져 있다고 느껴?</p>
       <Scale value={pre} onChange={setPre} />
       <p className="muted" style={{ marginTop: 14 }}>정답은 없어. 다 쓰고 나서 한 번 더 물어볼게.</p>
       <div className="foot">
@@ -242,7 +247,7 @@ export function UnitFlow({ set, profile, rewrite, userKey }: { set: SetData; pro
     return (
       <div>{header}
         <h1>요즘 관심 있는 건?</h1>
-        <p className="sub">여러 개 골라도 돼. 다음 단원부터는 기억해 둘게.</p>
+        <p className="sub">좋아하는 걸 골라 줘. 여러 개 골라도 되고, 다음에도 쓸 수 있게 기억해 둘게.</p>
         <div className="chips">
           {[...INTERESTS, ...customs].map((t) => (
             <button key={t} type="button" className={`chip ${interests.includes(t) ? 'on' : ''}`} aria-pressed={interests.includes(t)} onClick={() => changeInterests(toggle(interests, t))}>{t}</button>
@@ -264,7 +269,7 @@ export function UnitFlow({ set, profile, rewrite, userKey }: { set: SetData; pro
   if (step === 'examples') return (
     <div>{header}
       <h1>네 관심사로 보면</h1>
-      <p className="sub">{picked.none ? <>아직 네 관심사에 맞는 카드가 없어. <b>네가 첫 번째로 연결해 볼래?</b> 대신 다른 예시를 보여 줄게.</> : `${interests.join(', ')}에서 찾은 예시야.`}</p>
+      <p className="sub">{picked.none ? <>네가 고른 관심사의 예시는 아직 없어. 다른 예시에서 힌트를 찾아보자.</> : `${interests.join(', ')}에 수학이 어떻게 쓰이는지 살펴보자.`}</p>
       <div className="deck">{picked.cards.map((e) => <ExampleCardView key={e.id} card={e} />)}</div>
       {foot(<button className="btn" onClick={() => go('think')}>다음</button>)}
     </div>
@@ -272,8 +277,8 @@ export function UnitFlow({ set, profile, rewrite, userKey }: { set: SetData; pro
 
   if (step === 'think') return (
     <div>{header}
-      <h1>생각을 열어 보자</h1>
-      <p className="sub">{hasMine ? '네 관심사에 맞춘 질문부터 볼게. 넘기면서 떠오르는 장면을 찾아 봐.' : '질문을 넘기면서 떠오르는 장면을 찾아 봐.'}</p>
+      <h1>어떤 질문으로 써 볼까?</h1>
+      <p className="sub">{hasMine ? '네 관심사에 맞는 질문부터 볼게. ' : ''}질문을 넘겨 보고, 써 보고 싶은 질문을 골라 줘. 고른 질문은 글을 쓰는 동안에도 보여 줄게.</p>
       <div className="card think" aria-live="polite">
         <small className={thinkList[ti].mine ? 'mine' : ''}>{thinkList[ti].mine ?? '생각 열기'} · {ti + 1} / {thinkList.length}</small>{thinkList[ti].text}
       </div>
@@ -281,17 +286,26 @@ export function UnitFlow({ set, profile, rewrite, userKey }: { set: SetData; pro
         <button className="btn ghost" disabled={ti === 0} onClick={() => setThinkI(ti - 1)}>‹ 이전 질문</button>
         <button className="btn ghost" disabled={ti >= thinkList.length - 1} onClick={() => setThinkI(ti + 1)}>다음 질문 ›</button>
       </div>
-      {foot(<button className="btn" onClick={() => go('write')}>떠올랐어, 쓰러 가기</button>)}
+      {foot(<button className="btn" onClick={() => go('write')}>이 질문으로 글쓰기</button>)}
     </div>
   );
 
   if (step === 'write') return (
-    <div>{header}
+    <div className="write-flow">{header}
       <h1>{rewrite ? '배우고 나서 다시 써 보자' : '나만의 연결 쓰기'}</h1>
       {rewrite && <p className="sub">처음 쓴 글을 불러왔어. 더 구체적으로 고쳐 봐. 처음 연결은 노트에 그대로 남아.</p>}
+      {writingQuestion && (
+        <aside className="writing-question" aria-label="글쓰기 질문">
+          <div className="writing-question-head">
+            <b>이 질문을 보며 써 보자</b>
+            <button type="button" onClick={() => go('think')}>질문 바꾸기</button>
+          </div>
+          <p>{writingQuestion.text}</p>
+        </aside>
+      )}
       {recall}
       <div className="chips" role="group" aria-label="쓰는 방식">
-        <button type="button" className={`chip sm ${!free ? 'on' : ''}`} aria-pressed={!free} onClick={() => setFree(false)}>3단계로</button>
+        <button type="button" className={`chip sm ${!free ? 'on' : ''}`} aria-pressed={!free} onClick={() => setFree(false)}>세 질문에 나눠 쓰기</button>
         <button type="button" className={`chip sm ${free ? 'on' : ''}`} aria-pressed={free} onClick={() => setFree(true)}>한 칸에 자유롭게</button>
       </div>
       {!free ? STEP_QUESTIONS.map((sq, i) => (
@@ -334,7 +348,8 @@ export function UnitFlow({ set, profile, rewrite, userKey }: { set: SetData; pro
         <span className="t"><b>다른 학생들에게 공유</b>이름 없이, 사이트를 쓰는 모든 학생이 볼 수 있어. 나중에 노트에서 끌 수 있어.</span>
         <input type="checkbox" className="tg" checked={share} onChange={(e) => setShare(e.target.checked)} />
       </label>
-      <h2>다 쓰고 나니, &ldquo;{set.unit}&rdquo;{unitJ.slice(set.unit.length)} 나와 관련 있다고 느껴?</h2>
+      <h2>다 쓰고 나니, &ldquo;{set.unit}&rdquo;{unitJ.slice(set.unit.length)} 내 생활과 이어져 있다고 느껴?</h2>
+      <p className="muted">지금 느끼는 대로 골라 줘. 고르지 않고 저장해도 돼.</p>
       <Scale value={post} onChange={setPost} />
       {err}
       {foot(<button className="btn" disabled={pending} onClick={submit}>{pending ? '저장 중…' : '저장하기'}</button>)}
