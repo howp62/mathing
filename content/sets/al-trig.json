@@ -1,0 +1,229 @@
+{
+  "id": "al-trig",
+  "subject": "대수",
+  "unit": "삼각함수",
+  "order": 9,
+  "status": "reviewed",
+  "topics": [
+    "일반각과 호도법",
+    "삼각함수와 그래프",
+    "사인법칙과 코사인법칙"
+  ],
+  "concepts": [
+    "일반각",
+    "호도법",
+    "사인함수",
+    "코사인함수",
+    "탄젠트함수",
+    "주기",
+    "사인법칙",
+    "코사인법칙",
+    "삼각형의 넓이"
+  ],
+  "thinkCards": [
+    "바퀴나 캐릭터가 한 바퀴 돌아도 위치가 같아지는 장면이 있어? 돌아온 위치와 돈 양을 어떻게 구분할까?",
+    "위아래로 되풀이되는 움직임에서 가운데 높이, 움직이는 폭, 한 번 반복하는 시간을 찾아볼까?",
+    "직접 재기 어려운 거리를 삼각형의 변과 각으로 알아내려면 무엇을 알아야 할까?",
+    "네가 고른 주기 모형이 실제 장면과 다를 때, 어떤 부분을 고쳐서 설명하고 싶어?"
+  ],
+  "interestPromptsStatus": "reviewed",
+  "interestPrompts": {
+    "게임": "게임 캐릭터가 원을 돌 때, 회전한 각과 화면 속 가로·세로 위치를 어떻게 연결할까?",
+    "음악": "반복되는 음악 파형을 그린다면, 한 번 반복하는 시간과 흔들리는 폭을 어떻게 정할까?",
+    "스포츠": "두 선수가 같은 지점에서 다른 방향으로 움직일 때, 둘 사이 거리를 무엇으로 구할까?",
+    "패션·뷰티": "원 모양 장식의 테두리 일부에 색을 넣을 때, 각과 필요한 길이는 어떻게 연결될까?",
+    "요리": "회전 접시가 몇 바퀴 돌았는지와 지금 향하는 방향은 어떻게 다르게 나타낼까?",
+    "영상·SNS": "짧은 영상에서 스티커가 위아래로 움직이게 하려면, 반복 시간과 높이를 어떻게 정할까?",
+    "그림·디자인": "삼각형 디자인에서 두 변은 그대로 두고 끼인각만 바꾸면, 넓이는 어떻게 달라질까?",
+    "동물": "장난감을 따라 도는 동물 애니메이션에서 높낮이를 어떤 주기 함수로 그릴까?",
+    "여행": "여행 지도의 삼각형 길에서 한 변과 두 각을 안다면, 다른 길의 길이는 어떻게 찾을까?",
+    "자동차": "자동차 바퀴가 돈 각과 이동 거리를 연결하려면, 어떤 가정이 필요할까?",
+    "건강·의학": "호흡을 표현하는 전시 애니메이션을 만든다면, 한 번 오르내리는 시간을 어떻게 조절할까?",
+    "환경": "햇빛 각과 기둥 그림자 길이를 연결할 때, 쓸 수 있는 각의 범위는 어디까지일까?",
+    "컴퓨터·AI": "컴퓨터가 원 위의 점을 표시하게 하려면, 각에서 두 좌표를 어떻게 만들까?",
+    "건축": "경사 지붕의 밑변 길이와 기울어진 각을 알면, 지붕의 높이는 어떻게 구할까?",
+    "공연·아이돌": "무대의 두 조명 기구와 가운데 지점이 삼각형을 이룰 때, 기구 사이 거리는 어떻게 구할까?"
+  },
+  "examples": [
+    {
+      "id": "game-orbit",
+      "tags": [
+        "게임"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><g data-part='scene' stroke='#2F4D7A' stroke-width='2' fill='none' stroke-linejoin='round'><rect x='12' y='35' width='76' height='43' rx='13' fill='#EDE4D3'/><path d='M28 46v21m-10-10h20M66 49h1m9 12h1' stroke-width='5'/></g><g data-part='math'><circle cx='165' cy='42' r='24' fill='none' stroke='#8A8178'/><path class='draw' pathLength='1' d='M165 42h24M165 42V18' stroke='#C8553D' stroke-width='2'/><circle class='pop' style='--d:.3s' cx='165' cy='18' r='4' fill='#2F4D7A'/><g font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2A2522'><text class='pop' style='--d:0.2s' x='168' y='83'>반지름 3칸</text><text class='pop' style='--d:0.4s' x='168' y='101'>π/2 → (0, 3)</text></g></g></svg>",
+      "title": "원을 도는 캐릭터는 어디쯤 있을까?",
+      "body": "게임에서 캐릭터가 원점을 중심으로 반지름 3칸인 원을 돈다고 정했어요. 오른쪽 방향에서 반시계로 잰 각 θ를 라디안으로 쓰면 위치는 (3cosθ, 3sinθ)예요. θ=π/2에서는 (0, 3)이어서, 각이 달라질 때 가로와 세로 위치가 함께 바뀌어요.",
+      "formula": "(x,y)=(3cosθ,3sinθ), θ=π/2 → (0,3)칸",
+      "concept": "코사인함수"
+    },
+    {
+      "id": "music-wave",
+      "tags": [
+        "음악"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><g data-part='scene' stroke='#2F4D7A' stroke-width='2' fill='none' stroke-linejoin='round'><path d='M35 76V29l35-7v43M35 39l35-7'/><ellipse cx='26' cy='77' rx='10' ry='6' fill='#C8553D'/><ellipse cx='61' cy='66' rx='10' ry='6' fill='#C8553D'/></g><g data-part='math'><path d='M117 44h104' stroke='#D8CCB7'/><path class='draw' pathLength='1' d='M119 44Q131 6 144 44T169 44T194 44T219 44' fill='none' stroke='#C8553D' stroke-width='2'/><g font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2A2522'><text class='pop' style='--d:0.2s' x='168' y='83'>sin(2πt)</text><text class='pop' style='--d:0.4s' x='168' y='101'>한 번 반복: 1초</text></g></g></svg>",
+      "title": "같은 파형이 돌아오는 시간은?",
+      "body": "음악 만들기 화면에서 실제 음 대신 y=sin(2πt)인 단순한 파형을 그려 봤어요. t는 초, y는 단위 없는 진폭이고 0≤t≤2로 봐요. t가 1초 늘 때 각이 2π 늘어나므로 주기는 1초이고, t=1/4초일 때 y=1이에요.",
+      "formula": "y=sin(2πt), 주기 1초, y(1/4)=1",
+      "concept": "사인함수"
+    },
+    {
+      "id": "sports-passes",
+      "tags": [
+        "스포츠"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><g data-part='scene' stroke='#2F4D7A' stroke-width='2' fill='none' stroke-linejoin='round'><circle cx='50' cy='55' r='30' fill='#F7F2E8'/><path d='M26 36Q63 46 73 77M24 72Q39 45 76 34M20 55h60M50 25v60'/></g><g data-part='math'><path class='draw' pathLength='1' d='M138 63L165 16.235 192 63Z' stroke='#C8553D' fill='#F7F2E8' stroke-width='2'/><g font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2A2522'><text class='pop' style='--d:0.2s' x='168' y='83'>3m, 3m, 끼인각 π/3</text><text class='pop' style='--d:0.4s' x='168' y='101'>사이 거리 3m</text></g></g></svg>",
+      "title": "두 선수가 벌어진 거리는?",
+      "body": "두 선수가 같은 지점에서 60° 벌어진 직선 방향으로 각각 3m씩 움직였다고 해 봤어요. 그 지점과 두 선수는 두 변이 3m이고 끼인각이 π/3인 삼각형을 만들어요. 코사인법칙으로 선수 사이 거리는 √(9+9−18cos(π/3))=3m예요.",
+      "formula": "d²=3²+3²−2×3×3cos(π/3)=9, d=3m",
+      "concept": "코사인법칙"
+    },
+    {
+      "id": "fashion-arc",
+      "tags": [
+        "패션·뷰티"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><g data-part='scene' stroke='#2F4D7A' stroke-width='2' fill='none' stroke-linejoin='round'><path d='M34 25l16 8 16-8 21 20-14 14-9-8v34H36V51l-9 8-14-14z' fill='#EDE4D3'/><path d='M43 37h14' stroke='#C8553D'/></g><g data-part='math'><circle cx='165' cy='42' r='24' fill='none' stroke='#8A8178'/><path class='draw' pathLength='1' d='M165 42h24M165 42V18' stroke='#C8553D' stroke-width='2'/><circle class='pop' style='--d:.3s' cx='165' cy='18' r='4' fill='#2F4D7A'/><g font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2A2522'><text class='pop' style='--d:0.2s' x='168' y='83'>r=2cm, θ=π/2</text><text class='pop' style='--d:0.4s' x='168' y='101'>호 길이 πcm</text></g></g></svg>",
+      "title": "원형 장식의 4분의 1을 칠하려면?",
+      "body": "반지름 2cm인 원형 머리핀의 테두리 중 90°만 색칠한다고 해 봤어요. 90°는 π/2라디안이고, 호의 길이는 반지름에 라디안 각을 곱해 구해요. 그래서 필요한 테두리 길이는 2×π/2=πcm이며, 원 전체 둘레의 4분의 1이에요.",
+      "formula": "90°=π/2 rad, s=rθ=2×π/2=πcm",
+      "concept": "호도법"
+    },
+    {
+      "id": "cooking-turn",
+      "tags": [
+        "요리"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><g data-part='scene' stroke='#2F4D7A' stroke-width='2' fill='none' stroke-linejoin='round'><path d='M15 49h72Q81 82 51 82T15 49z' fill='#EDE4D3'/><path d='M24 42h53M64 40l13-23M20 89h62'/></g><g data-part='math'><circle cx='165' cy='42' r='24' fill='none' stroke='#8A8178'/><path class='draw' pathLength='1' d='M165 42h24M165 42V18' stroke='#C8553D' stroke-width='2'/><circle class='pop' style='--d:.3s' cx='165' cy='18' r='4' fill='#2F4D7A'/><g font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2A2522'><text class='pop' style='--d:0.2s' x='168' y='83'>한 바퀴 + 90°</text><text class='pop' style='--d:0.4s' x='168' y='101'>돌아간 각 5π/2</text></g></g></svg>",
+      "title": "한 바퀴 더 돌아도 접시 방향은 같을까?",
+      "body": "요리 촬영에서 회전 접시의 손잡이가 처음에는 오른쪽을 향한다고 해 봤어요. 반시계로 한 바퀴와 90°를 더 돌면 돌아간 각은 5π/2라디안이에요. 끝 방향은 π/2만 돌았을 때와 같지만, 실제로 돌린 양은 2π라디안 더 많아서 일반각으로 구별해요.",
+      "formula": "2π+π/2=5π/2 rad, 끝 방향은 π/2와 같음",
+      "concept": "일반각"
+    },
+    {
+      "id": "sns-sticker",
+      "tags": [
+        "영상·SNS"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><g data-part='scene' stroke='#2F4D7A' stroke-width='2' fill='none' stroke-linejoin='round'><rect x='25' y='15' width='52' height='80' rx='8' fill='#EDE4D3'/><path d='M45 39l18 12-18 12z' fill='#C8553D'/><path d='M38 79h25'/></g><g data-part='math'><path d='M117 44h104' stroke='#D8CCB7'/><path class='draw' pathLength='1' d='M119 44Q131 6 144 44T169 44T194 44T219 44' fill='none' stroke='#C8553D' stroke-width='2'/><g font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2A2522'><text class='pop' style='--d:0.2s' x='168' y='83'>가운데 50, 진폭 20px</text><text class='pop' style='--d:0.4s' x='168' y='101'>반복 시간 2초</text></g></g></svg>",
+      "title": "영상 속 스티커를 위아래로 움직이려면?",
+      "body": "짧은 영상에서 스티커의 세로 위치를 y=50+20sin(πt)픽셀로 정했어요. t는 초이고 0≤t≤4이며, 화면 좌표는 아래쪽으로 갈수록 커진다고 정해요. 위치는 30~70픽셀을 오가고 2초마다 반복되므로, 가운데 위치와 움직임의 폭을 따로 조절할 수 있어요.",
+      "formula": "y=50+20sin(πt), 30≤y≤70, 주기 2초",
+      "concept": "주기"
+    },
+    {
+      "id": "design-area",
+      "tags": [
+        "그림·디자인"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><g data-part='scene' stroke='#2F4D7A' stroke-width='2' fill='none' stroke-linejoin='round'><rect x='17' y='25' width='64' height='61' fill='#F7F2E8'/><path d='M25 76l25-36 23 36z' fill='#EDE4D3'/><circle cx='65' cy='39' r='6' fill='#D79A2B'/></g><g data-part='math'><path class='draw' pathLength='1' d='M126 63H210L174.497 35Z' stroke='#C8553D' fill='#F7F2E8' stroke-width='2'/><g font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2A2522'><text class='pop' style='--d:0.2s' x='168' y='83'>두 변 6cm, 4cm</text><text class='pop' style='--d:0.4s' x='168' y='101'>끼인각 π/6, 넓이 6</text></g></g></svg>",
+      "title": "같은 두 변인데 넓이가 다르다면?",
+      "body": "로고에 넣을 삼각형의 두 변을 6cm와 4cm로 정했어요. 두 변 사이의 각을 30°인 π/6라디안으로 잡으면 넓이는 (1/2)×6×4×sin(π/6)이에요. 계산하면 6cm²라서, 두 변의 길이뿐 아니라 끼인각도 넓이를 정해요.",
+      "formula": "S=(1/2)×6×4×sin(π/6)=6cm²",
+      "concept": "삼각형의 넓이"
+    },
+    {
+      "id": "animal-toy",
+      "tags": [
+        "동물"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><g data-part='scene' stroke='#2F4D7A' stroke-width='2' fill='none' stroke-linejoin='round'><path d='M24 45l-4-22 21 14q12-5 23 1l19-15-3 24q11 33-29 34T24 45z' fill='#EDE4D3'/><circle cx='39' cy='54' r='2' fill='#2A2522'/><circle cx='65' cy='54' r='2' fill='#2A2522'/><path d='M46 68h12'/></g><g data-part='math'><circle cx='165' cy='42' r='24' fill='none' stroke='#8A8178'/><path d='M165 42h24' stroke='#D8CCB7' stroke-width='2'/><path class='draw' pathLength='1' d='M165 42L165 66' stroke='#C8553D' stroke-width='2'/><circle class='pop' style='--d:.3s' cx='165' cy='66' r='4' fill='#2F4D7A'/><g font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2A2522'><text class='pop' style='--d:0.2s' x='168' y='83'>중심 30cm, r=10cm</text><text class='pop' style='--d:0.4s' x='168' y='101'>최저 20cm, 최고 40cm</text></g></g></svg>",
+      "title": "고양이 장난감이 오르내리는 높이는?",
+      "body": "고양이가 보는 장난감 애니메이션을 원형 경로로 움직이게 만들었어요. 중심은 바닥에서 30cm, 원의 반지름은 10cm이고 오른쪽부터 잰 각 θ를 라디안으로 써요. 높이 h=30+10sinθ는 20~40cm 사이이며, θ=3π/2일 때 20cm로 가장 낮아요.",
+      "formula": "h=30+10sinθ, h(3π/2)=20cm, 20≤h≤40",
+      "concept": "사인함수"
+    },
+    {
+      "id": "travel-triangle",
+      "tags": [
+        "여행"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><g data-part='scene' stroke='#2F4D7A' stroke-width='2' fill='none' stroke-linejoin='round'><path d='M17 30l23-7 23 9 23-7v60l-23 7-23-9-23 7z' fill='#EDE4D3'/><path d='M40 23v60m23-51v60M26 67l22-22 24 16' stroke='#C8553D'/></g><g data-part='math'><path class='draw' pathLength='1' d='M126 63H210L179.254 32.254Z' stroke='#C8553D' fill='#F7F2E8' stroke-width='2'/><g font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2A2522'><text class='pop' style='--d:0.2s' x='168' y='83'>각 30°, 45°, 105°</text><text class='pop' style='--d:0.4s' x='168' y='101'>a=10m → b=10√2m</text></g></g></svg>",
+      "title": "지도에서 다른 쪽 길의 길이는?",
+      "body": "여행용 가상 지도에 삼각형 길 ABC를 그렸어요. 각 A=30°, 각 B=45°, A의 맞은편 길 a=10m로 정하면 나머지 각은 105°예요. 사인법칙에서 b/sin45°=10/sin30°이므로, B의 맞은편 길 b는 10√2m예요.",
+      "formula": "b=10×sin(π/4)/sin(π/6)=10√2m",
+      "concept": "사인법칙"
+    },
+    {
+      "id": "car-wheel",
+      "tags": [
+        "자동차"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><g data-part='scene' stroke='#2F4D7A' stroke-width='2' fill='none' stroke-linejoin='round'><path d='M16 57l13-25h40l15 25v22H16z' fill='#EDE4D3'/><path d='M24 55h52M39 35v19M62 35l8 19'/><circle cx='31' cy='79' r='8' fill='#8A8178'/><circle cx='70' cy='79' r='8' fill='#8A8178'/></g><g data-part='math'><circle cx='165' cy='42' r='24' fill='none' stroke='#8A8178'/><path d='M165 42h24' stroke='#D8CCB7' stroke-width='2'/><path class='draw' pathLength='1' d='M165 42L141 42' stroke='#C8553D' stroke-width='2'/><circle class='pop' style='--d:.3s' cx='141' cy='42' r='4' fill='#2F4D7A'/><g font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2A2522'><text class='pop' style='--d:0.2s' x='168' y='83'>반지름 10cm</text><text class='pop' style='--d:0.4s' x='168' y='101'>한 바퀴 반: 30πcm</text></g></g></svg>",
+      "title": "바퀴가 한 바퀴 반 돌면 얼마나 갈까?",
+      "body": "반지름 10cm인 장난감 자동차 바퀴가 바닥에서 미끄러지지 않고 굴렀다고 가정했어요. 한 바퀴 반 돈 각은 3π라디안이고, 이동 거리는 원둘레를 따라 풀린 길이 rθ예요. 그래서 30πcm를 가며, 바퀴가 마지막에 향하는 방향만 봐서는 이동 거리를 알 수 없어요.",
+      "formula": "θ=3π rad, s=rθ=10×3π=30πcm",
+      "concept": "호도법"
+    },
+    {
+      "id": "health-display",
+      "tags": [
+        "건강·의학"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><g data-part='scene' stroke='#2F4D7A' stroke-width='2' fill='none' stroke-linejoin='round'><rect x='19' y='25' width='65' height='60' rx='6' fill='#EDE4D3'/><path d='M22 56h16l7-17 12 32 9-15h15' stroke='#C8553D'/></g><g data-part='math'><path d='M117 44h104' stroke='#D8CCB7'/><path class='draw' pathLength='1' d='M119 44Q131 6 144 44T169 44T194 44T219 44' fill='none' stroke='#C8553D' stroke-width='2'/><g font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2A2522'><text class='pop' style='--d:0.2s' x='168' y='83'>전시용 가상 물결</text><text class='pop' style='--d:0.4s' x='168' y='101'>한 번 반복: 4초</text></g></g></svg>",
+      "title": "호흡 전시 그림을 4초마다 반복하려면?",
+      "body": "건강 전시에서 호흡을 떠올리게 하는 물결 애니메이션을 만든다고 해 봤어요. 실제 호흡 측정값 대신 t초에서 y=sin(πt/2)라는 단위 없는 위치를 0≤t≤8에서 정했어요. 주기는 4초이고 1초에는 y=1, 3초에는 y=−1이며, 개인의 건강 상태를 판단하는 식은 아니에요.",
+      "formula": "y=sin(πt/2), 주기 4초, y(1)=1, y(3)=−1",
+      "concept": "주기"
+    },
+    {
+      "id": "environment-shadow",
+      "tags": [
+        "환경"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><g data-part='scene' stroke='#2F4D7A' stroke-width='2' fill='none' stroke-linejoin='round'><path d='M51 83V47M51 64Q13 64 22 27q31-5 29 37M51 53Q84 54 81 22q-31-1-30 31' fill='#EDE4D3'/><path d='M30 90h43'/></g><g data-part='math'><path class='draw' pathLength='1' d='M145 63h42L145 21Zm0-9h9v9' stroke='#C8553D' fill='#F7F2E8' stroke-width='2'/><g font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2A2522'><text class='pop' style='--d:0.2s' x='168' y='83'>그림자 2m, 각 π/4</text><text class='pop' style='--d:0.4s' x='168' y='101'>높이 2tan(π/4)=2m</text></g></g></svg>",
+      "title": "그림자가 2m면 기둥 높이는?",
+      "body": "환경 관찰 연습에서 수평 땅에 수직으로 선 기둥의 그림자를 2m라고 가정했어요. 햇빛이 땅과 이루는 각 θ가 0<θ<π/2일 때, 높이는 h=2tanθ예요. θ=π/4이면 h=2m이고, θ=π/2에서는 탄젠트가 정의되지 않아 이 식에 넣을 수 없어요.",
+      "formula": "h=2tanθ (0<θ<π/2), h(π/4)=2m",
+      "concept": "탄젠트함수"
+    },
+    {
+      "id": "ai-circle",
+      "tags": [
+        "컴퓨터·AI"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><g data-part='scene' stroke='#2F4D7A' stroke-width='2' fill='none' stroke-linejoin='round'><rect x='18' y='23' width='67' height='49' rx='4' fill='#EDE4D3'/><path d='M40 87h24M51 72v15M35 40l-8 8 8 8m29-16 8 8-8 8'/></g><g data-part='math'><circle cx='165' cy='42' r='24' fill='none' stroke='#8A8178'/><path d='M165 42h24' stroke='#D8CCB7' stroke-width='2'/><path class='draw' pathLength='1' d='M165 42L141 42' stroke='#C8553D' stroke-width='2'/><circle class='pop' style='--d:.3s' cx='141' cy='42' r='4' fill='#2F4D7A'/><g font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2A2522'><text class='pop' style='--d:0.2s' x='168' y='83'>반지름 1인 원</text><text class='pop' style='--d:0.4s' x='168' y='101'>π → (−1, 0)</text></g></g></svg>",
+      "title": "컴퓨터에 원 위 점의 위치를 알려 주려면?",
+      "body": "AI 그림 놀이에 쓸 가상 점들을 반지름 1인 원 위에 배치했어요. 오른쪽부터 반시계로 잰 각 θ를 (cosθ, sinθ)라는 두 좌표로 바꾸면 돼요. θ=π일 때 (−1, 0)이고 θ=0과 2π는 모두 (1, 0)이어서, 한 바퀴 돌아온 점도 표현할 수 있어요.",
+      "formula": "(x,y)=(cosθ,sinθ), θ=π → (−1,0)",
+      "concept": "코사인함수"
+    },
+    {
+      "id": "building-roof",
+      "tags": [
+        "건축"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><g data-part='scene' stroke='#2F4D7A' stroke-width='2' fill='none' stroke-linejoin='round'><path d='M18 86V36l32-19 32 19v50z' fill='#EDE4D3'/><path d='M33 86V62h33v24M30 40h10v11H30zm30 0h10v11H60z'/></g><g data-part='math'><path class='draw' pathLength='1' d='M125 63h84L125 14.503Zm0-9h9v9' stroke='#C8553D' fill='#F7F2E8' stroke-width='2'/><g font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2A2522'><text class='pop' style='--d:0.2s' x='168' y='83'>수평 6cm, 각 π/6</text><text class='pop' style='--d:0.4s' x='168' y='101'>높이 2√3cm</text></g></g></svg>",
+      "title": "지붕의 기울기로 높이를 정하려면?",
+      "body": "건축 모형 지붕의 옆면을 직각삼각형으로 보고, 수평 길이를 6cm로 정했어요. 지붕이 수평선과 이루는 각을 30°인 π/6으로 잡으면 높이 h는 6tan(π/6)이에요. 계산하면 2√3cm이고, 경사면의 길이와는 다른 값이에요.",
+      "formula": "h=6tan(π/6)=6/√3=2√3cm",
+      "concept": "탄젠트함수"
+    },
+    {
+      "id": "stage-lights",
+      "tags": [
+        "공연·아이돌"
+      ],
+      "illus": null,
+      "svg": "<svg viewBox='0 0 240 120' xmlns='http://www.w3.org/2000/svg'><g data-part='scene' stroke='#2F4D7A' stroke-width='2' fill='none' stroke-linejoin='round'><path d='M16 27h69v58H16z' fill='#EDE4D3'/><path d='M16 27l21 30-21 28m69-58L64 57l21 28M41 85V67q10-18 20 0v18'/><circle cx='51' cy='52' r='7' fill='#C8553D'/></g><g data-part='math'><path class='draw' pathLength='1' d='M165 63L134.689 45.5 195.311 45.5Z' stroke='#C8553D' fill='#F7F2E8' stroke-width='2'/><g font-family='sans-serif' font-size='12' text-anchor='middle' fill='#2A2522'><text class='pop' style='--d:0.2s' x='168' y='83'>5m, 5m, 끼인각 2π/3</text><text class='pop' style='--d:0.4s' x='168' y='101'>기구 사이 5√3m</text></g></g></svg>",
+      "title": "두 조명 기구 사이의 거리는?",
+      "body": "무대 중심에서 각각 5m 떨어진 조명 기구 두 개를 가상 평면도에 놓았어요. 중심에서 두 기구를 바라보는 방향 사이 각을 120°인 2π/3으로 정했어요. 코사인법칙으로 기구 사이 거리 d는 √(25+25−50cos(2π/3))=5√3m예요.",
+      "formula": "d²=25+25−50×(−1/2)=75, d=5√3m",
+      "concept": "코사인법칙"
+    }
+  ]
+}

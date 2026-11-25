@@ -1,0 +1,225 @@
+{
+  "id": "cm2-functions",
+  "subject": "공통수학2",
+  "unit": "함수와 그래프",
+  "order": 7,
+  "status": "reviewed",
+  "topics": [
+    "함수와 그래프",
+    "합성함수와 역함수",
+    "유리함수와 무리함수"
+  ],
+  "concepts": [
+    "함수의 뜻",
+    "합성함수",
+    "역함수",
+    "유리함수",
+    "무리함수"
+  ],
+  "thinkCards": [
+    "하나를 바꾸면 다른 값이 정해지는 장면을 떠올려 볼까?",
+    "두 작업의 순서를 바꿨더니 결과가 달라졌던 적 있어?",
+    "결과만 보고 원래 값을 항상 되찾을 수 있을까?",
+    "전체 양이 일정할 때 나누는 수와 한 사람 몫은 어떻게 달라질까?"
+  ],
+  "interestPromptsStatus": "reviewed",
+  "interestPrompts": {
+    "게임": "게임에서 두 효과의 적용 순서를 바꾸면 결과가 달라지는 경우가 있을까?",
+    "음악": "음악에서 하나를 고르면 값 하나가 정해지는 대응에는 무엇이 있을까?",
+    "스포츠": "운동 기록을 점수로 바꾸는 규칙에서 원래 기록을 되찾으려면 무엇이 필요할까?",
+    "패션·뷰티": "패션 도안에서 넓이를 알 때 정사각형 한 변을 어떻게 정할까?",
+    "요리": "요리를 같은 양씩 나눌 때 인원과 한 사람 몫은 어떻게 함께 변할까?",
+    "영상·SNS": "영상 편집에서 크기 조절과 여백 넣기의 순서가 왜 중요할까?",
+    "그림·디자인": "디자인 작업을 취소할 때 원래 값을 유일하게 되찾을 수 없는 변경도 있을까?",
+    "동물": "동물 돌봄 게임에서 하루 사용량과 남은 사용 기간을 어떻게 연결할까?",
+    "여행": "여행에서 이동 거리가 같을 때 속력과 시간은 어떤 관계일까?",
+    "자동차": "자동차 모형의 기록 중 시간 하나에 값 하나가 정해지는 것은 무엇일까?",
+    "건강·의학": "운동 게임의 점수에서 활동 횟수를 되찾을 때 어떤 점수만 가능할까?",
+    "환경": "환경 공간을 설계할 때 넓이가 두 배면 한 변도 두 배가 될까?",
+    "컴퓨터·AI": "컴퓨터 프로그램에서 어떤 정보를 입력에 포함해야 출력 하나를 정할 수 있을까?",
+    "건축": "건축 모형의 넓이와 길이를 그래프로 나타내면 어떤 모양일까?",
+    "공연·아이돌": "공연 고정 비용을 함께 나눌 때 인원과 한 명당 부담은 어떻게 변할까?"
+  },
+  "examples": [
+    {
+      "id": "game-convert",
+      "tags": [
+        "게임"
+      ],
+      "illus": null,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\"><g fill=\"#EDE4D3\" stroke=\"#2F4D7A\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"10\" y=\"43\" width=\"62\" height=\"34\" rx=\"12\"/><path d=\"M23 52v16m-8-8h16M52 55h1m9 10h1\"/></g><g fill=\"none\" stroke=\"#2F4D7A\" stroke-width=\"2\"><rect x=\"101\" y=\"35\" width=\"35\" height=\"42\" rx=\"5\"/><path class=\"draw\" pathLength=\"1\" d=\"M138 56h18m-5-5 5 5-5 5\"/><rect class=\"pop\" x=\"160\" y=\"35\" width=\"55\" height=\"42\" rx=\"5\" stroke=\"#C8553D\"/></g><text x=\"161\" y=\"14\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">먼저 +2 · 다음 ×3</text><text x=\"161\" y=\"111\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">x=4 → 6 → 18</text></svg>",
+      "title": "점수를 두 번 바꾸면 최종 값은?",
+      "body": "게임의 원래 점수 x를 먼저 f(x)=x+2로 바꾸고 보너스로 g(x)=3x를 적용한다고 해 볼게. 순서대로 계산하면 g(f(x))=3x+6이야. 먼저 세 배로 하고 2를 더하는 것과는 달라.",
+      "formula": "(g∘f)(x)=3(x+2)=3x+6",
+      "concept": "합성함수"
+    },
+    {
+      "id": "music-map",
+      "tags": [
+        "음악"
+      ],
+      "illus": null,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\"><g fill=\"#EDE4D3\" stroke=\"#2F4D7A\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M26 69V27l30-6v41M26 35l30-6\"/><ellipse cx=\"18\" cy=\"72\" rx=\"9\" ry=\"6\"/><ellipse cx=\"48\" cy=\"65\" rx=\"9\" ry=\"6\"/></g><g fill=\"none\" stroke=\"#2F4D7A\" stroke-width=\"2\"><ellipse cx=\"121\" cy=\"57\" rx=\"20\" ry=\"31\"/><ellipse cx=\"198\" cy=\"57\" rx=\"20\" ry=\"31\"/><path class=\"draw\" pathLength=\"1\" d=\"M140 49h39m-6-5 6 5-6 5M140 68h39m-6-5 6 5-6 5\"/></g><text x=\"161\" y=\"14\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">서로 다른 곡 3개</text><text x=\"161\" y=\"111\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">같은 길이여도 함수</text></svg>",
+      "title": "곡마다 재생 시간을 하나씩 정한다면?",
+      "body": "가상 음원 세 곡의 재생 시간이 120초, 150초, 120초라고 해 볼게. 각 곡에서 재생 시간 하나가 정해지므로 곡에서 시간으로 가는 대응은 함수야. 서로 다른 곡의 시간이 같아도 함수일 수 있어.",
+      "formula": "곡 → 재생 시간: 입력마다 출력 하나",
+      "concept": "함수의 뜻"
+    },
+    {
+      "id": "sports-inverse",
+      "tags": [
+        "스포츠"
+      ],
+      "illus": null,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\"><g fill=\"#EDE4D3\" stroke=\"#2F4D7A\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"40\" cy=\"53\" r=\"28\"/><path d=\"M12 53h56M40 25v56M20 33q35 20 40 40M60 33Q25 53 20 73\"/></g><g fill=\"none\" stroke=\"#2F4D7A\" stroke-width=\"2\"><ellipse cx=\"121\" cy=\"57\" rx=\"20\" ry=\"31\"/><ellipse cx=\"198\" cy=\"57\" rx=\"20\" ry=\"31\"/><path class=\"draw\" pathLength=\"1\" d=\"M140 49h39m-6-5 6 5-6 5M140 68h39m-6-5 6 5-6 5\"/></g><text x=\"161\" y=\"14\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">시간 t → 점수 s</text><text x=\"161\" y=\"111\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">80점 → 10초</text></svg>",
+      "title": "기록 점수에서 원래 시간을 찾으려면?",
+      "body": "달리기 게임에서 시간 t초의 점수를 s=100−2t로 정하고 0≤t≤50이라고 해 볼게. 점수가 80이면 80=100−2t를 풀어 t=10이야. 시간과 점수가 서로 하나씩 대응하므로 거꾸로 찾는 역함수를 만들 수 있어.",
+      "formula": "t=(100−s)/2, 0≤s≤100",
+      "concept": "역함수"
+    },
+    {
+      "id": "fashion-area",
+      "tags": [
+        "패션·뷰티"
+      ],
+      "illus": null,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\"><g fill=\"#EDE4D3\" stroke=\"#2F4D7A\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M24 26l16 7 16-7 17 19-12 10-6-7v37H25V48l-6 7L7 45Z\"/></g><g fill=\"none\" stroke=\"#2F4D7A\" stroke-width=\"2\"><path d=\"M106 91h110M106 91V21\" stroke=\"#D8CCB7\"/><path class=\"draw\" pathLength=\"1\" d=\"M106 91Q116 49 154 37T211 21\"/></g><text x=\"161\" y=\"14\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">넓이 x cm²</text><text x=\"161\" y=\"111\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">x=25 → 길이 5 cm</text></svg>",
+      "title": "같은 천 넓이로 정사각형을 만든다면?",
+      "body": "정사각형 천의 넓이를 x cm²라고 해 볼게. 한 변 길이는 √x cm라서 넓이가 25면 길이는 5야. 넓이는 음수가 될 수 없어 정의역은 x≥0으로 잡아.",
+      "formula": "y=√x, x≥0",
+      "concept": "무리함수"
+    },
+    {
+      "id": "cooking-share",
+      "tags": [
+        "요리"
+      ],
+      "illus": null,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\"><g fill=\"#EDE4D3\" stroke=\"#2F4D7A\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M17 48h47v25q0 10-10 10H27q-10 0-10-10ZM10 44h61M26 37q-9-10 0-20M44 37q-9-10 0-20M62 37q-9-10 0-20\"/></g><g fill=\"none\" stroke=\"#2F4D7A\" stroke-width=\"2\"><path d=\"M106 91h110M106 91V21\" stroke=\"#D8CCB7\"/><path class=\"draw\" pathLength=\"1\" d=\"M115 26Q122 67 141 77T211 88\"/></g><text x=\"161\" y=\"14\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">전체 1200 mL</text><text x=\"161\" y=\"111\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">4그릇 → 300 mL</text></svg>",
+      "title": "같은 수프를 나눌수록 한 그릇 양은?",
+      "body": "수프 1200 mL를 같은 크기의 그릇 n개에 똑같이 나눈다고 해 볼게. 한 그릇은 1200/n mL라서 4개면 300 mL야. n은 양의 정수이지만 그래프에서는 양의 실수 x로 확장해 감소하는 모양을 볼 수 있어.",
+      "formula": "y=1200/x, x>0; n=4 → 300 mL",
+      "concept": "유리함수"
+    },
+    {
+      "id": "video-compose",
+      "tags": [
+        "영상·SNS"
+      ],
+      "illus": null,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\"><g fill=\"#EDE4D3\" stroke=\"#2F4D7A\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"21\" y=\"16\" width=\"40\" height=\"76\" rx=\"6\"/><path d=\"M26 27h30M26 79h30M35 42l14 10-14 10Z\"/></g><g fill=\"none\" stroke=\"#2F4D7A\" stroke-width=\"2\"><rect x=\"101\" y=\"35\" width=\"35\" height=\"42\" rx=\"5\"/><path class=\"draw\" pathLength=\"1\" d=\"M138 56h18m-5-5 5 5-5 5\"/><rect class=\"pop\" x=\"160\" y=\"35\" width=\"55\" height=\"42\" rx=\"5\" stroke=\"#C8553D\"/></g><text x=\"161\" y=\"14\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">크기 ×2 → 여백 +20</text><text x=\"161\" y=\"111\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">순서 바꾸면 다른 결과</text></svg>",
+      "title": "영상 크기와 여백을 차례로 바꾸면?",
+      "body": "영상 썸네일 가로 x px를 먼저 두 배로 늘린 뒤 양쪽에 10 px씩 여백을 넣는다고 해 볼게. 결과 가로는 2x+20 px야. 여백을 먼저 넣고 전체를 두 배로 늘리면 2x+40이라 다른 값이 돼.",
+      "formula": "g(f(x))=2x+20, f(g(x))=2x+40",
+      "concept": "합성함수"
+    },
+    {
+      "id": "design-undo",
+      "tags": [
+        "그림·디자인"
+      ],
+      "illus": null,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\"><g fill=\"#EDE4D3\" stroke=\"#2F4D7A\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M14 75l7-20 34-34 14 14-34 34ZM21 55l14 14M55 21l14 14M14 75l21-6\"/></g><g fill=\"none\" stroke=\"#2F4D7A\" stroke-width=\"2\"><rect x=\"101\" y=\"35\" width=\"35\" height=\"42\" rx=\"5\"/><path class=\"draw\" pathLength=\"1\" d=\"M138 56h18m-5-5 5 5-5 5\"/><rect class=\"pop\" x=\"160\" y=\"35\" width=\"55\" height=\"42\" rx=\"5\" stroke=\"#C8553D\"/></g><text x=\"161\" y=\"14\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">가로 x → 2x+4</text><text x=\"161\" y=\"111\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">원래 크기 (y−4)/2</text></svg>",
+      "title": "도형을 늘리기 전 크기를 되찾으려면?",
+      "body": "그림의 가로 x를 y=2x+4로 바꿨다고 해 볼게. 결과 y에서 4를 빼고 2로 나누면 원래 가로 x가 돼. x>0이면 결과는 y>4인 범위에서 거꾸로 찾을 수 있어.",
+      "formula": "f⁻¹(y)=(y−4)/2, y>4",
+      "concept": "역함수"
+    },
+    {
+      "id": "animal-feed",
+      "tags": [
+        "동물"
+      ],
+      "illus": null,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\"><g fill=\"#EDE4D3\" stroke=\"#2F4D7A\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><ellipse cx=\"40\" cy=\"67\" rx=\"20\" ry=\"14\"/><ellipse cx=\"20\" cy=\"39\" rx=\"6\" ry=\"9\"/><ellipse cx=\"36\" cy=\"28\" rx=\"6\" ry=\"9\"/><ellipse cx=\"53\" cy=\"32\" rx=\"6\" ry=\"9\"/><ellipse cx=\"65\" cy=\"47\" rx=\"6\" ry=\"9\"/></g><g fill=\"none\" stroke=\"#2F4D7A\" stroke-width=\"2\"><path d=\"M106 91h110M106 91V21\" stroke=\"#D8CCB7\"/><path class=\"draw\" pathLength=\"1\" d=\"M115 26Q122 67 141 77T211 88\"/></g><text x=\"161\" y=\"14\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">먹이 전체 600 g</text><text x=\"161\" y=\"111\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">하루 30 g → 20일</text></svg>",
+      "title": "하루 먹이 양을 바꾸면 보관 기간은?",
+      "body": "동물 게임에서 먹이 600 g을 보관하고 하루 x g씩 쓴다고 해 볼게. 낭비가 없다면 쓸 수 있는 기간은 600/x일이야. x가 30이면 20일이고, x가 커질수록 기간은 짧아져.",
+      "formula": "y=600/x, x>0",
+      "concept": "유리함수"
+    },
+    {
+      "id": "travel-speed",
+      "tags": [
+        "여행"
+      ],
+      "illus": null,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\"><g fill=\"#EDE4D3\" stroke=\"#2F4D7A\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M8 35l21-9 24 9 22-9v57l-22 9-24-9-21 9ZM29 26v57M53 35v57\"/><circle cx=\"42\" cy=\"52\" r=\"7\"/></g><g fill=\"none\" stroke=\"#2F4D7A\" stroke-width=\"2\"><path d=\"M106 91h110M106 91V21\" stroke=\"#D8CCB7\"/><path class=\"draw\" pathLength=\"1\" d=\"M115 26Q122 67 141 77T211 88\"/></g><text x=\"161\" y=\"14\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">거리 120 km 일정</text><text x=\"161\" y=\"111\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">40 → 3 h / 80 → 1.5 h</text></svg>",
+      "title": "같은 길을 갈 때 속력이 두 배라면?",
+      "body": "거리 120 km인 길을 일정한 속력 x km/h로 쉬지 않고 간다고 해 볼게. 걸리는 시간은 120/x시간이야. 속력이 40에서 80으로 두 배가 되면 시간은 3시간에서 1.5시간으로 줄어.",
+      "formula": "t=120/x, x>0",
+      "concept": "유리함수"
+    },
+    {
+      "id": "car-distance",
+      "tags": [
+        "자동차"
+      ],
+      "illus": null,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\"><g fill=\"#EDE4D3\" stroke=\"#2F4D7A\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M9 60l9-25h42l12 25v18H9ZM18 35l8-13h24l10 13M9 60h63\"/><circle cx=\"23\" cy=\"79\" r=\"7\"/><circle cx=\"59\" cy=\"79\" r=\"7\"/></g><g fill=\"none\" stroke=\"#2F4D7A\" stroke-width=\"2\"><ellipse cx=\"121\" cy=\"57\" rx=\"20\" ry=\"31\"/><ellipse cx=\"198\" cy=\"57\" rx=\"20\" ry=\"31\"/><path class=\"draw\" pathLength=\"1\" d=\"M140 49h39m-6-5 6 5-6 5M140 68h39m-6-5 6 5-6 5\"/></g><text x=\"161\" y=\"14\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">시간 t ≥ 0</text><text x=\"161\" y=\"111\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">거리 d=2t</text></svg>",
+      "title": "이동 시간을 길이 하나로 바꾼다면?",
+      "body": "자동차 모형이 매초 2 m씩 직선으로 움직인다고 해 볼게. 출발 뒤 t초의 이동 거리는 d=2t야. t≥0에서 시간 하나에 거리 하나가 정해지고, 거리를 알면 시간도 되찾을 수 있어.",
+      "formula": "d=2t, t≥0; t=d/2",
+      "concept": "함수의 뜻"
+    },
+    {
+      "id": "health-step",
+      "tags": [
+        "건강·의학"
+      ],
+      "illus": null,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\"><g fill=\"#EDE4D3\" stroke=\"#2F4D7A\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M40 80L13 52C-5 28 22 11 40 34 58 11 85 28 67 52ZM17 54h13l6-14 9 29 7-15h15\"/></g><g fill=\"none\" stroke=\"#2F4D7A\" stroke-width=\"2\"><ellipse cx=\"121\" cy=\"57\" rx=\"20\" ry=\"31\"/><ellipse cx=\"198\" cy=\"57\" rx=\"20\" ry=\"31\"/><path class=\"draw\" pathLength=\"1\" d=\"M140 49h39m-6-5 6 5-6 5M140 68h39m-6-5 6 5-6 5\"/></g><text x=\"161\" y=\"14\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">1회당 5점</text><text x=\"161\" y=\"111\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">40점 → 8회</text></svg>",
+      "title": "운동 게임의 점수를 거꾸로 읽으려면?",
+      "body": "운동 게임에서 완료 횟수 n에 점수 s=5n을 준다고 해 볼게. 40점이면 완료 횟수는 8회야. 여기서 정의역은 0 이상의 정수이고 가능한 점수도 5의 배수로 제한돼.",
+      "formula": "s=5n, n∈{0,1,2,…}; n=s/5",
+      "concept": "역함수"
+    },
+    {
+      "id": "environment-plot",
+      "tags": [
+        "환경"
+      ],
+      "illus": null,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\"><g fill=\"#EDE4D3\" stroke=\"#2F4D7A\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M40 89V41M40 65Q10 66 10 37q30 0 30 28M40 51q0-31 29-31 0 30-29 31M18 90h45\"/></g><g fill=\"none\" stroke=\"#2F4D7A\" stroke-width=\"2\"><path d=\"M106 91h110M106 91V21\" stroke=\"#D8CCB7\"/><path class=\"draw\" pathLength=\"1\" d=\"M106 91Q116 49 154 37T211 21\"/></g><text x=\"161\" y=\"14\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">9 m² → 3 m</text><text x=\"161\" y=\"111\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">36 m² → 6 m</text></svg>",
+      "title": "정사각형 텃밭의 넓이로 길이를 찾는다면?",
+      "body": "정사각형 텃밭 모형의 넓이를 x m²라고 해 볼게. 한 변은 √x m라서 9 m²면 3 m, 36 m²면 6 m야. 넓이를 네 배로 해야 한 변이 두 배가 되는 관계야.",
+      "formula": "y=√x, x≥0; √36=2√9",
+      "concept": "무리함수"
+    },
+    {
+      "id": "computer-one-output",
+      "tags": [
+        "컴퓨터·AI"
+      ],
+      "illus": null,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\"><g fill=\"#EDE4D3\" stroke=\"#2F4D7A\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"11\" y=\"24\" width=\"59\" height=\"44\" rx=\"3\"/><path d=\"M40 68v17M21 85h38M22 37l10 9-10 9M42 55h14\"/></g><g fill=\"none\" stroke=\"#2F4D7A\" stroke-width=\"2\"><ellipse cx=\"121\" cy=\"57\" rx=\"20\" ry=\"31\"/><ellipse cx=\"198\" cy=\"57\" rx=\"20\" ry=\"31\"/><path class=\"draw\" pathLength=\"1\" d=\"M140 49h39m-6-5 6 5-6 5M140 68h39m-6-5 6 5-6 5\"/></g><text x=\"161\" y=\"14\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">입력 3</text><text x=\"161\" y=\"111\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">정해진 출력 4</text></svg>",
+      "title": "한 입력에 답이 두 개면 함수일까?",
+      "body": "가상 프로그램이 숫자 x를 받아 x+1을 출력한다고 해 볼게. 같은 입력 3에는 항상 4가 하나 정해져 함수로 볼 수 있어. 반면 같은 3에 4 또는 7을 정해진 규칙 없이 출력한다면 x만으로는 함수가 아니야.",
+      "formula": "f(3)=4, 입력마다 출력 하나",
+      "concept": "함수의 뜻"
+    },
+    {
+      "id": "architecture-side",
+      "tags": [
+        "건축"
+      ],
+      "illus": null,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\"><g fill=\"#EDE4D3\" stroke=\"#2F4D7A\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M7 48l33-27 33 27M15 44v44h50V44M33 88V63h15v25M23 52h5M53 52h5\"/></g><g fill=\"none\" stroke=\"#2F4D7A\" stroke-width=\"2\"><path d=\"M106 91h110M106 91V21\" stroke=\"#D8CCB7\"/><path class=\"draw\" pathLength=\"1\" d=\"M106 91Q116 49 154 37T211 21\"/></g><text x=\"161\" y=\"14\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">모형 바닥 넓이 x</text><text x=\"161\" y=\"111\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">한 변 길이 √x</text></svg>",
+      "title": "바닥 넓이만 알 때 정사각형 방 길이는?",
+      "body": "정사각형 모형 방의 바닥 넓이가 x m²라고 해 볼게. 벽 두께를 무시하면 한 변 길이는 √x m야. 넓이가 16에서 25로 늘 때 한 변은 4에서 5로 늘어 증가량이 같지는 않아.",
+      "formula": "y=√x, x≥0; √16=4, √25=5",
+      "concept": "무리함수"
+    },
+    {
+      "id": "performance-budget",
+      "tags": [
+        "공연·아이돌"
+      ],
+      "illus": null,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\"><g fill=\"#EDE4D3\" stroke=\"#2F4D7A\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M9 23h62v64H9ZM9 23l17 32L9 70M71 23L54 55l17 15M27 87V65h26v22\"/><circle cx=\"40\" cy=\"47\" r=\"8\"/></g><g fill=\"none\" stroke=\"#2F4D7A\" stroke-width=\"2\"><path d=\"M106 91h110M106 91V21\" stroke=\"#D8CCB7\"/><path class=\"draw\" pathLength=\"1\" d=\"M115 26Q122 67 141 77T211 88\"/></g><text x=\"161\" y=\"14\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">고정 비용 180000원</text><text x=\"161\" y=\"111\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">10명 18000 / 15명 12000</text></svg>",
+      "title": "공연 준비비를 함께 나누면 얼마일까?",
+      "body": "가상 공연의 고정 준비비를 180000원, 참여 인원을 n명이라고 해 볼게. 다른 비용 없이 똑같이 나누면 한 명당 180000/n원이야. 10명이면 18000원이고 15명이면 12000원이야.",
+      "formula": "y=180000/x, x>0",
+      "concept": "유리함수"
+    }
+  ]
+}

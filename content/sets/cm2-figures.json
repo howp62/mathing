@@ -1,0 +1,229 @@
+{
+  "id": "cm2-figures",
+  "subject": "공통수학2",
+  "unit": "도형의 방정식",
+  "order": 5,
+  "status": "reviewed",
+  "topics": [
+    "평면좌표",
+    "직선의 방정식",
+    "원의 방정식",
+    "도형의 이동"
+  ],
+  "concepts": [
+    "두 점 사이의 거리",
+    "선분의 내분",
+    "직선의 평행과 수직",
+    "점과 직선 사이의 거리",
+    "원의 방정식",
+    "원과 직선의 위치 관계",
+    "평행이동",
+    "대칭이동"
+  ],
+  "thinkCards": [
+    "지도나 그림에서 한 점의 위치를 다른 사람에게 정확히 알려 준 적 있어?",
+    "같은 모양을 옮기거나 뒤집으면 무엇이 바뀌고 무엇이 그대로일까?",
+    "둥근 범위의 안쪽과 바깥쪽을 가르는 기준을 정해 본다면?",
+    "두 장소 사이의 거리와 실제 이동한 길이가 달랐던 경험이 있을까?"
+  ],
+  "interestPromptsStatus": "reviewed",
+  "interestPrompts": {
+    "게임": "게임 지도에서 원 모양 범위를 정한다면 중심과 반지름을 어떻게 고를까?",
+    "음악": "음악 편집에서 두 표시 사이를 일정한 비로 나눈다면 어느 지점에 쓰고 싶어?",
+    "스포츠": "운동장에서 두 지점을 곧게 잰 거리와 실제로 달린 길이는 언제 다를까?",
+    "패션·뷰티": "옷이나 네일 무늬에서 기준선을 정해 반사시키고 싶은 모양이 있을까?",
+    "요리": "요리에서 둥근 틀의 중심과 반지름을 알면 무엇을 배치하기 편할까?",
+    "영상·SNS": "영상의 자막이나 스티커를 모양은 그대로 두고 어디로 옮기고 싶어?",
+    "그림·디자인": "그림이나 로고에서 평행한 선과 수직인 선은 각각 어떤 느낌을 줄까?",
+    "동물": "동물 공간을 설계할 때 한 지점에서 울타리까지의 가장 짧은 거리는 왜 필요할까?",
+    "여행": "여행에서 두 장소 사이를 어떤 비로 나눠 만날 곳을 정해 볼 수 있을까?",
+    "자동차": "지도에서 길과 둥근 구역이 만나거나 비껴가는지 무엇으로 판단할까?",
+    "건강·의학": "걷기 경로를 시작점이 같아지도록 옮기면 어떤 모양을 비교할 수 있을까?",
+    "환경": "환경 지도를 그릴 때 원으로 표시하고 싶은 보호 범위는 무엇일까?",
+    "컴퓨터·AI": "컴퓨터 그림에서 좌우 뒤집기와 원점 대칭을 하면 결과가 어떻게 다를까?",
+    "건축": "건축 도면에서 두 벽이 나란한지 좌표와 식으로 어떻게 확인할까?",
+    "공연·아이돌": "공연 대형에서 두 자리 사이 간격을 일정하게 하려면 무엇을 기록할까?"
+  },
+  "examples": [
+    {
+      "id": "game-range",
+      "tags": [
+        "게임"
+      ],
+      "illus": null,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\"><g fill=\"#EDE4D3\" stroke=\"#2F4D7A\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"10\" y=\"43\" width=\"62\" height=\"34\" rx=\"12\"/><path d=\"M23 52v16m-8-8h16M52 55h1m9 10h1\"/></g><g fill=\"none\" stroke=\"#2F4D7A\" stroke-width=\"2\"><path d=\"M103 57h115M160 15v83\" stroke=\"#D8CCB7\"/><circle class=\"draw\" pathLength=\"1\" cx=\"160\" cy=\"57\" r=\"32\"/><path class=\"pop\" d=\"M160 57h32\" stroke=\"#C8553D\"/></g><text x=\"161\" y=\"14\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">중심 (0,0)</text><text x=\"161\" y=\"111\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">반지름 5 m</text></svg>",
+      "title": "아이템이 닿는 범위는 어디까지일까?",
+      "body": "게임 지도의 한 칸을 1 m로 보고 아이템 중심을 (0, 0)이라고 해 볼게. 중심에서 5 m 떨어진 경계는 원이야. 캐릭터 위치 (3, 4)는 3²+4²=25라서 경계 위에 있어.",
+      "formula": "x²+y²=25, (3,4)는 경계 위",
+      "concept": "원의 방정식"
+    },
+    {
+      "id": "music-marker",
+      "tags": [
+        "음악"
+      ],
+      "illus": null,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\"><g fill=\"#EDE4D3\" stroke=\"#2F4D7A\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M26 69V27l30-6v41M26 35l30-6\"/><ellipse cx=\"18\" cy=\"72\" rx=\"9\" ry=\"6\"/><ellipse cx=\"48\" cy=\"65\" rx=\"9\" ry=\"6\"/></g><g fill=\"none\" stroke=\"#2F4D7A\" stroke-width=\"2\"><path d=\"M106 58h110\"/><circle cx=\"106\" cy=\"58\" r=\"4\"/><circle cx=\"216\" cy=\"58\" r=\"4\"/><circle class=\"pop\" cx=\"150\" cy=\"58\" r=\"5\" fill=\"#C8553D\"/></g><text x=\"161\" y=\"14\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">0초 → 150초</text><text x=\"161\" y=\"111\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">2 : 3 → 60초</text></svg>",
+      "title": "노래 중간에 표시를 하나 넣는다면?",
+      "body": "편집 화면의 시작점을 0초, 끝점을 150초라고 해 볼게. 두 점 사이를 2:3으로 나누는 곳에 표시를 넣고 싶어. 시작에서 전체 길이의 2/5만큼 가면 되니 60초야.",
+      "formula": "150×2/(2+3)=60초",
+      "concept": "선분의 내분"
+    },
+    {
+      "id": "sports-distance",
+      "tags": [
+        "스포츠"
+      ],
+      "illus": null,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\"><g fill=\"#EDE4D3\" stroke=\"#2F4D7A\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"40\" cy=\"53\" r=\"28\"/><path d=\"M12 53h56M40 25v56M20 33q35 20 40 40M60 33Q25 53 20 73\"/></g><g fill=\"none\" stroke=\"#2F4D7A\" stroke-width=\"2\"><path class=\"draw\" pathLength=\"1\" d=\"M110 84L206 28\"/><path d=\"M110 84H206V28\" stroke-dasharray=\"4 3\"/><circle cx=\"110\" cy=\"84\" r=\"3\" fill=\"#C8553D\"/><circle class=\"pop\" cx=\"206\" cy=\"28\" r=\"3\" fill=\"#C8553D\"/></g><text x=\"161\" y=\"14\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">가로 3 m · 세로 4 m</text><text x=\"161\" y=\"111\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">직선 거리 5 m</text></svg>",
+      "title": "운동장 두 지점은 얼마나 떨어져 있을까?",
+      "body": "운동장을 m 단위 좌표로 나타내고 두 지점을 (1, 2), (4, 6)이라고 해 볼게. 가로 차이는 3 m, 세로 차이는 4 m야. 두 지점을 곧게 잇는 거리는 √(3²+4²)=5 m야.",
+      "formula": "d=√((4−1)²+(6−2)²)=5 m",
+      "concept": "두 점 사이의 거리"
+    },
+    {
+      "id": "fashion-mirror",
+      "tags": [
+        "패션·뷰티"
+      ],
+      "illus": null,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\"><g fill=\"#EDE4D3\" stroke=\"#2F4D7A\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M24 26l16 7 16-7 17 19-12 10-6-7v37H25V48l-6 7L7 45Z\"/></g><g fill=\"none\" stroke=\"#2F4D7A\" stroke-width=\"2\"><path d=\"M160 20v75\" stroke-dasharray=\"4 3\"/><path d=\"M109 73V38l29 35Z\"/><path class=\"draw\" pathLength=\"1\" d=\"M211 73V38l-29 35Z\" stroke=\"#C8553D\"/></g><text x=\"161\" y=\"14\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">옷의 중심선 y축</text><text x=\"161\" y=\"111\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">(3,2) → (−3,2)</text></svg>",
+      "title": "양쪽 소매의 무늬를 똑같이 놓으려면?",
+      "body": "옷 도안의 세로 중심선을 y축으로 잡는다고 해 볼게. 한 무늬의 점이 (3, 2)에 있으면 반대편 점은 (−3, 2)에 놓아. 좌우 위치만 바꾸고 높이는 그대로 두는 대칭이동이야.",
+      "formula": "(x,y) → (−x,y)",
+      "concept": "대칭이동"
+    },
+    {
+      "id": "cooking-circle",
+      "tags": [
+        "요리"
+      ],
+      "illus": null,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\"><g fill=\"#EDE4D3\" stroke=\"#2F4D7A\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M17 48h47v25q0 10-10 10H27q-10 0-10-10ZM10 44h61M26 37q-9-10 0-20M44 37q-9-10 0-20M62 37q-9-10 0-20\"/></g><g fill=\"none\" stroke=\"#2F4D7A\" stroke-width=\"2\"><path d=\"M103 57h115M160 15v83\" stroke=\"#D8CCB7\"/><circle class=\"draw\" pathLength=\"1\" cx=\"160\" cy=\"57\" r=\"32\"/><path class=\"pop\" d=\"M160 57h32\" stroke=\"#C8553D\"/></g><text x=\"161\" y=\"14\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">중심 (2,3)</text><text x=\"161\" y=\"111\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">반지름 4 cm</text></svg>",
+      "title": "둥근 케이크 위에 장식을 놓는다면?",
+      "body": "케이크 윗면의 중심을 cm 단위로 (2, 3), 반지름을 4라고 해 볼게. 테두리의 점들은 중심까지 거리가 모두 4 cm야. (6, 3)에 놓은 장식은 원의 식에 맞으니 테두리 위에 있어.",
+      "formula": "(x−2)²+(y−3)²=16",
+      "concept": "원의 방정식"
+    },
+    {
+      "id": "video-shift",
+      "tags": [
+        "영상·SNS"
+      ],
+      "illus": null,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\"><g fill=\"#EDE4D3\" stroke=\"#2F4D7A\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"21\" y=\"16\" width=\"40\" height=\"76\" rx=\"6\"/><path d=\"M26 27h30M26 79h30M35 42l14 10-14 10Z\"/></g><g fill=\"none\" stroke=\"#2F4D7A\" stroke-width=\"2\"><path d=\"M110 74l16-28 18 28Z\"/><path class=\"draw\" pathLength=\"1\" d=\"M168 53l16-28 18 28Z\" stroke=\"#C8553D\"/><path class=\"pop\" d=\"M144 52l25-11m-8-2 8 2-5 7\"/></g><text x=\"161\" y=\"14\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">오른쪽 3 · 위로 2</text><text x=\"161\" y=\"111\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">(2,1) → (5,3)</text></svg>",
+      "title": "자막을 오른쪽 위로 옮기려면?",
+      "body": "영상 도안에서 오른쪽을 x의 양의 방향, 위쪽을 y의 양의 방향으로 정해 볼게. 자막의 한 점 (2, 1)을 오른쪽 3칸, 위로 2칸 옮기면 (5, 3)이야. 모든 점을 똑같이 옮기면 자막 모양은 유지돼.",
+      "formula": "(x,y) → (x+3,y+2)",
+      "concept": "평행이동"
+    },
+    {
+      "id": "design-perpendicular",
+      "tags": [
+        "그림·디자인"
+      ],
+      "illus": null,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\"><g fill=\"#EDE4D3\" stroke=\"#2F4D7A\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M14 75l7-20 34-34 14 14-34 34ZM21 55l14 14M55 21l14 14M14 75l21-6\"/></g><g fill=\"none\" stroke=\"#2F4D7A\" stroke-width=\"2\"><path class=\"draw\" pathLength=\"1\" d=\"M107 70l100-35M107 90l100-35\"/><path class=\"pop\" d=\"M156 52l14 40\" stroke=\"#C8553D\"/></g><text x=\"161\" y=\"14\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">기울기 2 · −1/2</text><text x=\"161\" y=\"111\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">기울기의 곱 −1</text></svg>",
+      "title": "두 선이 직각으로 만나게 하려면?",
+      "body": "포스터에서 한 선을 y=2x+1로 그린다고 해 볼게. 다른 선의 기울기를 −1/2로 정하면 두 기울기의 곱은 −1이야. 두 직선이 만나면 직각이 돼.",
+      "formula": "2×(−1/2)=−1",
+      "concept": "직선의 평행과 수직"
+    },
+    {
+      "id": "animal-boundary",
+      "tags": [
+        "동물"
+      ],
+      "illus": null,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\"><g fill=\"#EDE4D3\" stroke=\"#2F4D7A\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><ellipse cx=\"40\" cy=\"67\" rx=\"20\" ry=\"14\"/><ellipse cx=\"20\" cy=\"39\" rx=\"6\" ry=\"9\"/><ellipse cx=\"36\" cy=\"28\" rx=\"6\" ry=\"9\"/><ellipse cx=\"53\" cy=\"32\" rx=\"6\" ry=\"9\"/><ellipse cx=\"65\" cy=\"47\" rx=\"6\" ry=\"9\"/></g><g fill=\"none\" stroke=\"#2F4D7A\" stroke-width=\"2\"><path d=\"M124 23v65\" stroke-width=\"4\"/><circle cx=\"204\" cy=\"60\" r=\"4\" fill=\"#C8553D\"/><path class=\"draw\" pathLength=\"1\" d=\"M124 60H204\" stroke=\"#C8553D\"/><path d=\"M124 52h8v8\"/></g><text x=\"161\" y=\"14\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">벽 x=2</text><text x=\"161\" y=\"111\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">수직 거리 5 m</text></svg>",
+      "title": "강아지 놀이터에서 벽까지 거리는?",
+      "body": "놀이터 지도를 m 단위로 그리고 벽을 직선 x=2로 나타내 볼게. 강아지가 (7, 4)에 있다면 벽과 가장 가까운 점은 (2, 4)야. 두 점을 수직으로 이은 거리는 5 m야.",
+      "formula": "d=|7−2|=5 m",
+      "concept": "점과 직선 사이의 거리"
+    },
+    {
+      "id": "travel-meet",
+      "tags": [
+        "여행"
+      ],
+      "illus": null,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\"><g fill=\"#EDE4D3\" stroke=\"#2F4D7A\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M8 35l21-9 24 9 22-9v57l-22 9-24-9-21 9ZM29 26v57M53 35v57\"/><circle cx=\"42\" cy=\"52\" r=\"7\"/></g><g fill=\"none\" stroke=\"#2F4D7A\" stroke-width=\"2\"><path d=\"M106 58h110\"/><circle cx=\"106\" cy=\"58\" r=\"4\"/><circle cx=\"216\" cy=\"58\" r=\"4\"/><circle class=\"pop\" cx=\"133.5\" cy=\"58\" r=\"5\" fill=\"#C8553D\"/></g><text x=\"161\" y=\"14\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">A(0,0) → B(8,4)</text><text x=\"161\" y=\"111\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">1 : 3 → P(2,1)</text></svg>",
+      "title": "두 여행 지점 사이에서 어디서 만날까?",
+      "body": "지도에서 A(0, 0)와 B(8, 4)를 잇는 곧은 길이 있다고 해 볼게. A에서 B 쪽으로 1:3으로 나뉘는 곳을 고르면 전체의 1/4 지점이야. 그 점의 좌표는 (2, 1)이 돼.",
+      "formula": "P=((3×0+1×8)/4,(3×0+1×4)/4)=(2,1)",
+      "concept": "선분의 내분"
+    },
+    {
+      "id": "car-tangent",
+      "tags": [
+        "자동차"
+      ],
+      "illus": null,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\"><g fill=\"#EDE4D3\" stroke=\"#2F4D7A\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M9 60l9-25h42l12 25v18H9ZM18 35l8-13h24l10 13M9 60h63\"/><circle cx=\"23\" cy=\"79\" r=\"7\"/><circle cx=\"59\" cy=\"79\" r=\"7\"/></g><g fill=\"none\" stroke=\"#2F4D7A\" stroke-width=\"2\"><circle class=\"draw\" pathLength=\"1\" cx=\"160\" cy=\"62\" r=\"30\"/><path d=\"M105 32h112\" stroke=\"#C8553D\"/><path d=\"M160 62V32\" stroke-dasharray=\"4 3\"/><circle class=\"pop\" cx=\"160\" cy=\"32\" r=\"4\" fill=\"#C8553D\"/></g><text x=\"161\" y=\"14\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">중심과 길의 거리 3</text><text x=\"161\" y=\"111\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">만나는 점 1개</text></svg>",
+      "title": "길이 둥근 구역에 살짝 닿을까?",
+      "body": "지도에서 보호 구역을 중심 (0, 0), 반지름 3인 원으로 정해 볼게. 도로를 직선 y=3으로 보면 중심에서 도로까지 거리가 반지름과 같아. 그래서 직선은 원과 한 점 (0, 3)에서만 만나.",
+      "formula": "x²+y²=9, y=3 → x²=0",
+      "concept": "원과 직선의 위치 관계"
+    },
+    {
+      "id": "health-path",
+      "tags": [
+        "건강·의학"
+      ],
+      "illus": null,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\"><g fill=\"#EDE4D3\" stroke=\"#2F4D7A\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M40 80L13 52C-5 28 22 11 40 34 58 11 85 28 67 52ZM17 54h13l6-14 9 29 7-15h15\"/></g><g fill=\"none\" stroke=\"#2F4D7A\" stroke-width=\"2\"><path d=\"M174 45l16-28 18 28Z\"/><path class=\"draw\" pathLength=\"1\" d=\"M110 77l16-28 18 28Z\" stroke=\"#C8553D\"/><path class=\"pop\" d=\"M174 57l-30 15m7-8-7 8 10 1\"/></g><text x=\"161\" y=\"14\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">왼쪽 4 · 아래로 2</text><text x=\"161\" y=\"111\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">시작점 (4,2) → (0,0)</text></svg>",
+      "title": "걷기 기록의 점들을 옮겨 그린다면?",
+      "body": "실내 걷기 경로를 좌표로 그려 시작점이 (4, 2)였다고 해 볼게. 경로 전체를 왼쪽 4칸, 아래로 2칸 옮기면 시작점은 (0, 0)이야. 각 구간 길이는 그대로라 모양을 비교하기 편해.",
+      "formula": "(x,y) → (x−4,y−2)",
+      "concept": "평행이동"
+    },
+    {
+      "id": "environment-radius",
+      "tags": [
+        "환경"
+      ],
+      "illus": null,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\"><g fill=\"#EDE4D3\" stroke=\"#2F4D7A\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M40 89V41M40 65Q10 66 10 37q30 0 30 28M40 51q0-31 29-31 0 30-29 31M18 90h45\"/></g><g fill=\"none\" stroke=\"#2F4D7A\" stroke-width=\"2\"><path d=\"M103 57h115M160 15v83\" stroke=\"#D8CCB7\"/><circle class=\"draw\" pathLength=\"1\" cx=\"160\" cy=\"57\" r=\"32\"/><path class=\"pop\" d=\"M160 57h32\" stroke=\"#C8553D\"/></g><text x=\"161\" y=\"14\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">나무 위치 (1,−2)</text><text x=\"161\" y=\"111\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">보호 반지름 2 m</text></svg>",
+      "title": "나무 주변을 둥글게 보호한다면?",
+      "body": "공원 설계도에서 나무 위치를 (1, −2), 보호 반지름을 2 m로 정해 볼게. 경계는 (x−1)²+(y+2)²=4로 나타내. 이 식보다 왼쪽 값이 작은 점은 경계 안쪽이야.",
+      "formula": "경계 (x−1)²+(y+2)²=4",
+      "concept": "원의 방정식"
+    },
+    {
+      "id": "computer-reflect",
+      "tags": [
+        "컴퓨터·AI"
+      ],
+      "illus": null,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\"><g fill=\"#EDE4D3\" stroke=\"#2F4D7A\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"11\" y=\"24\" width=\"59\" height=\"44\" rx=\"3\"/><path d=\"M40 68v17M21 85h38M22 37l10 9-10 9M42 55h14\"/></g><g fill=\"none\" stroke=\"#2F4D7A\" stroke-width=\"2\"><path d=\"M103 57h115M160 15v83\" stroke=\"#D8CCB7\"/><circle cx=\"190\" cy=\"87\" r=\"4\"/><circle class=\"pop\" cx=\"130\" cy=\"27\" r=\"4\" fill=\"#C8553D\"/><path class=\"draw\" pathLength=\"1\" d=\"M190 87L130 27\" stroke-dasharray=\"4 3\"/></g><text x=\"161\" y=\"14\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">중심은 원점</text><text x=\"161\" y=\"111\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">(2,−3) → (−2,3)</text></svg>",
+      "title": "캐릭터를 반대로 뒤집는 명령은?",
+      "body": "컴퓨터 그림판의 중심을 원점이라고 해 볼게. 캐릭터 점 (2, −3)을 원점에 대칭시키면 (−2, 3)이야. 두 좌표의 부호를 함께 바꾸면 모든 점이 원점 반대쪽으로 가.",
+      "formula": "(x,y) → (−x,−y)",
+      "concept": "대칭이동"
+    },
+    {
+      "id": "architecture-lines",
+      "tags": [
+        "건축"
+      ],
+      "illus": null,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\"><g fill=\"#EDE4D3\" stroke=\"#2F4D7A\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M7 48l33-27 33 27M15 44v44h50V44M33 88V63h15v25M23 52h5M53 52h5\"/></g><g fill=\"none\" stroke=\"#2F4D7A\" stroke-width=\"2\"><path class=\"draw\" pathLength=\"1\" d=\"M107 70l100-35M107 90l100-35\"/><path class=\"pop\" d=\"M156 52l14 40\" stroke=\"#C8553D\"/></g><text x=\"161\" y=\"14\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">기울기 2로 같음</text><text x=\"161\" y=\"111\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">y절편 1 · −3</text></svg>",
+      "title": "벽 두 개를 나란하게 그리려면?",
+      "body": "건축 도안에서 두 벽을 y=2x+1과 y=2x−3으로 그려 볼게. 두 식의 기울기는 2로 같고 y절편은 달라. 그래서 두 직선은 만나지 않고 나란히 놓여.",
+      "formula": "y=2x+1 ∥ y=2x−3",
+      "concept": "직선의 평행과 수직"
+    },
+    {
+      "id": "performance-spacing",
+      "tags": [
+        "공연·아이돌"
+      ],
+      "illus": null,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\"><g fill=\"#EDE4D3\" stroke=\"#2F4D7A\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M9 23h62v64H9ZM9 23l17 32L9 70M71 23L54 55l17 15M27 87V65h26v22\"/><circle cx=\"40\" cy=\"47\" r=\"8\"/></g><g fill=\"none\" stroke=\"#2F4D7A\" stroke-width=\"2\"><path class=\"draw\" pathLength=\"1\" d=\"M110 84L206 28\"/><path d=\"M110 84H206V28\" stroke-dasharray=\"4 3\"/><circle cx=\"110\" cy=\"84\" r=\"3\" fill=\"#C8553D\"/><circle class=\"pop\" cx=\"206\" cy=\"28\" r=\"3\" fill=\"#C8553D\"/></g><text x=\"161\" y=\"14\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">가로 4 m · 세로 3 m</text><text x=\"161\" y=\"111\" font-size=\"11\" fill=\"#2A2522\" font-family=\"sans-serif\" text-anchor=\"middle\">두 자리 거리 5 m</text></svg>",
+      "title": "무대 대형의 두 사람 간격은?",
+      "body": "무대 바닥을 m 단위 좌표로 정하고 두 자리를 (−2, 1), (2, 4)로 잡아 볼게. 가로 간격 4 m, 세로 간격 3 m라 직선 거리는 5 m야. 좌표로 간격을 정하면 대형을 다시 놓을 때도 비교할 수 있어.",
+      "formula": "d=√(4²+3²)=5 m",
+      "concept": "두 점 사이의 거리"
+    }
+  ]
+}
