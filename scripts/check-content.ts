@@ -12,6 +12,20 @@ const nonempty = (v: unknown): v is string => typeof v === 'string' && v.trim().
 const strings = (v: unknown): v is string[] => Array.isArray(v) && v.length > 0 && v.every(nonempty);
 const obj = (v: unknown): v is Record<string, unknown> => !!v && typeof v === 'object' && !Array.isArray(v);
 
+/** 저장소 SVG의 도형 자체나 도형을 포함한 상위 묶음이 움직이는지 확인한다. */
+function hasShapeMotion(svg: string): boolean {
+  const shapes = new Set(['path', 'circle', 'ellipse', 'rect', 'line', 'polyline', 'polygon']);
+  const ancestors: boolean[] = [];
+  for (const tag of svg.matchAll(/<(\/?)([a-zA-Z][\w:-]*)\b([^<>]*?)>/g)) {
+    if (tag[1]) { ancestors.pop(); continue; }
+    const classes = tag[3].match(/(?:^|\s)class\s*=\s*(['"])(.*?)\1/)?.[2].split(/\s+/) ?? [];
+    const moving = !!ancestors[ancestors.length - 1] || classes.some(c => c === 'draw' || c === 'pop');
+    if (shapes.has(tag[2]) && moving) return true;
+    if (!/\/\s*$/.test(tag[3])) ancestors.push(moving);
+  }
+  return false;
+}
+
 export function validateSet(raw: unknown, fileId: string): string[] {
   const errors: string[] = [];
   const error = (field: string, why: string) => { errors.push(`${fileId}.${field}: ${why}`); };
@@ -50,7 +64,7 @@ export function validateSet(raw: unknown, fileId: string): string[] {
     if (!svg || !safeSvg(svg)) { error(`${field}.svg`, 'missing or unsafe svg'); return; }
     if (strict) {
       if (!/viewBox\s*=\s*['"]0 0 \d+(?:\.\d+)? \d+(?:\.\d+)?['"]/.test(svg)) error(`${field}.svg`, 'viewBox required');
-      if (!/class=['"][^'"]*\b(draw|pop)\b/.test(svg)) error(`${field}.motion`, 'draw/pop target required');
+      if (!hasShapeMotion(svg)) error(`${field}.motion`, 'mathematical shape/group motion required; caption alone is insufficient');
       for (const c of svg.match(/#[0-9a-fA-F]{3,8}\b/g) ?? []) if (!palette.has(c.toUpperCase())) error(`${field}.palette`, `unsupported ${c}`);
       if (/<(?:image|use|animate|set|iframe|object|embed)\b|url\s*\(/i.test(svg)) error(`${field}.svg`, 'external or active elements prohibited');
     }

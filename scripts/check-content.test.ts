@@ -30,6 +30,9 @@ const invalid: [string, (s: Record<string, any>) => void, string][] = [
   ['unsafe SVG', s => { s.examples[0].svg = '<svg onload="alert(1)"></svg>'; }, 'svg'],
   ['외부 이미지 SVG', s => { s.examples[0].svg = '<svg><image href="https://x.invalid/a"/></svg>'; }, 'svg'],
   ['그림 없음', s => { s.examples[0].svg = null; }, 'svg'],
+  ['아래 결과 문구만 나타나는 그림', s => { s.examples[0].svg = '<svg viewBox="0 0 240 120"><rect x="10" y="10" width="20" height="20"/><text class="pop" x="120" y="108">결과</text></svg>'; }, 'motion'],
+  ['설명만 움직이는 묶음도 거부', s => { s.examples[0].svg = '<svg viewBox="0 0 240 120"><rect x="10" y="10" width="20" height="20"/><g class="pop"><text x="120" y="108">결과</text></g></svg>'; }, 'motion'],
+  ['빈 움직임 묶음도 거부', s => { s.examples[0].svg = '<svg viewBox="0 0 240 120"><rect x="10" y="10" width="20" height="20"/><g class="pop"/></svg>'; }, 'motion'],
   ['움직임 대상 없음', s => { s.examples[0].svg = '<svg viewBox="0 0 240 120"><circle cx="1" cy="1" r="1"/></svg>'; }, 'motion'],
   ['허용 밖 색상', s => { s.examples[0].svg = s.examples[0].svg.replace('#2F4D7A', '#00FF00'); }, 'palette'],
   ['알 수 없는 검수 상태', s => { s.status = 'done'; }, 'status'],
@@ -50,4 +53,9 @@ test('기본 검사도 단원 파일 누락을 거부하고 명시적 부분 검
  assert(checkDirectory(dir).errors.some(x=>x.includes('missing file')));
  assert.deepEqual(checkDirectory(dir,false).errors,[]);
  } finally { fs.rmSync(dir,{recursive:true,force:true}); }
+});
+
+test('도형과 설명을 함께 움직이는 묶음은 허용한다',()=>{
+ const s=fixture();s.examples[0].svg='<svg viewBox="0 0 240 120"><g class="pop"><rect x="10" y="10" width="20" height="20"/><text x="120" y="108">결과</text></g></svg>';
+ assert.deepEqual(validateSet(s,'cm2-figures'),[]);
 });
