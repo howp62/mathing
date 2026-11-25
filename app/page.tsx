@@ -2,6 +2,7 @@ import type { Viewport } from 'next';
 import { redirect } from 'next/navigation';
 import { currentUser } from '@/lib/auth';
 import { Logo } from '@/components/ui';
+import { LandingIntro } from '@/components/LandingIntro';
 
 export const dynamic = 'force-dynamic';
 export const viewport: Viewport = { themeColor: '#FAF7F0' };
@@ -46,11 +47,12 @@ export default async function Welcome({ searchParams }: { searchParams: Promise<
         <div className="kicker">새 단원 시작 전 5분</div>
         <h1>수학과<br /><em>나를</em> 잇는 시간</h1>
         <p className="lead">내 관심사와 이번 단원이 어떻게 이어지는지 써 보고, 다른 학생들의 연결을 이름 없이 둘러봐요.</p>
-        <div className="landing-art"><Network /></div>
-        <div className="landing-actions">
+        <LandingIntro><Network /></LandingIntro>
+        <div className="landing-actions" id="landing-actions">
           {deleted && <p className="msg ok">계정과 글을 모두 지웠어.</p>}
-          <a className="cta" href="/signup">가입하고 시작하기</a>
-          <p className="login">이미 계정이 있어요 · <a href="/login">로그인</a></p>
+          <a id="landing-signup" className="cta" href="/signup">가입하고 시작하기</a>
+          <p className="login">이미 계정이 있어요</p>
+          <a id="landing-login" className="cta cta-secondary" href="/login">로그인</a>
           <p className="tiny">이름·학교·이메일은 받지 않아요 · <a href="/privacy">개인정보 처리방침</a></p>
         </div>
       </div>

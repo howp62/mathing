@@ -285,12 +285,51 @@ h2 { font-size: 17px; margin: 22px 0 8px; }
 .landing .cta { display: flex; align-items: center; justify-content: center; text-align: center; padding: 14px 12px; min-height: 54px; border: 1px solid var(--landing-accent); border-radius: 12px; background: var(--landing-accent); color: #FFF; font-weight: 700; font-size: 16px; text-decoration: none; transition: filter .12s, transform .12s; }
 .landing .cta:hover { filter: brightness(.94); }
 .landing .cta:active { transform: translateY(1px); filter: brightness(.88); }
-.landing .login { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 3px; min-height: 48px; text-align: center; margin: 0; font-size: 13px; color: var(--landing-muted); }
-.landing .login a { display: inline-flex; align-items: center; min-height: 44px; padding: 8px 5px; color: var(--landing-ink); font-weight: 700; text-underline-offset: 3px; }
+.landing .login { text-align: center; margin: 12px 0 6px; font-size: 13px; color: var(--landing-muted); }
+.landing .cta-secondary { background: var(--landing-paper); color: var(--landing-accent); }
 .landing .tiny { text-align: center; font-size: 12.5px; line-height: 1.6; color: var(--landing-muted); margin: 0; }
 .landing .tiny a { display: inline-flex; align-items: center; min-height: 44px; padding: 4px 0; color: var(--landing-body); text-underline-offset: 3px; }
 @keyframes landing-net-draw { to { stroke-dashoffset: 0; } }
 @keyframes landing-net-breathe { 50% { transform: scale(1.3); } }
+/* 한 도형이 관심사 카드 → 그래프 → 기존 연결 그림으로 이어지는 15초 소개. */
+.landing-intro .intro-tools { min-height: 44px; padding-left: 14px; display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 12px; color: var(--landing-body); }
+.landing-intro .intro-tools button { min-width: 88px; min-height: 44px; padding: 10px 14px; background: transparent; border: 0; color: var(--landing-accent); font-size: 13px; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.landing-intro .intro-stage { position: relative; }
+.landing-intro .intro-scene { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.landing-intro .net line { animation: none; stroke-dashoffset: 0; }
+.landing-intro[data-playing="true"] .net { animation: intro-network 15s linear both; }
+.landing-intro[data-playing="true"] .net line { stroke-dashoffset: 220; animation: landing-net-draw 1.8s ease-out 9s forwards; }
+.landing-intro[data-playing="true"] .net .lines line:nth-child(2) { animation-delay: 9.3s; }
+.landing-intro[data-playing="true"] .net .lines line:nth-child(3) { animation-delay: 9.6s; }
+.landing-intro[data-playing="true"] .net .lines line:nth-child(4) { animation-delay: 9.9s; }
+.landing-intro[data-playing="true"] .net .lines line:nth-child(5) { animation-delay: 10.2s; }
+.landing-intro[data-playing="true"] .net .lines line:nth-child(6) { animation-delay: 10.5s; }
+.intro-shape { fill: var(--landing-accent); stroke: var(--landing-edge); stroke-width: 1; animation: intro-morph 15s cubic-bezier(.22, 1, .36, 1) both; }
+.intro-scene text { font-family: var(--font); font-size: 19px; font-weight: 700; }
+.intro-music { fill: var(--landing-accent); opacity: 0; animation: intro-music 15s linear both; }
+.intro-stave { fill: none; stroke: var(--landing-edge); stroke-width: 2; }
+.intro-note { fill: none; stroke: var(--landing-accent); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.intro-graph { fill: #2F4D7A; opacity: 0; animation: intro-graph 15s linear both; }
+.intro-axes { fill: none; stroke: var(--landing-edge); stroke-width: 2; }
+.intro-curve { fill: none; stroke: #2F4D7A; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; animation: intro-curve 15s ease-in-out both; }
+.intro-trace { fill: var(--landing-accent); opacity: 0; offset-anchor: center; animation: intro-trace 15s ease-in-out both; }
+.intro-progress-slot { height: 3px; }
+.intro-progress { display: block; appearance: none; width: 100%; height: 3px; border: 0; background: var(--landing-edge); color: var(--landing-accent); }
+.intro-progress::-webkit-progress-bar { background: var(--landing-edge); }
+.intro-progress::-webkit-progress-value { background: var(--landing-accent); }
+.intro-progress::-moz-progress-bar { background: var(--landing-accent); }
+@keyframes intro-morph {
+  0%, 5% { x: 153px; y: 123px; width: 54px; height: 54px; rx: 27px; fill: var(--landing-accent); opacity: 1; }
+  14%, 28% { x: 70px; y: 95px; width: 220px; height: 110px; rx: 22px; fill: var(--landing-paper); opacity: 1; }
+  36%, 55% { x: 54px; y: 55px; width: 252px; height: 190px; rx: 18px; fill: var(--landing-paper); opacity: 1; }
+  63% { x: 170px; y: 106px; width: 12px; height: 12px; rx: 6px; fill: #2F4D7A; opacity: 1; }
+  69%, 100% { x: 170px; y: 106px; width: 12px; height: 12px; rx: 6px; fill: #2F4D7A; opacity: 0; }
+}
+@keyframes intro-music { 0%, 13% { opacity: 0; transform: translateY(6px); } 18%, 27% { opacity: 1; transform: translateY(0); } 33%, 100% { opacity: 0; transform: translateY(-6px); } }
+@keyframes intro-graph { 0%, 34% { opacity: 0; } 39%, 54% { opacity: 1; } 61%, 100% { opacity: 0; } }
+@keyframes intro-curve { 0%, 39% { stroke-dashoffset: 1; } 54%, 100% { stroke-dashoffset: 0; } }
+@keyframes intro-trace { 0%, 39% { opacity: 0; offset-distance: 0%; } 41% { opacity: 1; } 54% { opacity: 1; offset-distance: 100%; } 59%, 100% { opacity: 0; offset-distance: 100%; } }
+@keyframes intro-network { 0%, 60% { opacity: 0; } 68%, 100% { opacity: 1; } }
 @media (max-height: 700px) {
   .landing-in { padding-top: max(20px, env(safe-area-inset-top)); }
   .landing .kicker { margin-top: 14px; }
@@ -303,6 +342,9 @@ h2 { font-size: 17px; margin: 22px 0 8px; }
   .landing .net line { animation: none; stroke-dashoffset: 0; }
   .landing .net circle { animation: none; }
   .landing .cta { transition: none; }
+  .landing-intro .intro-scene, .landing-intro .intro-tools > *, .landing-intro .intro-progress { display: none; }
+  .landing-intro[data-playing="true"] .net { animation: none; opacity: 1; }
+  .landing-intro[data-playing="true"] .net line { animation: none; stroke-dashoffset: 0; }
 }
 
 /* ---------- 운영자 2단계 인증·기록 ---------- */
