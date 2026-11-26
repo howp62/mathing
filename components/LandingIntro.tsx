@@ -41,7 +41,7 @@ export function LandingIntro({ children }: { children: ReactNode }) {
     window.clearInterval(timer.current);
     timer.current = undefined;
     setPlaying(false);
-    document.getElementById('landing-signup')?.focus({ preventScroll: true });
+    document.getElementById('landing-login')?.focus({ preventScroll: true });
   }
 
   return (

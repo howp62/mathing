@@ -281,11 +281,12 @@ h2 { font-size: 17px; margin: 22px 0 8px; }
 .landing .net circle.c { fill: #2F4D7A; }
 .landing .net text { font-family: var(--font); font-size: 21px; font-weight: 600; fill: var(--landing-accent); }
 .landing .net text.c { fill: #2F4D7A; font-weight: 700; }
-.landing-actions { margin-top: auto; }
+.landing-actions { display: flex; flex-direction: column; gap: 8px; }
+.landing-actions > * { margin: 0; }
 .landing .cta { display: flex; align-items: center; justify-content: center; text-align: center; padding: 14px 12px; min-height: 54px; border: 1px solid var(--landing-accent); border-radius: 12px; background: var(--landing-accent); color: #FFF; font-weight: 700; font-size: 16px; text-decoration: none; transition: filter .12s, transform .12s; }
 .landing .cta:hover { filter: brightness(.94); }
 .landing .cta:active { transform: translateY(1px); filter: brightness(.88); }
-.landing .login { text-align: center; margin: 12px 0 6px; font-size: 13px; color: var(--landing-muted); }
+.landing .login { text-align: center; font-size: 13px; color: var(--landing-muted); }
 .landing .cta-secondary { background: var(--landing-paper); color: var(--landing-accent); }
 .landing .tiny { text-align: center; font-size: 12.5px; line-height: 1.6; color: var(--landing-muted); margin: 0; }
 .landing .tiny a { display: inline-flex; align-items: center; min-height: 44px; padding: 4px 0; color: var(--landing-body); text-underline-offset: 3px; }
