@@ -50,9 +50,9 @@ export default async function Welcome({ searchParams }: { searchParams: Promise<
         <LandingIntro><Network /></LandingIntro>
         <div className="landing-actions" id="landing-actions">
           {deleted && <p className="msg ok">계정과 글을 모두 지웠어.</p>}
-          <a id="landing-signup" className="cta" href="/signup">가입하고 시작하기</a>
           <p className="login">이미 계정이 있어요</p>
           <a id="landing-login" className="cta cta-secondary" href="/login">로그인</a>
+          <a id="landing-signup" className="cta" href="/signup">가입하고 시작하기</a>
           <p className="tiny">이름·학교·이메일은 받지 않아요 · <a href="/privacy">개인정보 처리방침</a></p>
         </div>
       </div>
